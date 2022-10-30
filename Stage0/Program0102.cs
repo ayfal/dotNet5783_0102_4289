@@ -3,7 +3,7 @@
 namespace Targil0
 {
     partial class Program
-    {
+    {   
         static void Main(string[] args)
         {
             Welcome0102();
