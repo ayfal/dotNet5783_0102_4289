@@ -2,3 +2,4 @@
 # ariel king
 Stage0
 shalom pepole
+finish stage 0
