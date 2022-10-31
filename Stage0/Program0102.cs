@@ -7,7 +7,7 @@ namespace Targil0
         static void Main(string[] args)
         {
             Welcome0102();
-            Wellcome4289();
+            Welcome4289();
             Console.ReadKey();
         }
 
@@ -17,7 +17,7 @@ namespace Targil0
             string name = Console.ReadLine();
             Console.WriteLine("{0}, welcome to my first console application", name);
         }
-        static partial void Wellcome4289();
+        static partial void Welcome4289();
     }
 }
 
