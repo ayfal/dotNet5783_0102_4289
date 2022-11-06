@@ -1,5 +1,8 @@
 ﻿
 
+using System.Diagnostics;
+using System.Xml.Linq;
+
 namespace DO;
 /// <summary>
 /// structure for order
@@ -34,5 +37,15 @@ public struct Order
     /// Delivery's date
     /// </summary>
     public DateTime DeliveryDate { get; set; }
+
+    public override string ToString() => $@"
+        Order ID: {ID}
+        Customer name: {CustomerName}
+    	Email: {CustomerEmail}
+        Address: {CustomerAddress}
+        Order Date: {OrderDate}
+        Ship Date: {ShipDate}
+        Delivery Date: {DeliveryDate}    	
+";
 
 }
