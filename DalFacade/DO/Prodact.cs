@@ -9,7 +9,7 @@ public struct Prodact
     /// <summary>
     /// Unique Id for
     /// </summary>
-    public int Id { get; set; }
+    public int ID { get; set; }
 
     /// <summary>
     /// Unique Name for
@@ -27,7 +27,17 @@ public struct Prodact
     public Enums Category { get; set; }
 
     /// <summary>
-    /// Unique inStock for
+    /// Unique InStock for
     /// </summary>
-    public int inStock { get; set; }    
+    public int InStock { get; set; }
+
+    /// </summary>
+    ///
+    /// </summary>
+    public override string ToString() => $@"
+        Product ID={ID}: {Name}, 
+        category : {Category}
+    	Price: {Price}
+    	Amount in stock: {InStock}
+";
 }

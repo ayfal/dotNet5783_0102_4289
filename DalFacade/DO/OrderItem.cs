@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Linq;
+
 namespace DO;
 /// <summary>
 /// structure for orderItem
@@ -20,5 +22,15 @@ internal class OrderItem
     /// <summary>
     /// Unique Amount for
     /// </summary>
-    public int Amount { get; set; }    
+    public int Amount { get; set; }
+
+    /// </summary>
+    ///
+    /// </summary>
+    public override string ToString() => $@"
+        Product ID={ProductID}, 
+        OrderID : {OrderID}
+    	Price: {Price}
+    	Amount of pruduct: {Amount}
+";
 }
