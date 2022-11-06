@@ -1,11 +1,8 @@
-﻿
-using System.Xml.Linq;
-
 namespace DO;
 /// <summary>
 /// structure for orderItem
 /// </summary>
-internal class OrderItem
+public struct OrderItem
 {
     /// <summary>
     /// Unique ProductID for
