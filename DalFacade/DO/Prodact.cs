@@ -1,6 +1,4 @@
-﻿
-
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// structure for prodact
 /// </summary>

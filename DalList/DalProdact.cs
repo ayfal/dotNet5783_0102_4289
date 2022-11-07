@@ -1,5 +1,5 @@
-namespace Dal;
+﻿namespace Dal;
 
-internal class DalProdact
+public class DalProdact
 {
 }
