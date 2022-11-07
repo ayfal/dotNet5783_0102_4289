@@ -8,7 +8,7 @@ internal static class _DataSource
     internal static DO.Order[] orders = new DO.Order[100];
     internal static DO.Prodact[] prodacts = new DO.Prodact[50];
     internal static DO.OrderItem[] orderItems = new DO.OrderItem[200];
-    static void AddOrder(DO.Order newOrder)
+    private static void AddOrder(DO.Order newOrder)
     {
         for (int i = 0; i < 100; i++)
         {
@@ -19,7 +19,7 @@ internal static class _DataSource
             }
         }
     }
-    static void AddProdact(DO.Prodact newProdact)
+    private static void AddProdact(DO.Prodact newProdact)
     {
         for (int i = 0; i < 50; i++)
         {
@@ -30,7 +30,7 @@ internal static class _DataSource
             }
         }
     }
-    static void AddOrderItem(DO.OrderItem newOrderItem)
+    private static void AddOrderItem(DO.OrderItem newOrderItem)
     {
         for (int i = 0; i < 200; i++)
         {
@@ -41,5 +41,5 @@ internal static class _DataSource
             }
         }
     }
-    static private s_Initialize() { AddProdact(), AddOrder(),AddOrderItem()}; 
+    private static void  s_Initialize() { AddProdact(), AddOrder(),AddOrderItem()}; 
 }
