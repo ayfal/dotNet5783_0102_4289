@@ -1,8 +1,8 @@
 ﻿namespace DO;
 /// <summary>
-/// structure for prodact
+/// structure for Product
 /// </summary>
-public struct Prodact
+public struct Product
 {
     /// <summary>
     /// Unique Id for
