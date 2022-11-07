@@ -1,9 +1,4 @@
-﻿
-
-using System.Diagnostics;
-using System.Xml.Linq;
-
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// structure for order
 /// </summary>
@@ -47,5 +42,4 @@ public struct Order
         Ship Date: {ShipDate}
         Delivery Date: {DeliveryDate}    	
 ";
-
 }

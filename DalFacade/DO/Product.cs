@@ -1,8 +1,6 @@
-﻿
-
-namespace DO;
+﻿namespace DO;
 /// <summary>
-/// structure for product
+/// structure for Product
 /// </summary>
 public struct Product
 {
