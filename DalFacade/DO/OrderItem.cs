@@ -1,6 +1,3 @@
-﻿
-using System.Xml.Linq;
-
 namespace DO;
 /// <summary>
 /// structure for orderItem
