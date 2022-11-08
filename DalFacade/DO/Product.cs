@@ -22,7 +22,7 @@ public struct Product
     /// <summary>
     /// Unique Category for
     /// </summary>
-    public Enums Category { get; set; }
+    public Enums.Category Category { get; set; }
 
     /// <summary>
     /// Unique InStock for
