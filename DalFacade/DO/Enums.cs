@@ -2,7 +2,7 @@
 
 public class Enums
 {
-	enum Category
+	enum Category 
     {
 		A,
 		B,
