@@ -5,6 +5,10 @@
 public struct OrderItem
 {
     /// <summary>
+    /// Unique ID for order item
+    /// </summary>
+    public int ID { get; set; }
+    /// <summary>
     /// Unique ProductID for
     /// </summary>
     public int ProductID { get; set; }

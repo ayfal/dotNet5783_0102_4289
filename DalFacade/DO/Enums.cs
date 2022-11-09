@@ -2,10 +2,13 @@
 
 public class Enums
 {
-	enum Category 
+	public enum Category
     {
-		A,
-		B,
-		C
+		Sages,
+		Rishonim,
+		Achronim,
+		Halacha,
+		Mussar,
+		Hassidut
 	}
 }
