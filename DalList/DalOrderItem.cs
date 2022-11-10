@@ -5,48 +5,39 @@ namespace Dal;
 
 public class DalOrderItem
 {
-    public int Add(OrderItem orderItems)
+    public int Add(OrderItem orderItem)
     {
-        try
-        {
-            Get(orderItems.ID);
-            throw new Exception("orderItems ID already exists!");
-        }
-        catch (KeyNotFoundException)
-        {
-            orderItems[Config.orderItems] = orderItems;
-            Config.orderItems++;
-            return orderItems.ID;
-        }
+        orderItem.ID = Config.orderItemId;//check what happens with config.orderID
+        orderItems[Config.orderItems] = orderItem;
+        Config.orderItems++;
+        return orderItem.ID;
     }
-
     public void Delete(int ID)
     {
-        try
-        {
-            Get(ID);
-            orderItems = orderItems.Where(i => i.ID != ID).ToArray();
-
-        }
-        catch (KeyNotFoundException)
-        {
-
-
-        }
+        Get(ID);
+        orderItems = orderItems.Where(i => i.ID != ID).ToArray();
+        Config.orderItems--;
     }
-
-    public void Update()
+    public void Update(Order orderItem)
     {
-
-    }
-
-    public OrderItem Get(int ID) // TODO חריגות
-    {
-        for (int i = 0; i < DataSource.Config.orderItems; i++)
+        Get(orderItem.ID);
+        for (int i = 0; i < Config.orderItems; i++)
         {
-            if (DataSource.orderItems[i].ID == ID)
-                return DataSource.orderItems[i];
+            if (orderItems[i].ID == orderItem.ID) orders[i] = orderItem;
         }
-        throw new KeyNotFoundException();
     }
+    public OrderItem Get(int ID)
+    {
+        for (int i = 0; i < Config.orderItems; i++)
+        {
+            if (orderItems[i].ID == ID) return orderItems[i];
+        }
+        throw new Exception("key not found");
+    }
+    public OrderItem[] Get()
+    {
+        return orderItems.ToArray();
+    }
+
+    //TODO add more methods from the general description file. all should be public
 }

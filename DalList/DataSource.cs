@@ -3,6 +3,7 @@ namespace Dal;
 
 internal static class DataSource
 {
+    const int CATEGORIES = 6;
     internal static class Config
     {
         internal static int products = 0, orders = 0, orderItems = 0;
@@ -15,38 +16,9 @@ internal static class DataSource
     internal static Order[] orders = new Order[100];
     internal static Product[] products = new Product[50];
     internal static OrderItem[] orderItems = new OrderItem[200];
-    static void AddOrder(Order newOrder)
+    static void InitializeOrders()
     {
-        orders[Config.orders] = newOrder;
-        Config.orders++;
-    }
-    static void AddProduct(Product newProduct)
-    {
-        products[Config.products] = newProduct;
-        Config.products++;
-    }
-    static void AddOrderItem(OrderItem newOrderItem)
-    {
-        orderItems[Config.orderItems] = newOrderItem;
-        Config.orderItems++;
-    }
-    static private void s_Initialize()
-    {
-        for (int i = 0; i < 10; i++)//initialize 10 products
-        {
-            int id = rnd.Next(100000, 1000000);//TODO check uniquness
-            Product product = new Product
-            {
-                ID = id,
-                Name = "TESTName" + i,
-                Category = (Enums.Category)(i % 6),
-                Price = id / 10000,
-                InStock = id / 100000,
-            };
-            AddProduct(product);
-        }
-        products[9].InStock = 0;//one product is out of stock
-        for (int i = 0; i < 20; i++)//initialize 20 orders
+        for (int i = 0; i < 20; i++)
         {
             Order order = new Order
             {
@@ -55,12 +27,34 @@ internal static class DataSource
                 CustomerEmail = "TESTCustomerEmail" + i + "@jct.ac.il",
                 CustomerAddress = "TESTCustomerAddress" + i,
                 OrderDate = DateTime.MinValue,
-                ShipDate = DateTime.MinValue,
-                DeliveryDate = DateTime.MinValue
+                ShipDate = DateTime.MinValue.AddHours(rnd.Next(1, 4)),
+                DeliveryDate = DateTime.MinValue.AddDays(rnd.Next(3, 6))
             };
-            AddOrder(order);
+            orders[Config.orders] = order;
+            Config.orders++;
         }
-        for (int i = 0; i < 40; i++)//initialize 40 orders items
+    }
+    static void InitializeProducts()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            int id = rnd.Next(100000, 1000000);//TODO check uniquness
+            Product product = new Product
+            {
+                ID = id,
+                Name = "TESTName" + i,
+                Category = (Enums.Category)(i % CATEGORIES),
+                Price = id / 10000,
+                InStock = id / 100000,
+            };
+            products[Config.products] = product;
+            Config.products++;
+        }
+        products[9].InStock = 0;//one product is out of stock
+    }
+    static void InitialzieOrderItems()
+    {
+        for (int i = 0; i < 40; i++)
         {
             OrderItem orderItem = new OrderItem
             {
@@ -70,7 +64,14 @@ internal static class DataSource
                 Price = products[i % 9].Price,
                 Amount = 1 + i % 4
             };
-            AddOrderItem(orderItem);
+            orderItems[Config.orderItems] = orderItem;
+            Config.orderItems++;            
         }
+    }
+    static private void s_Initialize()
+    {
+        InitializeProducts();
+        InitializeOrders();
+        InitialzieOrderItems();
     }
 }
