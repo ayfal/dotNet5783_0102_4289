@@ -22,32 +22,31 @@ public class DalProduct
 
     public void Delete(int ID)
     {
-        try
+        Get(ID);
+        products = products.Where(i => i.ID != ID).ToArray();
+        Config.products--;
+    }
+
+    public void Update(Product pro)
+    {
+        Get(pro.ID);
+        for (int i = 0; i < Config.products; i++)
         {
-            Get(ID);
-            products = products.Where(i => i.ID != ID).ToArray();
-
-        }
-        catch (KeyNotFoundException)
-        {
-
-
+            if (products[i].ID == pro.ID) products[i] = pro;
         }
     }
 
-    public void Update()
+        public Product Get(int ID) // TODO חריגות
     {
-
-    }
-        
-    public Product Get(int ID) // TODO חריגות
-    {
-        for (int i = 0; i < DataSource.Config.products; i++)
+        for (int i = 0; i < Config.products; i++)
         {
-            if (DataSource.products[i].ID == ID)
-                return DataSource.products[i];
+            if (orderItems[i].ID == ID) return products[i];
         }
-        throw new KeyNotFoundException();   
+        throw new Exception("key not found");
+    }
+    public Product[] Get()
+    {
+        return products.ToArray();
     }
 }
 
