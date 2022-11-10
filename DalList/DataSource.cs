@@ -1,7 +1,7 @@
 ﻿using DO;
 namespace Dal;
 
-internal static class _DataSource
+internal static class DataSource
 {
     internal static class Config
     {
@@ -10,7 +10,7 @@ internal static class _DataSource
         internal static int orderId { get => ++_orderID; }
         internal static int orderItemId { get => ++_orderItemID; }
     }
-    static _DataSource() { s_Initialize(); }
+    static DataSource() { s_Initialize(); }
     static readonly Random rnd = new Random();
     internal static Order[] orders = new Order[100];
     internal static Product[] products = new Product[50];
