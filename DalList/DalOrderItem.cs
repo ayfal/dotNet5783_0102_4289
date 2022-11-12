@@ -39,5 +39,18 @@ public class DalOrderItem
         return orderItems.ToArray();
     }
 
+    public OrderItem Get(int productID, int orderID)
+    {
+        try { return orderItems.First(oi => oi.ProductID == productID && oi.OrderID == orderID); }
+        catch (InvalidOperationException) { throw new Exception("Order item not found!"); }//TODO if this works, do it in Get(int ID) too
+    }
+
+    public OrderItem[] GetOrderItems(int ID)
+    {
+        OrderItem[] detailedOrder = orderItems.Where(i => i.OrderID == ID).ToArray();
+        if (detailedOrder.Length > 0) return detailedOrder;
+        else throw new Exception("None found!")//is this exception needed? should there be a different exceptions for non existant order?
+    }
+
     //TODO add more methods from the general description file. all should be public
 }

@@ -11,7 +11,7 @@ internal static class DataSource
         internal static int orderId { get => ++_orderID; }
         internal static int orderItemId { get => ++_orderItemID; }
     }
-    static DataSource() { s_Initialize(); }
+    static DataSource() { s_Initialize(); }//TODO static class shouldn't have a constructor
     static readonly Random rnd = new Random();
     internal static Order[] orders = new Order[100];
     internal static Product[] products = new Product[50];
@@ -26,6 +26,17 @@ internal static class DataSource
                 CustomerName = "TESTCustomerName" + i,
                 CustomerEmail = "TESTCustomerEmail" + i + "@jct.ac.il",
                 CustomerAddress = "TESTCustomerAddress" + i,
+                //the instructions say:
+                //כל התאריכים יהיו לפני הזמן של הפעלת התכנית (DateTime.Now)
+                //לכולם יהיה תאריך יצירת הזמנה
+                //לכ - 80 % מההזמנות יהיה תאריך משלוח שחייב להיות אחרי זמן יצירת הזמנה
+                //לכ - 60 % מההזמנות שנשלחו יהיה תאריך מסירה
+                
+                
+                //כל התאריכים החסרים(מטיפוס DateTime) בנתוני הישויות יאותחלו ל - DateTime.MinValue
+                //כל התאריכים שיש ביניהם סדר - יש להשתמש ב - TimeSpan עם פרק זמן מוגרל רנדומלית(ע"פ היגיון בריא) שיוסף לתאריך "הקודם" לפי משמעות התאריכים בישות הרלוונטית
+
+
                 OrderDate = DateTime.MinValue,
                 ShipDate = DateTime.MinValue.AddHours(rnd.Next(1, 4)),
                 DeliveryDate = DateTime.MinValue.AddDays(rnd.Next(3, 6))
@@ -36,9 +47,11 @@ internal static class DataSource
     }
     static void InitializeProducts()
     {
+        int id;
         for (int i = 0; i < 10; i++)
         {
-            int id = rnd.Next(100000, 1000000);//TODO check uniquness
+            do id = rnd.Next(100000, 1000000); 
+            while (Array.Exists(products, p => p.ID == id));//validate uniqueness
             Product product = new Product
             {
                 ID = id,
@@ -65,7 +78,7 @@ internal static class DataSource
                 Amount = 1 + i % 4
             };
             orderItems[Config.orderItems] = orderItem;
-            Config.orderItems++;            
+            Config.orderItems++;
         }
     }
     static private void s_Initialize()

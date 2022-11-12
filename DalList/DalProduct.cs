@@ -5,19 +5,11 @@ namespace Dal;
 
 public class DalProduct
 {
-    public int Add(Product product)
+    public void Add(Product product)
     {
-        try
-        {
-            Get(product.ID);
-            throw new Exception("product ID already exists!");
-        }
-        catch (KeyNotFoundException)
-        {
-            products[Config.products] = product;
-            Config.products++;
-            return product.ID;
-        }
+        if (Array.Exists(products, p => p.ID == product.ID)) throw new Exception("product ID already exists!");
+        products[Config.products] = product;
+        Config.products++;//TODO check if this line can be combined in the prev. relevant to all entities
     }
 
     public void Delete(int ID)
@@ -36,7 +28,7 @@ public class DalProduct
         }
     }
 
-        public Product Get(int ID) // TODO חריגות
+        public Product Get(int ID)
     {
         for (int i = 0; i < Config.products; i++)
         {
