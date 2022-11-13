@@ -7,8 +7,8 @@ public class DalOrderItem
 {
     public int Add(OrderItem orderItem)
     {
-        orderItem.ID = Config.orderItemId;
         orderItems[Config.orderItems] = orderItem;//the requirements state not to check that productID and orderID exist
+        orderItems[Config.orderItems].ID = Config.orderItemId;
         Config.orderItems++;
         return orderItem.ID;
     }
@@ -28,11 +28,8 @@ public class DalOrderItem
     }
     public OrderItem Get(int ID)
     {
-        for (int i = 0; i < Config.orderItems; i++)
-        {
-            if (orderItems[i].ID == ID) return orderItems[i];
-        }
-        throw new Exception("key not found");
+        try { return orderItems.First(oi => oi.ID == ID); }
+        catch (InvalidOperationException) { throw new Exception("Order item not found!"); }
     }
     public OrderItem[] Get()
     {
@@ -42,7 +39,7 @@ public class DalOrderItem
     public OrderItem Get(int productID, int orderID)
     {
         try { return orderItems.First(oi => oi.ProductID == productID && oi.OrderID == orderID); }
-        catch (InvalidOperationException) { throw new Exception("Order item not found!"); }//TODO if this works, do it in Get(int ID) too
+        catch (InvalidOperationException) { throw new Exception("Order item not found!"); }
     }
 
     public OrderItem[] GetOrderItems(int ID)
@@ -51,6 +48,4 @@ public class DalOrderItem
         if (detailedOrder.Length > 0) return detailedOrder;
         else throw new Exception("None found!");//is this exception needed? should there be a different exceptions for non existant order?
     }
-
-    //TODO add more methods from the general description file. all should be public
 }

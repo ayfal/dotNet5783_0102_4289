@@ -294,14 +294,14 @@ class Program
                     s = Console.ReadLine();
                     if (s != "")
                     {
-                        if (double.TryParse(Console.ReadLine(), out dbl)) orderItem.Price = dbl;
+                        if (double.TryParse(s, out dbl)) orderItem.Price = dbl;
                         else throw new Exception("Not a valid Price");
                     }
                     Console.Write("Amount in stock: ");
                     s = Console.ReadLine();
                     if (s != "")
                     {
-                        if (int.TryParse(Console.ReadLine(), out integer)) orderItem.Amount = integer;
+                        if (int.TryParse(s, out integer)) orderItem.Amount = integer;
                         else throw new Exception("Not a valid amount");
                     }
                     dalOrderItem.Update(orderItem);
@@ -317,12 +317,12 @@ class Program
                     Console.WriteLine("Please insert order ID press enter and then product ID");
                     int oID, pID;
                     if (!int.TryParse(Console.ReadLine(), out oID) || !int.TryParse(Console.ReadLine(), out pID)) throw new Exception("Not a valid ID");
-                    dalOrderItem.Get(pID, oID);
+                    Console.WriteLine(dalOrderItem.Get(pID, oID));
                     break;
                 case 'g':
                     Console.WriteLine("Please insert order ID:");
                     if (!int.TryParse(Console.ReadLine(), out integer)) throw new Exception("Not a valid ID");
-                    dalOrderItem.Get(integer);
+                    Console.WriteLine(dalOrderItem.Get(integer));
                     break;
                 default:
                     if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");

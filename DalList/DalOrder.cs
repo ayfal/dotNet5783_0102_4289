@@ -4,11 +4,11 @@ using static Dal.DataSource;
 namespace Dal;
 
 public class DalOrder
-{
+{    
     public int Add(Order order)
     {
-        order.ID = Config.orderId;//check what happens with config.orderID
         orders[Config.orders] = order;
+        orders[Config.orders].ID = Config.orderId;//check what happens with config.orderID
         Config.orders++;
         return order.ID;
     }
@@ -28,16 +28,11 @@ public class DalOrder
     }
     public Order Get(int ID)
     {
-        for (int i = 0; i < Config.orders; i++)
-        {
-            if (orders[i].ID == ID) return orders[i];
-        }
-        throw new Exception("key not found");
+        try { return orders.First(o => o.ID == ID); }
+        catch (InvalidOperationException) { throw new Exception("Order not found!"); }
     }
     public Order[] Get()
     {
         return orders.Where(i => i.ID != 0).ToArray();
     }
-
-    //TODO add more methods from the general description file. all should be public
 }
