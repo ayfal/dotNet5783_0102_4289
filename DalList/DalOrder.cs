@@ -36,7 +36,7 @@ public class DalOrder
     }
     public Order[] Get()
     {
-        return orders.ToArray();
+        return orders.Where(i => i.ID != 0).ToArray();
     }
 
     //TODO add more methods from the general description file. all should be public

@@ -30,19 +30,23 @@ internal static class DataSource
                 //כל התאריכים יהיו לפני הזמן של הפעלת התכנית (DateTime.Now)
                 //לכולם יהיה תאריך יצירת הזמנה
                 //לכ - 80 % מההזמנות יהיה תאריך משלוח שחייב להיות אחרי זמן יצירת הזמנה
-                //לכ - 60 % מההזמנות שנשלחו יהיה תאריך מסירה
-                
-                
+                //לכ - 60 % מההזמנות שנשלחו יהיה תאריך מסירה             
                 //כל התאריכים החסרים(מטיפוס DateTime) בנתוני הישויות יאותחלו ל - DateTime.MinValue
                 //כל התאריכים שיש ביניהם סדר - יש להשתמש ב - TimeSpan עם פרק זמן מוגרל רנדומלית(ע"פ היגיון בריא) שיוסף לתאריך "הקודם" לפי משמעות התאריכים בישות הרלוונטית
-
-
-                OrderDate = DateTime.MinValue,
-                ShipDate = DateTime.MinValue.AddHours(rnd.Next(1, 4)),
-                DeliveryDate = DateTime.MinValue.AddDays(rnd.Next(3, 6))
+                OrderDate = DateTime.Now.AddMonths(-1),
+                ShipDate = DateTime.MinValue,
+                DeliveryDate = DateTime.MinValue
             };
             orders[Config.orders] = order;
             Config.orders++;
+        }
+        for (int i = 0; i < 20*0.8; i++)
+        {
+            orders[i].ShipDate = orders[i].OrderDate.AddHours(rnd.Next(1, 4));
+        }
+        for (int i = 0; i < 20 * 0.8*0.6; i++)
+        {
+            orders[i].DeliveryDate = orders[i].ShipDate.AddDays(rnd.Next(3, 6));
         }
     }
     static void InitializeProducts()

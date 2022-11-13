@@ -7,8 +7,8 @@ public class DalOrderItem
 {
     public int Add(OrderItem orderItem)
     {
-        orderItem.ID = Config.orderItemId;//check what happens with config.orderID
-        orderItems[Config.orderItems] = orderItem;
+        orderItem.ID = Config.orderItemId;
+        orderItems[Config.orderItems] = orderItem;//the requirements state not to check that productID and orderID exist
         Config.orderItems++;
         return orderItem.ID;
     }
@@ -18,12 +18,12 @@ public class DalOrderItem
         orderItems = orderItems.Where(i => i.ID != ID).ToArray();
         Config.orderItems--;
     }
-    public void Update(Order orderItem)
+    public void Update(OrderItem orderItem)
     {
         Get(orderItem.ID);
         for (int i = 0; i < Config.orderItems; i++)
         {
-            if (orderItems[i].ID == orderItem.ID) orders[i] = orderItem;
+            if (orderItems[i].ID == orderItem.ID) orderItems[i] = orderItem;
         }
     }
     public OrderItem Get(int ID)
@@ -36,7 +36,7 @@ public class DalOrderItem
     }
     public OrderItem[] Get()
     {
-        return orderItems.ToArray();
+        return orderItems.Where(i => i.ID != 0).ToArray();
     }
 
     public OrderItem Get(int productID, int orderID)
@@ -49,7 +49,7 @@ public class DalOrderItem
     {
         OrderItem[] detailedOrder = orderItems.Where(i => i.OrderID == ID).ToArray();
         if (detailedOrder.Length > 0) return detailedOrder;
-        else throw new Exception("None found!")//is this exception needed? should there be a different exceptions for non existant order?
+        else throw new Exception("None found!");//is this exception needed? should there be a different exceptions for non existant order?
     }
 
     //TODO add more methods from the general description file. all should be public
