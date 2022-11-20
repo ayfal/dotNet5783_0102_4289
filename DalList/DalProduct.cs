@@ -31,7 +31,7 @@ public class DalProduct
     public Product Get(int ID)
     {
         try { return products.First(o => o.ID == ID); }
-        catch (InvalidOperationException) { throw new Exception("Product not found!"); }
+        catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
     public Product[] Get()
     {
