@@ -8,26 +8,24 @@ public class DalProduct
     
     public void Add(Product product)
     {
-        if (Array.Exists(products, p => p.ID == product.ID)) throw new Exception("product ID already exists!");
+        if (products.Exists(p => p.ID == product.ID)) throw new Exception("product ID already exists!");
         if (product.ID < 100000 || product.ID > 999999) throw new Exception("product ID is out of range!");
-        products[Config.products] = product;
-        Config.products++;//TODO check if this line can be combined in the prev. relevant to all entities
+        products.Add(product);
     }
 
     public void Delete(int ID)
     {
-        Get(ID);
-        products = products.Where(i => i.ID != ID).ToArray();
-        Config.products--;
+        products.Remove(Get(ID));
     }
 
-    public void Update(Product pro)
+    public void Update(Product product)
     {
-        Get(pro.ID);
-        for (int i = 0; i < Config.products; i++)
-        {
-            if (products[i].ID == pro.ID) products[i] = pro;
-        }
+        var obj = Get(product.ID);
+        obj = product;//TODO check if this updates the object inside the list
+        //for (int i = 0; i < Config.products; i++)
+        //{
+        //    if (products[i].ID == pro.ID) products[i] = pro;
+        //}
     }
 
     public Product Get(int ID)

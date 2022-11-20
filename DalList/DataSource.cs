@@ -6,16 +6,16 @@ internal static class DataSource
     const int CATEGORIES = 6;
     internal static class Config
     {
-        internal static int products = 0, orders = 0, orderItems = 0;
+        //internal static int products = 0, orders = 0, orderItems = 0;
         private static int _orderID = 0, _orderItemID = 0;
         internal static int orderId { get => ++_orderID; }
         internal static int orderItemId { get => ++_orderItemID; }
     }
     static DataSource() { s_Initialize(); }//TODO static class shouldn't have a constructor
     static readonly Random rnd = new Random();
-    internal static Order[] orders = new Order[100];
-    internal static Product[] products = new Product[50];
-    internal static OrderItem[] orderItems = new OrderItem[200];
+    internal static List<Order> orders;
+    internal static List<Product> products;
+    internal static List<OrderItem> orderItems;
     static void InitializeOrders()
     {
         for (int i = 0; i < 20; i++)
@@ -37,17 +37,21 @@ internal static class DataSource
                 ShipDate = DateTime.MinValue,
                 DeliveryDate = DateTime.MinValue
             };
-            orders[Config.orders] = order;
-            Config.orders++;
+            orders.Add(order);
         }
         for (int i = 0; i < 20*0.8; i++)
         {
-            orders[i].ShipDate = orders[i].OrderDate.AddHours(rnd.Next(1, 4));
+            var order = orders[i];
+            order.ShipDate = orders[i].OrderDate.AddHours(rnd.Next(1, 4));
+            orders[i] = order;
         }
         for (int i = 0; i < 20 * 0.8*0.6; i++)
         {
-            orders[i].DeliveryDate = orders[i].ShipDate.AddDays(rnd.Next(3, 6));
+            var order = orders[i];
+            order.DeliveryDate = orders[i].ShipDate.AddDays(rnd.Next(3, 6));
+            orders[i] = order;
         }
+    //}
     }
     static void InitializeProducts()
     {
@@ -55,7 +59,7 @@ internal static class DataSource
         for (int i = 0; i < 10; i++)
         {
             do id = rnd.Next(100000, 1000000); 
-            while (Array.Exists(products, p => p.ID == id));//validate uniqueness
+            while (products.Exists(p => p.ID == id));//validate uniqueness
             Product product = new Product
             {
                 ID = id,
@@ -64,10 +68,11 @@ internal static class DataSource
                 Price = id / 10000,
                 InStock = id / 100000,
             };
-            products[Config.products] = product;
-            Config.products++;
+            products.Add(product);
         }
-        products[9].InStock = 0;//one product is out of stock
+        var outOfStockProduct = products[9];
+        outOfStockProduct.InStock = 0;//one product is out of stock
+        products[9] = outOfStockProduct;
     }
     static void InitialzieOrderItems()
     {
@@ -81,8 +86,7 @@ internal static class DataSource
                 Price = products[i % 9].Price,
                 Amount = 1 + i % 4
             };
-            orderItems[Config.orderItems] = orderItem;
-            Config.orderItems++;
+            orderItems.Add(orderItem);
         }
     }
     static private void s_Initialize()
