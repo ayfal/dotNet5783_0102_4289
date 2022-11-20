@@ -1,15 +1,16 @@
 using DO;
 using static Dal.DataSource;
+using DalApi;
 
 namespace Dal;
 
-public class DalProduct
+internal class DalProduct 
 {
     
     public void Add(Product product)
     {
-        if (products.Exists(p => p.ID == product.ID)) throw new Exception("product ID already exists!");
-        if (product.ID < 100000 || product.ID > 999999) throw new Exception("product ID is out of range!");
+        if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
+        if (product.ID < 100000 || product.ID > 999999) throw new ObjectNotFoundException();
         products.Add(product);
     }
 

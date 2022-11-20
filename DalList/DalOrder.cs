@@ -1,35 +1,34 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using static Dal.DataSource;
 
 namespace Dal;
 
-public class DalOrder
+internal class DalOrder
 {    
     public int Add(Order order)
     {
-        orders[Config.orders] = order;
-        orders[Config.orders].ID = Config.orderId;//check what happens with config.orderID
-        Config.orders++;
+        order.ID = Config.orderItemId;
+        orders.Add(order);
         return order.ID;
     }
     public void Delete(int ID)
     {
-        Get(ID);
-        orders = orders.Where(i => i.ID != ID).ToArray();
-        Config.orders--;
+        orders.Remove(Get(ID));
     }
     public void Update(Order order)
     {
-        Get(order.ID);
-        for (int i = 0; i < Config.orders; i++)
-        {
-            if (orders[i].ID == order.ID) orders[i] = order;
-        }
+        var obj = Get(order.ID);
+        obj = order;//TODO check if this updates the object inside the list
+        //for (int i = 0; i < Config.products; i++)
+        //{
+        //    if (products[i].ID == pro.ID) products[i] = pro;
+        //}
     }
     public Order Get(int ID)
     {
         try { return orders.First(o => o.ID == ID); }
-        catch (InvalidOperationException) { throw new Exception("Order not found!"); }
+        catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
     public Order[] Get()
     {
