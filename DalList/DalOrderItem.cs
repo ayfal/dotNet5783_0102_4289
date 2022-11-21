@@ -31,9 +31,9 @@ internal class DalOrderItem : IOrderItem
         try { return orderItems.First(oi => oi.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public OrderItem[] Get()
+    public IEnumerable<OrderItem> Get()
 {
-        return orderItems.Where(i => i.ID != 0).ToArray();
+        return orderItems.Where(i => i.ID != 0);
     }
 
     public OrderItem Get(int productID, int orderID)

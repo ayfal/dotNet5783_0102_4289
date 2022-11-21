@@ -9,10 +9,10 @@ namespace DalApi
     public interface ICrud<T>
     {
         int Add(T t);
-        void Delete(T t);
+        void Delete(int ID);
         void Update(T t);
         IEnumerable<T> Get();
-        T Get(T t);
+        T Get(int ID);
 
     }
 }

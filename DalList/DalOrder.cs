@@ -30,8 +30,8 @@ internal class DalOrder : IOrder
         try { return orders.First(o => o.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public Order[] Get()
+    public IEnumerable<Order> Get()
     {
-        return orders.Where(i => i.ID != 0).ToArray();
+        return orders.Where(i => i.ID != 0);
     }
 }
