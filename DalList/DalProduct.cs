@@ -6,11 +6,12 @@ namespace Dal;
 
 internal class DalProduct : IProduct
 {
-    public void Add(Product product) 
+    public int Add(Product product) 
     {
         if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
         if (product.ID < 100000 || product.ID > 999999) throw new ObjectNotFoundException();
         products.Add(product);
+        return product.ID;
     }
 
     public void Delete(int ID)
