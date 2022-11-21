@@ -4,7 +4,7 @@ using static Dal.DataSource;
 
 namespace Dal;
 
-internal class DalOrder
+internal class DalOrder : IOrder
 {    
     public int Add(Order order)
     {

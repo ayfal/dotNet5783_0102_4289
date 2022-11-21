@@ -4,10 +4,10 @@ using DalApi;
 
 namespace Dal;
 
-internal class DalProduct 
+internal class DalProduct : IProduct
 {
     
-    public void Add(Product product)
+    public void Add(Product product) 
     {
         if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
         if (product.ID < 100000 || product.ID > 999999) throw new ObjectNotFoundException();
