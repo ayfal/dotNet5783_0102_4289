@@ -9,6 +9,5 @@ namespace DalApi
 {
     public interface IProduct : ICrud<Product>
     {
-        /*void*/double ICrud<Product>.Add(Product p);
     }
 }
