@@ -42,7 +42,7 @@ internal class DalOrderItem : IOrderItem
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
 
-    public OrderItem[] GetOrderItems(int ID)
+    public IEnumerable<OrderItem> GetOrderItems(int ID)
 {
         OrderItem[] detailedOrder = orderItems.Where(i => i.OrderID == ID).ToArray();
         if (detailedOrder.Length > 0) return detailedOrder;
