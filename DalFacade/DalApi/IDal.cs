@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    internal interface IDal
+    public interface IDal
     {
         IProduct _product { get; }
         IOrder _order { get; }
