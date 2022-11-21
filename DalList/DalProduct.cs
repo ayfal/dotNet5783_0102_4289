@@ -6,7 +6,6 @@ namespace Dal;
 
 internal class DalProduct : IProduct
 {
-    
     public void Add(Product product) 
     {
         if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
@@ -34,9 +33,9 @@ internal class DalProduct : IProduct
         try { return products.First(o => o.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public Product[] Get()
+    public IEnumerable<Product> Get()
     {
-        return products.Where(i => i.ID != 0).ToArray();
+        return products.Where(i => i.ID != 0);
     }
 }
 
