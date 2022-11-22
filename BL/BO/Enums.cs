@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    internal class Enums
+    public class Enums
     {
         public enum Category
         {
