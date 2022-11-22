@@ -1,17 +1,19 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System.Diagnostics;
 using System.Numerics;
 
 namespace Dal;
 class Program
 {
-    static private DalProduct dalProduct = new DalProduct();
-    static private DalOrder dalOrder = new DalOrder();
-    static private DalOrderItem dalOrderItem = new DalOrderItem();
+    //static private DalProduct dalProduct = new DalProduct();
+    //static private DalOrder dalOrder = new DalOrder();
+    //static private DalOrderItem dalOrderItem = new DalOrderItem();
     static int integer;
     static double dbl;
     static DateTime date;
     static string s;
+    static IDal idal = new DalList();
 
     static void ProductsSubMenu()
     {
@@ -29,7 +31,7 @@ class Program
             {
                 case 'a':
                     Product newProduct = new Product();
-                    //TODO decide what to do with all the exceptions here, keep them or create new: 
+                    //TODO decide what to do with all the exceptions here, keep them or create new types: 
                     Console.WriteLine("please enter the following details:");
                     Console.Write("Product ID: ");
                     if (int.TryParse(Console.ReadLine(), out integer)) newProduct.ID = integer;
@@ -45,17 +47,17 @@ class Program
                     Console.Write("Amount in stock: ");
                     if (int.TryParse(Console.ReadLine(), out integer)) newProduct.InStock = integer;
                     else throw new Exception("Not a valid amount");
-                    dalProduct.Add(newProduct);
+                    idal._product.Add(newProduct);
                     break;
                 case 'b':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Console.WriteLine(dalProduct.Get(integer));
+                    Console.WriteLine(idal._product.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in dalProduct.Get())
+                    foreach (var o in idal._product.Get())
                     {
                         Console.WriteLine(o);
                     }
@@ -65,7 +67,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Product product = dalProduct.Get(integer);
+                    Product product = idal._product.Get(integer);
                     Console.WriteLine(product);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
@@ -93,14 +95,14 @@ class Program
                         if (int.TryParse(s, out integer)) product.InStock = integer;
                         else throw new Exception("Not a valid amount");
                     }
-                    dalProduct.Update(product);
+                    idal._product.Update(product);
                     break;
                 case 'e':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    dalProduct.Delete(integer);
+                    idal._product.Delete(integer);
                     break;
                 default:
                     if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -151,17 +153,17 @@ class Program
                         Console.Write("Delivery date: ");
                     } while (!DateTime.TryParse(Console.ReadLine(), out date));
                     newOrder.DeliveryDate = date;
-                    dalOrder.Add(newOrder);
+                    idal._order.Add(newOrder);
                     break;
                 case 'b':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Console.WriteLine(dalOrder.Get(integer));
+                    Console.WriteLine(idal._order.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in dalOrder.Get())
+                    foreach (var o in idal._order.Get())
                     {
                         Console.WriteLine(o);
                     }
@@ -171,7 +173,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Order order = dalOrder.Get(integer);
+                    Order order = idal._order.Get(integer);
                     Console.WriteLine(order);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
@@ -202,14 +204,14 @@ class Program
                         s = Console.ReadLine();
                     } while (!DateTime.TryParse(s, out date) && s != "");
                     if (s != "") order.DeliveryDate = date;
-                    dalOrder.Update(order);
+                    idal._order.Update(order);
                     break;
                 case 'e':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    dalOrder.Delete(integer);
+                    idal._order.Delete(integer);
                     break;
                 default:
                     if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -253,17 +255,17 @@ class Program
                     Console.Write("Amount of product: ");
                     if (int.TryParse(Console.ReadLine(), out integer)) newOrderItem.Amount = integer;
                     else throw new Exception("Not a valid amount"); Console.Write("Customer name: ");
-                    dalOrderItem.Add(newOrderItem);
+                    idal._orderItem.Add(newOrderItem);
                     break;
                 case 'b':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Console.WriteLine(dalOrderItem.Get(integer));
+                    Console.WriteLine(idal._orderItem.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in dalOrderItem.Get())
+                    foreach (var o in idal._orderItem.Get())
                     {
                         Console.WriteLine(o);
                     }
@@ -273,7 +275,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    OrderItem orderItem = dalOrderItem.Get(integer);
+                    OrderItem orderItem = idal._orderItem.Get(integer);
                     Console.WriteLine(orderItem);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
@@ -305,25 +307,25 @@ class Program
                         if (int.TryParse(s, out integer)) orderItem.Amount = integer;
                         else throw new Exception("Not a valid amount");
                     }
-                    dalOrderItem.Update(orderItem);
+                    idal._orderItem.Update(orderItem);
                     break;
                 case 'e':
                     do
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    dalOrderItem.Delete(integer);
+                    idal._orderItem.Delete(integer);
                     break;
                 case 'f':
                     Console.WriteLine("Please insert order ID press enter and then product ID");
                     int oID, pID;
                     if (!int.TryParse(Console.ReadLine(), out oID) || !int.TryParse(Console.ReadLine(), out pID)) throw new Exception("Not a valid ID");
-                    Console.WriteLine(dalOrderItem.Get(pID, oID));
+                    Console.WriteLine(idal._orderItem.Get(pID, oID));
                     break;
                 case 'g':
                     Console.WriteLine("Please insert order ID:");
                     if (!int.TryParse(Console.ReadLine(), out integer)) throw new Exception("Not a valid ID");
-                    Console.WriteLine(dalOrderItem.Get(integer));
+                    Console.WriteLine(idal._orderItem.Get(integer));
                     break;
                 default:
                     if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
