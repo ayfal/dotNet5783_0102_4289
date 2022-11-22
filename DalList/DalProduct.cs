@@ -8,6 +8,8 @@ internal class DalProduct : IProduct
 {
     public int Add(Product product) 
     {
+        do id = rnd.Next(100000, 1000000);
+        while (products.Exists(p => p.ID == id));//validate uniqueness
         if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
         if (product.ID < 100000 || product.ID > 999999) throw new ObjectNotFoundException();
         products.Add(product);

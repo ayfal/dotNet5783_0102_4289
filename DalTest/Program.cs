@@ -29,6 +29,7 @@ class Program
             {
                 case 'a':
                     Product newProduct = new Product();
+                    //TODO decide what to do with all the exceptions here, keep them or create new:
                     Console.WriteLine("please enter the following details:");
                     Console.Write("Product ID: ");
                     if (int.TryParse(Console.ReadLine(), out integer)) newProduct.ID = integer;
