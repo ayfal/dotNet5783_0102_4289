@@ -7,6 +7,7 @@ using BlApi;
 using BO;
 using Dal;
 using DalApi;
+using DO;
 
 namespace BlImplementation
 {
@@ -15,8 +16,17 @@ namespace BlImplementation
         private IDal Dal = new DalList();
         public IEnumerable<OrderForList> Get()
         {
-            
-            DO.Order.
+            var orders = Dal._order.Get();
+            foreach (var order in orders)
+            {
+                BO.OrderForList orderForList = new BO.OrderForList();
+                orderForList.ID = order.ID;
+                orderForList.CustomerName = order.CustomerName;
+                orderForList.Status = order.ShipDate == DateTime.MinValue ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == DateTime.MinValue ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
+                orderForList.AmountOfItems=order.
+            }
+
+            return 
         }
         public Order GetOrderDetails(int ID);
         public Order UpdateDelivery(int ID);
