@@ -36,24 +36,44 @@ namespace BlImplementation
         }
         public BO.Order GetOrderDetails(int ID)
         {
+            try
+            {
+
             var orderB = new BO.Order();
             orderB.ID = ID;
-            if (ID > 0)//we've no clue why this is needed, as it's handled by the get method. but it's part of the specifications
+                if (ID > 0)
+                {
+                    var orderD = Dal._order.Get(ID);
+                    orderB.CustomerName = orderD.CustomerName;
+                    orderB.CustomerEmail = orderD.CustomerEmail;
+                    orderB.CustomerAddress = orderD.CustomerAddress;
+                    orderB.Status = GetStatus(orderD);
+                    orderB.OrderDate = orderD.OrderDate;
+                    orderB.ShipDate = orderD.ShipDate;
+                    orderB.DeliveryDate = orderD.DeliveryDate;
+                    orderB.Items = (List<BO.OrderItem>)Dal._orderItem.GetOrderItems(orderD.ID);
+                    orderB.TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price);
+                    return orderB;
+                }//TODO should all of this be done with "quick initialize"?
+                else throw new BO.Exceptions.IdNotValidException();
+            }
+            catch (ObjectNotFoundException)
             {
-                var orderD = Dal._order.Get(ID);
-                orderB.CustomerName = orderD.CustomerName;
-                orderB.CustomerEmail = orderD.CustomerEmail;
-                orderB.CustomerAddress = orderD.CustomerAddress;
-                orderB.Status = GetStatus(orderD);
-                orderB.OrderDate = orderD.OrderDate;
-                orderB.ShipDate = orderD.ShipDate;
-                orderB.DeliveryDate = orderD.DeliveryDate;
-                orderB.Items = (List<BO.OrderItem>)Dal._orderItem.GetOrderItems(orderD.ID);
-                orderB.TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price);
-            }//TODO should all of this be done with "quick initialize"?
-            return orderB;
+                throw new DO.ObjectNotFoundException();
+            }
         }
-        public Order UpdateDelivery(int ID);
+        public DO.Order UpdateDelivery(int ID)
+        {
+            var order = Dal._order.Get(ID);//TODO where to catch and throw the BL exception?
+            if (order.ShipDate != DateTime.MinValue && order.DeliveryDate==DateTime.MinValue)
+            {
+                order.DeliveryDate = DateTime.Now;//TODO check if this updates the Dal entity too
+                //Dal._order.Get(ID).DeliveryDate = DateTime.Now;//this doesn't work
+                //the specs aren't clear about updating the data, they mention it twice
+                Dal._order.Update(order);//TODO where to catch and throw the BL exception?
+                return order;
+            }
+        }
         public Order UpdateShippping(int ID);
         public OrderTracking Track(int ID);
         public void Update(Order order);

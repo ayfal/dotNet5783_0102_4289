@@ -8,5 +8,12 @@ namespace BO
 {
     internal class Exceptions
     {
+        [Serializable]
+        public class IdNotValidException : Exception { }// why not use InvalidDataException which already exists?
+        
+        [Serializable]
+        public class ObjectNotFoundException : Exception { }
+        [Serializable]
+        public class ObjectAlreadyExistsException : Exception { }
     }
 }
