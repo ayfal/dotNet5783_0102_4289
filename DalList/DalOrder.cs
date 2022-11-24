@@ -32,6 +32,6 @@ public class DalOrder : IOrder
     }
     public IEnumerable<Order> Get()
     {
-        return orders.Where(i => i.ID != 0);
+        return orders;
     }
 }
