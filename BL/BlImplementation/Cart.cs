@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
-using DalApi;
 using Dal;
 
 namespace BlImplementation
 {
     internal class Cart : ICart
     {
-        private IDal Dal = new DalList();
+        private DalApi.IDal Dal = new DalList();
         public BO.Cart Add(BO.Cart cart, int productID)
         {
             if (cart.Items.Exists(p => p.ID == productID))

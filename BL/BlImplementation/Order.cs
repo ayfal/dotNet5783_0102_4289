@@ -4,32 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
-using BO;
 using Dal;
-using DalApi;
-using DO;
 
 namespace BlImplementation
 {
     internal class Order : IOrder
     {
-        private IDal Dal = new DalList();
+        private DalApi.IDal Dal = new DalList();
         private BO.Enums.OrderStatus GetStatus(DO.Order order)
         {
             return order.ShipDate == DateTime.MinValue ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == DateTime.MinValue ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
         }
-        public IEnumerable<OrderForList> Get()
+        public IEnumerable<BO.OrderForList> Get()
         {
             var orders = Dal._order.Get();
-            IEnumerable<OrderForList> ordersList = new List<OrderForList>();
+            IEnumerable<BO.OrderForList> ordersList = new List<BO.OrderForList>();
             foreach (var order in orders)
             {
-                BO.OrderForList orderForList = new BO.OrderForList();
-                orderForList.ID = order.ID;
-                orderForList.CustomerName = order.CustomerName;
-                orderForList.Status = GetStatus(order);
-                orderForList.AmountOfItems = Dal._orderItem.GetOrderItems(order.ID).Count();
-                orderForList.TotalPrice = Dal._orderItem.GetOrderItems(order.ID).Sum(x => x.Price);
+                BO.OrderForList orderForList = new BO.OrderForList()
+                {
+                    ID = order.ID,
+                    CustomerName = order.CustomerName,
+                    Status = GetStatus(order),
+                    AmountOfItems = Dal._orderItem.GetOrderItems(order.ID).Count(),
+                    TotalPrice = Dal._orderItem.GetOrderItems(order.ID).Sum(x => x.Price)
+                };
                 ordersList.Append(orderForList);
             }
             return ordersList;
@@ -38,28 +37,29 @@ namespace BlImplementation
         {
             try
             {
-
-                var orderB = new BO.Order();
-                orderB.ID = ID;
                 if (ID > 0)
                 {
                     var orderD = Dal._order.Get(ID);
-                    orderB.CustomerName = orderD.CustomerName;
-                    orderB.CustomerEmail = orderD.CustomerEmail;
-                    orderB.CustomerAddress = orderD.CustomerAddress;
-                    orderB.Status = GetStatus(orderD);
-                    orderB.OrderDate = orderD.OrderDate;
-                    orderB.ShipDate = orderD.ShipDate;
-                    orderB.DeliveryDate = orderD.DeliveryDate;
-                    orderB.Items = (List<BO.OrderItem>)Dal._orderItem.GetOrderItems(orderD.ID);
-                    orderB.TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price);
+                    var orderB = new BO.Order()
+                    {
+                        ID = ID,
+                        CustomerName = orderD.CustomerName,
+                        CustomerEmail = orderD.CustomerEmail,
+                        CustomerAddress = orderD.CustomerAddress,
+                        Status = GetStatus(orderD),
+                        OrderDate = orderD.OrderDate,
+                        ShipDate = orderD.ShipDate,
+                        DeliveryDate = orderD.DeliveryDate,
+                        Items = (List<BO.OrderItem>)Dal._orderItem.GetOrderItems(orderD.ID),
+                        TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price)
+                    };
                     return orderB;
-                }//TODO should all of this be done with "quick initialize"?
+                }
                 else throw new BO.Exceptions.IdNotValidException();
             }
-            catch (ObjectNotFoundException)
+            catch (DO.ObjectNotFoundException)
             {
-                throw new DO.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException();
             }
         }
         public BO.Order UpdateShippping(int ID)
@@ -103,14 +103,16 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException();
             }
         }
-        public OrderTracking Track(int ID)
+        public BO.OrderTracking Track(int ID)
         {
             try
             {
                 var order = Dal._order.Get(ID);
-                OrderTracking orderTracking = new OrderTracking();
-                orderTracking.ID = order.ID;
-                orderTracking.Status = GetStatus(order);
+                BO.OrderTracking orderTracking = new BO.OrderTracking()
+                {
+                    ID = order.ID,
+                    Status = GetStatus(order)
+                };
                 orderTracking.OrderDiary.Add(order.OrderDate, BO.Enums.OrderStatus.Approved);//TODO if this outputs a number, then use toStirng, and change orderDiary def to string
                 if (order.ShipDate != DateTime.MinValue)
                 {
@@ -124,7 +126,7 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException();
             }
         }
-        public void Update(int orderID, int productID, int newAmount)
+        public BO.OrderItem Update(int orderID, int productID, int newAmount)
         {
             try
             {
@@ -136,6 +138,15 @@ namespace BlImplementation
                     Dal._orderItem.Update(orderItem);
                     product.InStock -= newAmount - orderItem.Amount;
                     Dal._product.Update(product);
+                    return new BO.OrderItem()
+                    {
+                        ID = orderItem.ID,
+                        ProductId = orderItem.ProductID,
+                        Name = product.Name,
+                        Price = orderItem.Price,
+                        Amount = orderItem.Amount,
+                        TotalPrice = orderItem.Price * newAmount
+                    };
                 }
                 else throw new BO.Exceptions.insufficientStockException();
             }
