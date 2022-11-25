@@ -8,7 +8,7 @@ using Dal;
 
 namespace BlImplementation
 {
-    internal class Order : IOrder
+    internal class Order : BlApi.IOrder
     {
         private DalApi.IDal Dal = new DalList();
         private BO.Enums.OrderStatus GetStatus(DO.Order order)

@@ -9,7 +9,7 @@ using Dal;
 
 namespace BlImplementation
 {
-    internal class Product : IProduct
+    internal class Product : BlApi.IProduct
     {
         private DalApi.IDal Dal = new DalList();
         public IEnumerable<BO.ProductForList> GetProductsList()
