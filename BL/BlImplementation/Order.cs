@@ -55,11 +55,11 @@ namespace BlImplementation
                     };
                     return orderB;
                 }
-                else throw new BO.Exceptions.IdNotValidException();
+                else throw new InvalidDataException();
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
             }
         }
         public BO.Order UpdateShippping(int ID)
@@ -79,7 +79,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
             }
         }
         public BO.Order UpdateDelivery(int ID)
@@ -100,7 +100,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
             }
         }
         public BO.OrderTracking Track(int ID)
@@ -123,7 +123,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
             }
         }
         public BO.OrderItem Update(int orderID, int productID, int newAmount)
@@ -148,11 +148,11 @@ namespace BlImplementation
                         TotalPrice = orderItem.Price * newAmount
                     };
                 }
-                else throw new BO.Exceptions.insufficientStockException();
+                else throw new BO.Exceptions.InsufficientStockException();
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException();
+                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
             }
         }
     }

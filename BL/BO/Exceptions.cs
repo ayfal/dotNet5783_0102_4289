@@ -9,17 +9,20 @@ namespace BO
     internal class Exceptions
     {
         [Serializable]
-        public class IdNotValidException : Exception { }// why not use InvalidDataException which already exists?
-        
+        public class ObjectNotFoundException : Exception
+        {
+            ObjectNotFoundException(Exception innerException) { }
+        }
         [Serializable]
-        public class ObjectNotFoundException : Exception { }
-        [Serializable]
-        public class ObjectAlreadyExistsException : Exception { }
+        public class ObjectAlreadyExistsException : Exception
+        {
+            ObjectAlreadyExistsException(Exception innerException) { }
+        }
         [Serializable]
         public class DoneAlreadyException : Exception { }
         [Serializable]
         public class NotShippedYetException : Exception { }
         [Serializable]
-        public class insufficientStockException : Exception { }
+        public class InsufficientStockException : Exception { }
     }
 }
