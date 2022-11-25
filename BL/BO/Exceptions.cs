@@ -15,5 +15,11 @@ namespace BO
         public class ObjectNotFoundException : Exception { }
         [Serializable]
         public class ObjectAlreadyExistsException : Exception { }
+        [Serializable]
+        public class DoneAlreadyException : Exception { }
+        [Serializable]
+        public class NotShippedYetException : Exception { }
+        [Serializable]
+        public class insufficientStockException : Exception { }
     }
 }

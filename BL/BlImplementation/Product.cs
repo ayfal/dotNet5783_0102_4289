@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
-using BO;
 using Dal;
-using DalApi;
-using DO;
+
 
 namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
-        private IDal Dal = new DalList();
-        public IEnumerable<ProductForList> GetProductsList()
+        private DalApi.IDal Dal = new DalList();
+        public IEnumerable<BO.ProductForList> GetProductsList()
         {
             var products = Dal._product.Get();
-            IEnumerable<ProductForList> list = new List<ProductForList>();
+            IEnumerable<BO.ProductForList> list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
-                ProductForList listItem = new ProductForList();
-                listItem.ID = product.ID;
-                listItem.Name = product.Name;
-                listItem.Price = product.Price;
-                listItem.Category = product.Category;
+                BO.ProductForList listItem = new BO.ProductForList()
+                {
+                    ID = product.ID,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Category = product.Category
+                };
                 list.Append(listItem);
             }
             return list;
@@ -39,12 +39,14 @@ namespace BlImplementation
                 if (ID > 0)
                 {
                     var productD = Dal._product.Get(ID);
-                    BO.Product productB = new BO.Product();
-                    productB.ID = productD.ID;
-                    productB.Name = productD.Name;
-                    productB.Price = productD.Price;
-                    productB.Category = (BO.Enums.Category)productD.Category;
-                    productB.InStock = productD.InStock;
+                    BO.Product productB = new BO.Product()
+                    {
+                        ID = productD.ID,
+                        Name = productD.Name,
+                        Price = productD.Price,
+                        Category = (BO.Enums.Category)productD.Category,
+                        InStock = productD.InStock
+                    };
                     return productB;
                 }
                 else throw new InvalidDataException();
@@ -54,20 +56,22 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException();
             }
         }
-        public ProductItem GetProductDetails(int ID, BO.Cart cart)
+        public BO.ProductItem GetProductDetails(int ID, BO.Cart cart)
         {
             try
             {
                 if (ID > 0)
                 {
                     DO.Product productD = Dal._product.Get(ID);
-                    BO.ProductItem productB = new BO.ProductItem();
-                    productB.ID = productD.ID;
-                    productB.Name = productD.Name;
-                    productB.Price = productD.Price;
-                    productB.Category = productD.Category;
-                    productB.InStock = productD.InStock > 0 ? true : false;
-                    productB.Amount = cart.Items.First(x => x.ID == ID).Amount;
+                    BO.ProductItem productB = new BO.ProductItem()
+                    {
+                        ID = productD.ID,
+                        Name = productD.Name,
+                        Price = productD.Price,
+                        Category = productD.Category,
+                        InStock = productD.InStock > 0 ? true : false,
+                        Amount = cart.Items.First(x => x.ID == ID).Amount
+                    };
                     return productB;
                 }
                 else throw new InvalidDataException();
@@ -81,12 +85,14 @@ namespace BlImplementation
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
-                DO.Product productD = new DO.Product();
-                productD.ID = product.ID;
-                productD.Name = product.Name;
-                productD.Price = product.Price;
-                productD.Category = (DO.Enums.Category)product.Category;
-                productD.InStock = product.InStock;
+                DO.Product productD = new DO.Product()
+                {
+                    ID = product.ID,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Category = (DO.Enums.Category)product.Category,
+                    InStock = product.InStock
+                };
                 try { Dal._product.Add(productD); }
                 catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(); }
             }
@@ -102,17 +108,19 @@ namespace BlImplementation
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
-                DO.Product productD = new DO.Product();
-                productD.ID = product.ID;
-                productD.Name = product.Name;
-                productD.Price = product.Price;
-                productD.Category = (DO.Enums.Category)product.Category;
-                productD.InStock = product.InStock;
+                DO.Product productD = new DO.Product()
+                {
+                    ID = product.ID,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Category = (DO.Enums.Category)product.Category,
+                    InStock = product.InStock
+                };
                 try { Dal._product.Update(productD); }
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(); }
             }
             else throw new InvalidDataException();
-        }//TODO check casting instead
+        }
     }
 }
 
