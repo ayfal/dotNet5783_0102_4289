@@ -38,4 +38,9 @@ public struct Product
     	Price: {Price}
     	Amount in stock: {InStock}
 ";
+
+    public static explicit operator Product(global::BO.Product v)
+    {
+        throw new NotImplementedException();
+    }
 }

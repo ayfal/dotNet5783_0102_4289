@@ -17,6 +17,6 @@ namespace BO
         public override string ToString() => $@"
         ID: {ID}
         Status {Status}
-        OrderDiary {OrderDiary}";
+        OrderDiary {OrderDiary}";//TODO this might need further stringing
     }
 }

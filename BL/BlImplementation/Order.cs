@@ -39,8 +39,8 @@ namespace BlImplementation
             try
             {
 
-            var orderB = new BO.Order();
-            orderB.ID = ID;
+                var orderB = new BO.Order();
+                orderB.ID = ID;
                 if (ID > 0)
                 {
                     var orderD = Dal._order.Get(ID);
@@ -62,20 +62,87 @@ namespace BlImplementation
                 throw new DO.ObjectNotFoundException();
             }
         }
-        public DO.Order UpdateDelivery(int ID)
+        public BO.Order UpdateShippping(int ID)
         {
-            var order = Dal._order.Get(ID);//TODO where to catch and throw the BL exception?
-            if (order.ShipDate != DateTime.MinValue && order.DeliveryDate==DateTime.MinValue)
+            try
             {
-                order.DeliveryDate = DateTime.Now;//TODO check if this updates the Dal entity too
-                //Dal._order.Get(ID).DeliveryDate = DateTime.Now;//this doesn't work
-                //the specs aren't clear about updating the data, they mention it twice
-                Dal._order.Update(order);//TODO where to catch and throw the BL exception?
-                return order;
+                var orderD = Dal._order.Get(ID);
+                if (orderD.ShipDate == DateTime.MinValue)
+                {
+                    orderD.ShipDate = DateTime.Now;
+                    var orderB = GetOrderDetails(ID);
+                    orderB.ShipDate = orderD.ShipDate;
+                    Dal._order.Update(orderD);
+                    return orderB;
+                }
+                else throw new BO.Exceptions.DoneAlreadyException();
+            }
+            catch (DO.ObjectNotFoundException)
+            {
+                throw new BO.Exceptions.ObjectNotFoundException();
             }
         }
-        public Order UpdateShippping(int ID);
-        public OrderTracking Track(int ID);
-        public void Update(Order order);
+        public BO.Order UpdateDelivery(int ID)
+        {
+            try
+            {
+                var orderD = Dal._order.Get(ID);
+                if (orderD.ShipDate == DateTime.MinValue) throw new BO.Exceptions.NotShippedYetException();
+                if (orderD.DeliveryDate == DateTime.MinValue)
+                {
+                    orderD.DeliveryDate = DateTime.Now;
+                    var orderB = GetOrderDetails(ID);
+                    orderB.DeliveryDate = orderD.DeliveryDate;
+                    Dal._order.Update(orderD);
+                    return orderB;
+                }
+                else throw new BO.Exceptions.DoneAlreadyException();
+            }
+            catch (DO.ObjectNotFoundException)
+            {
+                throw new BO.Exceptions.ObjectNotFoundException();
+            }
+        }
+        public OrderTracking Track(int ID)
+        {
+            try
+            {
+                var order = Dal._order.Get(ID);
+                OrderTracking orderTracking = new OrderTracking();
+                orderTracking.ID = order.ID;
+                orderTracking.Status = GetStatus(order);
+                orderTracking.OrderDiary.Add(order.OrderDate, BO.Enums.OrderStatus.Approved);//TODO if this outputs a number, then use toStirng, and change orderDiary def to string
+                if (order.ShipDate != DateTime.MinValue)
+                {
+                    orderTracking.OrderDiary.Add(order.ShipDate, BO.Enums.OrderStatus.Shipped);
+                    if (order.DeliveryDate != DateTime.MinValue) orderTracking.OrderDiary.Add(order.DeliveryDate, BO.Enums.OrderStatus.Delivered);
+                }
+                return orderTracking;
+            }
+            catch (DO.ObjectNotFoundException)
+            {
+                throw new BO.Exceptions.ObjectNotFoundException();
+            }
+        }
+        public void Update(int orderID, int productID, int newAmount)
+        {
+            try
+            {
+                var orderItem = Dal._orderItem.Get(productID, orderID);
+                var product = Dal._product.Get(productID);
+                if (product.InStock >= newAmount - orderItem.Amount)
+                {
+                    orderItem.Amount = newAmount;
+                    Dal._orderItem.Update(orderItem);
+                    product.InStock -= newAmount - orderItem.Amount;
+                    Dal._product.Update(product);
+                }
+                else throw new BO.Exceptions.insufficientStockException();
+            }
+            catch (DO.ObjectNotFoundException)
+            {
+                throw new BO.Exceptions.ObjectNotFoundException();
+            }
+        }
     }
 }

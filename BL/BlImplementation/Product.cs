@@ -112,7 +112,7 @@ namespace BlImplementation
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(); }
             }
             else throw new InvalidDataException();
-        }//TODO check casting instead
+        }
     }
 }
 
