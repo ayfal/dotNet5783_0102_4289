@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace BlImplementation
             try
             {
                 var item = cart.Items.First(p => p.ID == productID);
-                double difference = (amount - item.Amount);
+                int difference = amount - item.Amount;
                 if (Dal._product.Get(productID).InStock < difference) throw new BO.Exceptions.InsufficientStockException();
                 if (amount > 0)
                 {
@@ -81,17 +82,42 @@ namespace BlImplementation
             {
                 foreach (var item in cart.Items)
                 {
-                    if (Dal._product.Get(item.ID).InStock<item.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
-                    if (item.Amount <= 0 || customerName=="" || Email=="" || address=="") throw new InvalidDataException();
+                    if (Dal._product.Get(item.ID).InStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
+                    if (item.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
                     try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
+
                 }
             }
-            catch (Exception)
+            catch (DO.ObjectNotFoundException)
             {
-
-                throw;
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
+            }
+            DO.Order order = new DO.Order()
+            {
+                ID = 0,
+                CustomerName = customerName,
+                CustomerEmail = Email,
+                CustomerAddress = address,
+                OrderDate = DateTime.Now,
+                ShipDate = DateTime.MinValue,
+                DeliveryDate = DateTime.MinValue,
+            };
+            int orderID = Dal._order.Add(order);
+            foreach (var item in cart.Items)
+            {
+                DO.OrderItem orderItem = new DO.OrderItem()
+                {
+                    ID = 0,
+                    ProductID = item.ProductId,
+                    OrderID = orderID,
+                    Price = item.Price,
+                    Amount = item.Amount
+                };
+                Dal._orderItem.Add(orderItem);
+                int inStock = Dal._product.Get(item.ProductId).InStock;
+                if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
+                inStock -= item.Amount;
             }
         }
-
     }
 }
