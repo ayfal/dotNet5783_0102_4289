@@ -59,7 +59,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public BO.Order UpdateShippping(int ID)
@@ -79,7 +79,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public BO.Order UpdateDelivery(int ID)
@@ -100,7 +100,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public BO.OrderTracking Track(int ID)
@@ -123,7 +123,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException( new DO.ObjectNotFoundException());
             }
         }
         public BO.OrderItem Update(int orderID, int productID, int newAmount)
@@ -152,7 +152,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
     }

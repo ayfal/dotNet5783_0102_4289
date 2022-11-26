@@ -53,7 +53,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public BO.ProductItem GetProductDetails(int ID, BO.Cart cart)
@@ -78,7 +78,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException);
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public void Add(BO.Product product)
@@ -94,15 +94,15 @@ namespace BlImplementation
                     InStock = product.InStock
                 };
                 try { Dal._product.Add(productD); }
-                catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(DO.ObjectAlreadyExistsException); }
+                catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException()); }
             }
             else throw new InvalidDataException();
         }
         public void Delete(int ID)
         {
-            if (Dal._orderItem.Get().ToList().Exists(x => x.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(DO.ObjectAlreadyExistsException);
+            if (Dal._orderItem.Get().ToList().Exists(x => x.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
             try { Dal._product.Delete(ID); }
-            catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException); }
+            catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
         }
         public void Update(BO.Product product)
         {
@@ -117,7 +117,7 @@ namespace BlImplementation
                     InStock = product.InStock
                 };
                 try { Dal._product.Update(productD); }
-                catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException((DO.ObjectNotFoundException); }
+                catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
             }
             else throw new InvalidDataException();
         }

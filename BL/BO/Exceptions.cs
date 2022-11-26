@@ -11,12 +11,13 @@ namespace BO
         [Serializable]
         public class ObjectNotFoundException : Exception
         {
-            ObjectNotFoundException(Exception innerException) { }
+            public ObjectNotFoundException() { }
+            public ObjectNotFoundException(Exception innerException) { }           
         }
         [Serializable]
         public class ObjectAlreadyExistsException : Exception
         {
-            ObjectAlreadyExistsException(Exception innerException) { }
+            public ObjectAlreadyExistsException(Exception innerException) { }
         }
         [Serializable]
         public class DoneAlreadyException : Exception { }

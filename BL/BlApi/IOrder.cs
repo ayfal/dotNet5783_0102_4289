@@ -14,6 +14,6 @@ namespace BlApi
         public Order UpdateDelivery(int ID); 
         public Order UpdateShippping(int ID);
         public OrderTracking Track(int ID);
-        public void Update(int orderID, int productID, int newAmount);
+        public OrderItem Update(int orderID, int productID, int newAmount);
     }
 }
