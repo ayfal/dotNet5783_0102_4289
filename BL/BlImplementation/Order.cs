@@ -160,6 +160,8 @@ namespace BlImplementation
                     Dal._orderItem.Update(orderItem);
                     product.InStock -= newAmount - orderItem.Amount;
                     Dal._product.Update(product);
+                    orderItem = Dal._orderItem.Get(productID, orderID);
+                    product = Dal._product.Get(productID);
                     return new BO.OrderItem()
                     {
                         ID = orderItem.ID,

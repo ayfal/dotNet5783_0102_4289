@@ -19,7 +19,21 @@ namespace BlApi
         /// <param name="productID"></param>
         /// <returns></returns>
         public Cart AddProduct(Cart cart, int productID);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productID"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public Cart UpdateAmount(Cart cart, int productID, int amount);
-        public void Checkout(Cart cart, string customerName, string Email, string address);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="customerName"></param>
+        /// <param name="Email"></param>
+        /// <param name="address"></param>
+        public BO.Order Checkout(Cart cart, string customerName, string Email, string address);
     }
 }

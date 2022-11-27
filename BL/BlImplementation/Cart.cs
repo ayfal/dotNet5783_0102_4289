@@ -114,7 +114,6 @@ namespace BlImplementation
                     if (Dal._product.Get(item.ProductId).InStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
                     if (item.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
                     try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
-
                 }
             }
             catch (DO.ObjectNotFoundException)
@@ -147,6 +146,8 @@ namespace BlImplementation
                 if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
                 inStock -= item.Amount;
             }
+            BlImplementation.Order orderb = new BlImplementation.Order();
+            return orderb.GetOrderDetails(orderID);
         }
     }
 }
