@@ -25,7 +25,7 @@ namespace BlImplementation
                     item.Amount++;//TODO check if this updates the item in the list in the cart
                     item.TotalPrice += product.Price;
                 }
-                catch (ArgumentNullException)
+                catch
                 {
                     item = new BO.OrderItem()
                     {
