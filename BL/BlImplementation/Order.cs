@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BlApi;
 using Dal;
 
@@ -15,10 +17,29 @@ namespace BlImplementation
         {
             return order.ShipDate == DateTime.MinValue ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == DateTime.MinValue ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
         }
+
+        private List<BO.OrderItem> GetLogicItems(IEnumerable<DO.OrderItem> listD)
+        {
+            List<BO.OrderItem> listB=new List<BO.OrderItem>();
+            foreach (DO.OrderItem item in listD)
+            {
+                BO.OrderItem orderItem = new BO.OrderItem()
+                {
+                    ID = item.ID,
+                    ProductId = item.ProductID,
+                    Name = Dal._product.Get(item.ProductID).Name,
+                    Price = item.Price,
+                    Amount = item.Amount,
+                    TotalPrice = item.Amount * item.Price
+                };
+                listB.Add(orderItem);
+            }
+            return listB;
+        }
         public IEnumerable<BO.OrderForList> Get()
         {
             var orders = Dal._order.Get();
-            IEnumerable<BO.OrderForList> ordersList = new List<BO.OrderForList>();
+            var ordersList = new List<BO.OrderForList>();
             foreach (var order in orders)
             {
                 BO.OrderForList orderForList = new BO.OrderForList()
@@ -29,7 +50,7 @@ namespace BlImplementation
                     AmountOfItems = Dal._orderItem.GetOrderItems(order.ID).Count(),
                     TotalPrice = Dal._orderItem.GetOrderItems(order.ID).Sum(x => x.Price)
                 };
-                ordersList.Append(orderForList);
+                ordersList.Add(orderForList);
             }
             return ordersList;
         }
@@ -50,7 +71,7 @@ namespace BlImplementation
                         OrderDate = orderD.OrderDate,
                         ShipDate = orderD.ShipDate,
                         DeliveryDate = orderD.DeliveryDate,
-                        Items = (List<BO.OrderItem>)Dal._orderItem.GetOrderItems(orderD.ID),
+                        Items = GetLogicItems(Dal._orderItem.GetOrderItems(orderD.ID)),
                         TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price)
                     };
                     return orderB;
@@ -111,7 +132,8 @@ namespace BlImplementation
                 BO.OrderTracking orderTracking = new BO.OrderTracking()
                 {
                     ID = order.ID,
-                    Status = GetStatus(order)
+                    Status = GetStatus(order),
+                    OrderDiary = new Dictionary<DateTime, BO.Enums.OrderStatus>()
                 };
                 orderTracking.OrderDiary.Add(order.OrderDate, BO.Enums.OrderStatus.Approved);//TODO if this outputs a number, then use toStirng, and change orderDiary def to string
                 if (order.ShipDate != DateTime.MinValue)
@@ -123,7 +145,7 @@ namespace BlImplementation
             }
             catch (DO.ObjectNotFoundException)
             {
-                throw new BO.Exceptions.ObjectNotFoundException( new DO.ObjectNotFoundException());
+                throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
         public BO.OrderItem Update(int orderID, int productID, int newAmount)

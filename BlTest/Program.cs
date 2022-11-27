@@ -163,11 +163,11 @@ namespace BlTest
                     case 'e':
                         int orderID, productID, newAmount;
                         Console.Write("Please insert an order ID: ");
-                        if (!(int.TryParse(Console.ReadLine(), out orderID) && integer > 0)) throw new InvalidDataException();
+                        if (!(int.TryParse(Console.ReadLine(), out orderID) && orderID > 0)) throw new InvalidDataException();
                         Order order = bl._order.GetOrderDetails(orderID);
                         Console.WriteLine(order);
                         Console.Write("Please insert a product ID: ");
-                        if (!(int.TryParse(Console.ReadLine(), out productID) && integer >= 100000)) throw new InvalidDataException();
+                        if (!(int.TryParse(Console.ReadLine(), out productID) && productID >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out newAmount) && integer >= 0)) throw new InvalidDataException();
                         bl._order.Update(orderID, productID, newAmount);
