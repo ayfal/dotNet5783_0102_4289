@@ -29,7 +29,6 @@ namespace BlTest
                     "d. get all products\n" +
                     "e. update a product\n" +
                     "f. delete a product");
-                public void Delete(int ID);
                 bool success = char.TryParse(Console.ReadLine(), out option);
                 switch (option)//TODO eliminate needless repetition with functions
                 {
@@ -45,7 +44,7 @@ namespace BlTest
                         else throw new InvalidDataException();
                         Console.Write("Category Number: ");
                         if (int.TryParse(Console.ReadLine(), out integer) && Enum.IsDefined(typeof(Enums.Category), integer)) newProduct.Category = (Enums.Category)integer;
-                        else throw new InvalidDataException;
+                        else throw new InvalidDataException();
                         Console.Write("Price: ");
                         if (double.TryParse(Console.ReadLine(), out dbl)) newProduct.Price = dbl;
                         else throw new InvalidDataException();
