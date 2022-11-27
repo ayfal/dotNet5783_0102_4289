@@ -170,7 +170,7 @@ namespace BlTest
                         if (!(int.TryParse(Console.ReadLine(), out productID) && productID >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out newAmount) && integer >= 0)) throw new InvalidDataException();
-                        bl._order.Update(orderID, productID, newAmount);
+                        Console.WriteLine(bl._order.Update(orderID, productID, newAmount));
                         break;
                     case 'f':
                         Console.Write("Please insert an ID: ");
@@ -206,7 +206,7 @@ namespace BlTest
                     case 'a':
                         Console.Write("Please insert a product ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        bl._cart.AddProduct(demoCart, integer);
+                        Console.WriteLine(bl._cart.AddProduct(demoCart, integer));
                         break;
                     case 'b':
                         int productID, amount;
@@ -214,11 +214,11 @@ namespace BlTest
                         if (!(int.TryParse(Console.ReadLine(), out productID) && integer >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out amount) && integer >= 0)) throw new InvalidDataException();
-                        bl._cart.UpdateAmount(demoCart, productID, amount);
+                        Console.WriteLine(bl._cart.UpdateAmount(demoCart, productID, amount));
                         break;
                     case 'c':
                         Console.WriteLine("Please enter customer's name, Email and address (separeated with the Enter key)");
-                        bl._cart.Checkout(demoCart, Console.ReadLine(), Console.ReadLine(), Console.ReadLine());
+                        Console.WriteLine(bl._cart.Checkout(demoCart, Console.ReadLine(), Console.ReadLine(), Console.ReadLine()));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
