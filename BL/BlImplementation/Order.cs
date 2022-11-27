@@ -62,7 +62,7 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
-        public BO.Order UpdateShippping(int ID)
+        public BO.Order UpdateShipping(int ID)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace BlImplementation
                         Name = product.Name,
                         Price = orderItem.Price,
                         Amount = orderItem.Amount,
-                        TotalPrice = orderItem.Price * newAmount
+                        TotalPrice = orderItem.Price * orderItem.Amount
                     };
                 }
                 else throw new BO.Exceptions.InsufficientStockException();

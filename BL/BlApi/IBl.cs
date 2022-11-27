@@ -9,8 +9,8 @@ namespace BlApi
     //TODO this is not like nurit's wiki. check the specs
     public interface IBl
     {
-        ICart cart { get; }
-        IOrder Order { get; }
-        IProduct product { get; }
+        ICart _cart { get; }
+        IOrder _order { get; }
+        IProduct _product { get; }
     }
 }
