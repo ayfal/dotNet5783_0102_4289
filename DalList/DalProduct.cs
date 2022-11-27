@@ -21,12 +21,9 @@ public class DalProduct : IProduct
 
     public void Update(Product product)
     {
-        var obj = Get(product.ID);
-        obj = product;//TODO check if this updates the object inside the list
-        //for (int i = 0; i < Config.products; i++)
-        //{
-        //    if (products[i].ID == pro.ID) products[i] = pro;
-        //}
+        var index = products.FindIndex(x=>x.ID==product.ID);
+        if (index == -1) throw new ObjectNotFoundException();
+        products[index] = product;
     }
 
     public Product Get(int ID)

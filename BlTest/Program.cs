@@ -15,7 +15,7 @@ namespace BlTest
         static DateTime date;
         static string s;
         static IBl bl = new Bl();
-        static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address" };
+        static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>() };
 
         static void ProductsSubMenu()
         {
@@ -23,6 +23,7 @@ namespace BlTest
             {
                 char option;
                 Console.WriteLine("Please choose one of the following options:\n" +
+                    "0. return to main menu\n" + 
                     "a. add a product\n" +
                     "b. get a product (manager screen)\n" +
                     "c. get a product (client screen)\n" +
@@ -32,6 +33,8 @@ namespace BlTest
                 bool success = char.TryParse(Console.ReadLine(), out option);
                 switch (option)//TODO eliminate needless repetition with functions
                 {
+                    case '0':
+                        return;
                     case 'a':
                         Product newProduct = new Product();
                         Console.WriteLine("please enter the following details:");
@@ -124,6 +127,7 @@ namespace BlTest
             {
                 char option;
                 Console.WriteLine("Please choose one of the following options:\n" +
+                    "0. return to main menu\n" +
                     "a. get all orders\n" +
                     "b. get an order\n" +
                     "c. report shipping\n" +
@@ -133,6 +137,8 @@ namespace BlTest
                 bool success = char.TryParse(Console.ReadLine(), out option);
                 switch (option)//TODO eliminate needless repetition with functions
                 {
+                    case '0':
+                        return;
                     case 'a':
                         foreach (var o in bl._order.Get())
                         {
@@ -153,7 +159,7 @@ namespace BlTest
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
                         Console.WriteLine(bl._order.UpdateDelivery(integer));
-                        break ;
+                        break;
                     case 'e':
                         int orderID, productID, newAmount;
                         Console.Write("Please insert an order ID: ");
@@ -164,12 +170,12 @@ namespace BlTest
                         if (!(int.TryParse(Console.ReadLine(), out productID) && integer >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out newAmount) && integer >= 0)) throw new InvalidDataException();
-                        bl._order.Update(orderID,productID,newAmount);
+                        bl._order.Update(orderID, productID, newAmount);
                         break;
                     case 'f':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.Track(integer));                       
+                        Console.WriteLine(bl._order.Track(integer));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -188,102 +194,31 @@ namespace BlTest
             {
                 char option;
                 Console.WriteLine("Please choose one of the following options:\n" +
-                    "a. add an order item\n" +
-                    "b. get an order item\n" +
-                    "c. get all order items\n" +
-                    "d. update an order item\n" +
-                    "e. delete an order item\n" +
-                    "f. get order item by product ID and order ID\n" +
-                    "g. get order items by order ID");
+                    "0. return to main menu\n" + 
+                    "a. add a product\n" +
+                    "b. update amount\n" +
+                    "c. checkout\n");
                 bool success = char.TryParse(Console.ReadLine(), out option);
                 switch (option)//TODO eliminate needless repetition with functions
                 {
+                    case '0':
+                        return;
                     case 'a':
-                        OrderItem newOrderItem = new OrderItem();
-                        Console.WriteLine("please enter the following details:");
-                        Console.Write("Product ID: ");
-                        if (int.TryParse(Console.ReadLine(), out integer)) newOrderItem.ProductID = integer;
-                        else throw new Exception("Not a valid ID");
-                        Console.Write("Order ID: ");
-                        if (int.TryParse(Console.ReadLine(), out integer)) newOrderItem.OrderID = integer;
-                        else throw new Exception("Not a valid ID");
-                        Console.Write("Price: ");
-                        if (double.TryParse(Console.ReadLine(), out dbl)) newOrderItem.Price = dbl;
-                        else throw new Exception("Not a valid Price");
-                        Console.Write("Amount of product: ");
-                        if (int.TryParse(Console.ReadLine(), out integer)) newOrderItem.Amount = integer;
-                        else throw new Exception("Not a valid amount"); Console.Write("Customer name: ");
-                        idal._orderItem.Add(newOrderItem);
+                        Console.Write("Please insert a product ID: ");
+                        if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
+                        bl._cart.AddProduct(demoCart, integer);
                         break;
                     case 'b':
-                        do
-                        {
-                            Console.Write("Please insert an ID: ");
-                        } while (!int.TryParse(Console.ReadLine(), out integer));
-                        Console.WriteLine(idal._orderItem.Get(integer));
+                        int productID, amount;
+                        Console.Write("Please insert a product ID: ");
+                        if (!(int.TryParse(Console.ReadLine(), out productID) && integer >= 100000)) throw new InvalidDataException();
+                        Console.Write("Please insert a new amount: ");
+                        if (!(int.TryParse(Console.ReadLine(), out amount) && integer >= 0)) throw new InvalidDataException();
+                        bl._cart.UpdateAmount(demoCart, productID, amount);
                         break;
                     case 'c':
-                        foreach (var o in idal._orderItem.Get())
-                        {
-                            Console.WriteLine(o);
-                        }
-                        break;
-                    case 'd':
-                        do
-                        {
-                            Console.Write("Please insert an ID: ");
-                        } while (!int.TryParse(Console.ReadLine(), out integer));
-                        OrderItem orderItem = idal._orderItem.Get(integer);
-                        Console.WriteLine(orderItem);
-                        Console.WriteLine("please enter the following details:\n" +
-                            "insert values only in details you want to change");
-                        Console.Write("Product ID: ");
-                        s = Console.ReadLine();
-                        if (s != "")
-                        {
-                            if (int.TryParse(s, out integer)) orderItem.ProductID = integer;
-                            else throw new Exception("Not a valid ID");
-                        }
-                        Console.Write("Order ID: ");
-                        s = Console.ReadLine();
-                        if (s != "")
-                        {
-                            if (int.TryParse(s, out integer)) orderItem.OrderID = integer;
-                            else throw new Exception("Not a valid ID");
-                        }
-                        Console.Write("Price: ");
-                        s = Console.ReadLine();
-                        if (s != "")
-                        {
-                            if (double.TryParse(s, out dbl)) orderItem.Price = dbl;
-                            else throw new Exception("Not a valid Price");
-                        }
-                        Console.Write("Amount in stock: ");
-                        s = Console.ReadLine();
-                        if (s != "")
-                        {
-                            if (int.TryParse(s, out integer)) orderItem.Amount = integer;
-                            else throw new Exception("Not a valid amount");
-                        }
-                        idal._orderItem.Update(orderItem);
-                        break;
-                    case 'e':
-                        do
-                        {
-                            Console.Write("Please insert an ID: ");
-                        } while (!int.TryParse(Console.ReadLine(), out integer));
-                        idal._orderItem.Delete(integer);
-                        break;
-                    case 'f':
-                        Console.WriteLine("Please insert order ID press enter and then product ID");
-                        int oID, pID;
-                        if (!int.TryParse(Console.ReadLine(), out oID) || !int.TryParse(Console.ReadLine(), out pID)) throw new Exception("Not a valid ID");
-                        Console.WriteLine(idal._orderItem.Get(pID, oID));
-                        break;
-                    case 'g':
-                        Console.WriteLine("Please insert order ID:");
-                        if (!int.TryParse(Console.ReadLine(), out integer)) throw new Exception("Not a valid ID");
-                        Console.WriteLine(idal._orderItem.Get(integer));
+                        Console.WriteLine("Please enter customer's name, Email and address (separeated with the Enter key)");
+                        bl._cart.Checkout(demoCart, Console.ReadLine(), Console.ReadLine(), Console.ReadLine());
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -299,33 +234,39 @@ namespace BlTest
         {
             int option;
             bool success;
-            do
+            try
             {
-                Console.WriteLine("Welcome to the test menu!\n" +//TODO menues should use enums
-                    "Please choose one of the following options:\n" +
-                    "0. Exit\n" +
-                    "1. Check Products\n" +
-                    "2. Check Carts\n" +
-                    "3. Check Orders");
-                success = int.TryParse(Console.ReadLine(), out option);
-                switch (option)
+                do
                 {
-                    case 1:
-                        ProductsSubMenu();
-                        break;
-                    case 2:
-                        CartsSubMenu();
-                        break;
-                    case 3:
-                        OrdersSubMenu();
-                        break;
-                    default:
-                        if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
-                        break;
-                }
-            } while (!(success && option == 0));
+                    Console.WriteLine("Welcome to the test menu!\n" +//TODO menues should use enums
+                        "Please choose one of the following options:\n" +
+                        "0. Exit\n" +
+                        "1. Check Products\n" +
+                        "2. Check Carts\n" +
+                        "3. Check Orders");
+                    success = int.TryParse(Console.ReadLine(), out option);
+                    switch (option)
+                    {
+                        case 1:
+                            ProductsSubMenu();
+                            break;
+                        case 2:
+                            CartsSubMenu();
+                            break;
+                        case 3:
+                            OrdersSubMenu();
+                            break;
+                        default:
+                            if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
+                            break;
+                    }
+                } while (!(success && option == 0));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
         }
     }
-
 }

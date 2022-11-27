@@ -15,8 +15,8 @@ namespace BO
         public DO.Enums.Category Category { get; set; }
         public override string ToString() => $@"
         ID: {ID}
-        Name {Name}
-        Price {Price}
-        Category {Category}";
+        Name: {Name}
+        Price: {Price}
+        Category: {Category}";
     }
 }

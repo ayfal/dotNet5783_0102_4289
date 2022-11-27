@@ -18,12 +18,9 @@ public class DalOrder : IOrder
     }
     public void Update(Order order)
     {
-        var obj = Get(order.ID);
-        obj = order;//TODO check if this updates the object inside the list
-        //for (int i = 0; i < Config.products; i++)
-        //{
-        //    if (products[i].ID == pro.ID) products[i] = pro;
-        //}
+        var index = orders.FindIndex(x => x.ID == order.ID);
+        if (index == -1) throw new ObjectNotFoundException();
+        orders[index] = order;
     }
     public Order Get(int ID)
     {

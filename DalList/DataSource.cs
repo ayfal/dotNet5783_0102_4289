@@ -13,9 +13,9 @@ internal static class DataSource
     }
     static DataSource() { s_Initialize(); }//TODO static class shouldn't have a constructor
     static readonly Random rnd = new Random();
-    internal static List<Order> orders;
-    internal static List<Product> products;
-    internal static List<OrderItem> orderItems;
+    internal static List<Order> orders=new List<Order>();
+    internal static List<Product> products=new List<Product>();
+    internal static List<OrderItem> orderItems=new List<OrderItem>();
     static void InitializeOrders()
     {
         for (int i = 0; i < 20; i++)

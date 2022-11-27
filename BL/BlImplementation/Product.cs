@@ -15,7 +15,7 @@ namespace BlImplementation
         public IEnumerable<BO.ProductForList> GetProductsList()
         {
             var products = Dal._product.Get();
-            IEnumerable<BO.ProductForList> list = new List<BO.ProductForList>();
+            var list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
                 BO.ProductForList listItem = new BO.ProductForList()
@@ -25,7 +25,7 @@ namespace BlImplementation
                     Price = product.Price,
                     Category = product.Category
                 };
-                list.Append(listItem);
+                list.Add(listItem);
             }
             return list;
         }
