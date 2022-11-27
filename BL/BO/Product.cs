@@ -9,10 +9,25 @@ namespace BO
 {
     public class Product
     {
+        /// <summary>
+        /// the product's ID
+        /// </summary>
         public int ID { get; set; } 
+        /// <summary>
+        /// the product's name
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// the product's price
+        /// </summary>
         public double Price { get; set; }
+        /// <summary>
+        /// the product's category
+        /// </summary>
         public Enums.Category Category { get; set; }
+        /// <summary>
+        /// the product's amount in the stock
+        /// </summary>
         public int InStock { get; set; }
 
         public override string ToString() => $@"

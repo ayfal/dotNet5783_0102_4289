@@ -10,12 +10,16 @@ namespace BlApi
 {
     public interface IProduct
     {
+        /// <summary>
+        /// handles the products
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ProductForList> GetProductsList();
         public Product GetProdcutDetails(int ID);
         public ProductItem GetProductDetails(int ID, Cart cart);
-        public void Add(Product product);
-        public void Delete(int ID);
-        public void Update(Product product);
+        public Product Add(Product product);
+        public IEnumerable<ProductForList> Delete(int ID);
+        public Product Update(Product product);
 
 
     }

@@ -12,6 +12,14 @@ namespace BlImplementation
     internal class Cart : BlApi.ICart
     {
         private DalApi.IDal Dal = new DalList();
+        /// <summary>
+        /// add a product to the cart
+        /// </summary>
+        /// <param name="cart">the shopping cart</param>
+        /// <param name="productID">the product's ID</param>
+        /// <returns>the updated cart</returns>
+        /// <exception cref="BO.Exceptions.InsufficientStockException"></exception>
+        /// <exception cref="BO.Exceptions.ObjectNotFoundException"></exception>
         public BO.Cart AddProduct(BO.Cart cart, int productID)
         {
             try
@@ -46,6 +54,16 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
+        /// <summary>
+        /// updates the amount of a product in the cart
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productID"></param>
+        /// <param name="amount">the new amount</param>
+        /// <returns>the updated cart</returns>
+        /// <exception cref="InvalidDataException"></exception>
+        /// <exception cref="BO.Exceptions.InsufficientStockException"></exception>
+        /// <exception cref="BO.Exceptions.ObjectNotFoundException"></exception>
         public BO.Cart UpdateAmount(BO.Cart cart, int productID, int amount)
         {
             if (amount < 0) throw new InvalidDataException();
@@ -76,7 +94,18 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
-        public void Checkout(BO.Cart cart, string customerName, string Email, string address)
+        /// <summary>
+        /// checkout and make and order
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="customerName"></param>
+        /// <param name="Email"></param>
+        /// <param name="address"></param>
+        /// <returns>the order made from cart</returns>
+        /// <exception cref="BO.Exceptions.InsufficientStockException"></exception>
+        /// <exception cref="InvalidDataException"></exception>
+        /// <exception cref="BO.Exceptions.ObjectNotFoundException"></exception>
+        public BO.Order Checkout(BO.Cart cart, string customerName, string Email, string address)
         {
             try
             {

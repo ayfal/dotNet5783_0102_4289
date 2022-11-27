@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
+using BO;
 using Dal;
 
 
@@ -81,7 +82,7 @@ namespace BlImplementation
                 throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException());
             }
         }
-        public void Add(BO.Product product)
+        public BO.Product Add(BO.Product product)
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
@@ -95,16 +96,19 @@ namespace BlImplementation
                 };
                 try { Dal._product.Add(productD); }
                 catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException()); }
+                return GetProdcutDetails(product.ID);
             }
             else throw new InvalidDataException();
         }
-        public void Delete(int ID)
+        public IEnumerable<ProductForList> Delete(int ID)
         {
             if (Dal._orderItem.Get().ToList().Exists(x => x.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
             try { Dal._product.Delete(ID); }
             catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
+            return GetProductsList();
         }
-        public void Update(BO.Product product)
+
+        public BO.Product Update(BO.Product product)
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
@@ -118,6 +122,7 @@ namespace BlImplementation
                 };
                 try { Dal._product.Update(productD); }
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
+                return GetProdcutDetails(product.ID);
             }
             else throw new InvalidDataException();
         }

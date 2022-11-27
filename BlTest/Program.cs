@@ -12,7 +12,7 @@ namespace BlTest
     {
         static int integer;
         static double dbl;
-        static DateTime date;
+        //static DateTime date;
         static string s;
         static IBl bl = new Bl();
         static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>() };
@@ -54,7 +54,7 @@ namespace BlTest
                         Console.Write("Amount in stock: ");
                         if (int.TryParse(Console.ReadLine(), out integer)) newProduct.InStock = integer;
                         else throw new InvalidDataException();
-                        bl._product.Add(newProduct);
+                        Console.WriteLine(bl._product.Add(newProduct));
                         break;
                     case 'b':
                         Console.Write("Please insert an ID: ");
@@ -103,12 +103,12 @@ namespace BlTest
                             if (int.TryParse(s, out integer)) product.InStock = integer;
                             else throw new InvalidDataException();
                         }
-                        bl._product.Update(product);
+                        Console.WriteLine(bl._product.Update(product));
                         break;
                     case 'f':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        bl._product.Delete(integer);
+                        Console.WriteLine(bl._product.Delete(integer));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");

@@ -8,6 +8,9 @@ namespace BO
 {
     public class Enums
     {
+        /// <summary>
+        /// the categories in the store
+        /// </summary>
         public enum Category
         {
             Sages,
@@ -17,6 +20,9 @@ namespace BO
             Mussar,
             Hassidut
         }
+        /// <summary>
+        /// the order's status options
+        /// </summary>
         public enum OrderStatus
         {
             Approved,
