@@ -13,9 +13,9 @@ internal static class DataSource
     }
     static DataSource() { s_Initialize(); }//TODO static class shouldn't have a constructor
     static readonly Random rnd = new Random();
-    internal static List<Order> orders=new List<Order>();
-    internal static List<Product> products=new List<Product>();
-    internal static List<OrderItem> orderItems=new List<OrderItem>();
+    internal static List<Order?> orders = new List<Order?>();
+    internal static List<Product?> products = new List<Product?>();
+    internal static List<OrderItem?> orderItems = new List<OrderItem?>();
     static void InitializeOrders()
     {
         for (int i = 0; i < 20; i++)
@@ -39,27 +39,27 @@ internal static class DataSource
             };
             orders.Add(order);
         }
-        for (int i = 0; i < 20*0.8; i++)
+        for (int i = 0; i < 20 * 0.8; i++)
         {
-            var order = orders[i];
-            order.ShipDate = orders[i].OrderDate.AddHours(rnd.Next(1, 4));
+            Order order = orders[i] ?? throw new NullReferenceException();
+            order.ShipDate = orders[i]?.OrderDate?.AddHours(rnd.Next(1, 4));
             orders[i] = order;
         }
-        for (int i = 0; i < 20 * 0.8*0.6; i++)
+        for (int i = 0; i < 20 * 0.8 * 0.6; i++)
         {
-            var order = orders[i];
-            order.DeliveryDate = orders[i].ShipDate.AddDays(rnd.Next(3, 6));
+            Order order = orders[i] ?? throw new NullReferenceException();
+            order.DeliveryDate = orders[i]?.ShipDate?.AddDays(rnd.Next(3, 6));
             orders[i] = order;
         }
-    //}
+        //}
     }
     static void InitializeProducts()
     {
         int id;
         for (int i = 0; i < 10; i++)
         {
-            do id = rnd.Next(100000, 1000000); 
-            while (products.Exists(p => p.ID == id));//validate uniqueness
+            do id = rnd.Next(100000, 1000000);
+            while (products.Exists(p => p.Value.ID == id));//validate uniqueness
             Product product = new Product
             {
                 ID = id,
@@ -70,7 +70,7 @@ internal static class DataSource
             };
             products.Add(product);
         }
-        var outOfStockProduct = products[9];
+        Product outOfStockProduct = products[9] ?? throw new NullReferenceException();
         outOfStockProduct.InStock = 0;//one product is out of stock
         products[9] = outOfStockProduct;
     }
@@ -81,9 +81,9 @@ internal static class DataSource
             OrderItem orderItem = new OrderItem
             {
                 ID = Config.orderItemId,
-                ProductID = products[i % 9].ID,//TODO check if a product is ordered twice
-                OrderID = orders[i % 20].ID,
-                Price = products[i % 9].Price,
+                ProductID = products[i % 9].Value.ID,//TODO check if a product is ordered twice
+                OrderID = orders[i % 20].Value.ID,
+                Price = products[i % 9].Value.Price,
                 Amount = 1 + i % 4
             };
             orderItems.Add(orderItem);
