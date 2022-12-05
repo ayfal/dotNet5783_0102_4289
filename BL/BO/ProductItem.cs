@@ -16,7 +16,7 @@ namespace BO
         /// <summary>
         /// the product's name
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// the product's price
         /// </summary>
@@ -24,7 +24,7 @@ namespace BO
         /// <summary>
         /// the product's category
         /// </summary>
-        public DO.Enums.Category Category { get; set; }
+        public DO.Enums.Category? Category { get; set; }
         /// <summary>
         /// is the product in stock
         /// </summary>

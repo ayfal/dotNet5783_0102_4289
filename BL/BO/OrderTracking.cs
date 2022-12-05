@@ -19,11 +19,11 @@ namespace BO
         /// <summary>
         /// the order's status
         /// </summary>
-        public Enums.OrderStatus Status { get; set; }
+        public Enums.OrderStatus? Status { get; set; }
         /// <summary>
         /// the order's diary. lists all events and their date
         /// </summary>
-        public Dictionary<DateTime, Enums.OrderStatus> OrderDiary { get; set; }
+        public Dictionary<DateTime, Enums.OrderStatus?>? OrderDiary { get; set; }
         public override string ToString() => $@"
 ID: {ID}
 Status: {Status}

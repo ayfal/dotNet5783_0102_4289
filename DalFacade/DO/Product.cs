@@ -12,7 +12,7 @@ public struct Product
     /// <summary>
     /// Unique Name for
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Unique Price for
@@ -22,7 +22,7 @@ public struct Product
     /// <summary>
     /// Unique Category for
     /// </summary>
-    public Enums.Category Category { get; set; }
+    public Enums.Category? Category { get; set; }
 
     /// <summary>
     /// Unique InStock for
