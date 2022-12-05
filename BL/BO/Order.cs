@@ -16,35 +16,35 @@ namespace BO
         /// <summary>
         /// the customer's name
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// the customer's Email
         /// </summary>
-        public string CustomerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
         /// <summary>
         /// the customer's address
         /// </summary>
-        public string CustomerAddress { get; set; }
+        public string? CustomerAddress { get; set; }
         /// <summary>
         /// the order's status
         /// </summary>
-        public Enums.OrderStatus Status { get; set; }
+        public Enums.OrderStatus? Status { get; set; }
         /// <summary>
         /// the order's date
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
         /// <summary>
         /// the shipping's date
         /// </summary>
-        public DateTime ShipDate { get; set; }
+        public DateTime? ShipDate { get; set; }
         /// <summary>
         /// the delivery's date
         /// </summary>
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         /// <summary>
         /// a list of all the products in the order
         /// </summary>
-        public List<OrderItem> Items { get; set; }
+        public List<OrderItem?>? Items { get; set; }
         /// <summary>
         /// the order's total price
         /// </summary>
