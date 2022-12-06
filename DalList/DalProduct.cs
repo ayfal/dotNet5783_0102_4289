@@ -26,14 +26,15 @@ public class DalProduct : IProduct
         products[index] = product;
     }
 
-    public Product Get(int ID)
+    public Product? Get(int ID)
     {
-        try { return products.First(o => o.ID == ID); }
+        try { return products.First(o => o?.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public IEnumerable<Product> Get()
+    public IEnumerable<Product?> Get(Func<Product?, bool>? f = null)
     {
-        return products.Where(i => i.ID != 0);
+        if (f==null) return products.Where(i => i?.ID != 0);
+        return products.Where(i => f(i));
     }
 }
 
