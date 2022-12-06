@@ -28,6 +28,6 @@ namespace BO
 ID: {ID}
 Status: {Status}
 OrderDiary:
-{string.Join(Environment.NewLine, OrderDiary)}";//TODO this might need further stringing
+{string.Join(Environment.NewLine, OrderDiary!)}";//TODO this might need further stringing
     }
 }

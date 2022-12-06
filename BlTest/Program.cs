@@ -15,7 +15,7 @@ namespace BlTest
         //static DateTime date;
         static string s;
         static IBl bl = new Bl();
-        static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>() };
+        static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>()! };
 
         static void ProductsSubMenu()
         {

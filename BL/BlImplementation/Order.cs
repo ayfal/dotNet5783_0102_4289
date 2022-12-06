@@ -46,9 +46,9 @@ namespace BlImplementation
                 {
                     ID = order?.ID ?? throw new NullReferenceException(),
                     CustomerName = order?.CustomerName,
-                    Status = GetStatus((DO.Order)order),
-                    AmountOfItems = Dal._orderItem.GetOrderItems(order?.ID).Count(),
-                    TotalPrice = Dal._orderItem.GetOrderItems(order.ID).Sum(x => x.Price)
+                    Status = GetStatus((DO.Order)order!),
+                    AmountOfItems = Dal._orderItem.GetOrderItems((int)(order?.ID!)).Count(),
+                    TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
                 };
                 ordersList.Add(orderForList);
             }
@@ -67,12 +67,12 @@ namespace BlImplementation
                         CustomerName = orderD?.CustomerName,
                         CustomerEmail = orderD?.CustomerEmail,
                         CustomerAddress = orderD?.CustomerAddress,
-                        Status = GetStatus(orderD),
+                        Status = GetStatus((DO.Order)orderD!),
                         OrderDate = orderD?.OrderDate,
                         ShipDate = orderD?.ShipDate,
                         DeliveryDate = orderD?.DeliveryDate,
-                        Items = GetLogicItems(Dal._orderItem.GetOrderItems(orderD.ID)),
-                        TotalPrice = Dal._orderItem.GetOrderItems(orderD.ID).Sum(x => x.Price)
+                        Items = GetLogicItems((IEnumerable<DO.OrderItem>)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)))!,
+                        TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
                     };
                     return orderB;
                 }
@@ -133,7 +133,7 @@ namespace BlImplementation
                 {
                     ID = order?.ID ?? throw new NullReferenceException(),
                     Status = GetStatus(order ?? throw new NullReferenceException()),
-                    OrderDiary = new Dictionary<DateTime, BO.Enums.OrderStatus>()
+                    OrderDiary = new Dictionary<DateTime, BO.Enums.OrderStatus>() 
                 };
                 orderTracking.OrderDiary.Add(order?.OrderDate ?? throw new NullReferenceException(), BO.Enums.OrderStatus.Approved);//TODO if this outputs a number, then use toStirng, and change orderDiary def to string
                 if (order?.ShipDate != DateTime.MinValue)
@@ -157,7 +157,7 @@ namespace BlImplementation
                 if (product?.InStock >= newAmount - orderItem?.Amount)
                 {
                     orderItem.Amount = newAmount;
-                    Dal._orderItem.Update(orderItem ?? throw new NullReferenceException());
+                    Dal._orderItem.Update((DO.OrderItem)orderItem!);
                     product.InStock -= newAmount - orderItem?.Amount;
                     Dal._product.Update(product ?? throw new NullReferenceException());
                     orderItem = Dal._orderItem.Get(productID, orderID);
