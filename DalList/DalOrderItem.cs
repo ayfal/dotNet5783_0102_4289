@@ -19,29 +19,30 @@ public class DalOrderItem : IOrderItem
     }
     public void Update(OrderItem orderItem)
     {
-        var index = orderItems.FindIndex(x => x.ID == orderItem.ID);
+        var index = orderItems.FindIndex(x => x?.ID == orderItem.ID);
         if (index == -1) throw new ObjectNotFoundException();
         orderItems[index] = orderItem;
     }
-    public OrderItem Get(int ID)
+    public OrderItem? Get(int ID)
     {
-        try { return orderItems.First(oi => oi.ID == ID); }
+        try { return orderItems.First(oi => oi?.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public IEnumerable<OrderItem> Get()
+    public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? f = null)
     {
-        return orderItems.Where(i => i.ID != 0);
+        if (f==null) return orderItems.Where(i => i?.ID != 0);
+        return orderItems.Where(i => f(i));
     }
 
-    public OrderItem Get(int productID, int orderID)
+    public OrderItem? Get(int productID, int orderID)
     {
-        try { return orderItems.First(oi => oi.ProductID == productID && oi.OrderID == orderID); }
+        try { return orderItems.First(oi => oi?.ProductID == productID && oi?.OrderID == orderID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
 
-    public IEnumerable<OrderItem> GetOrderItems(int ID)
+    public IEnumerable<OrderItem?> GetOrderItems(int ID)
     {
-        IEnumerable<OrderItem> detailedOrder = orderItems.Where(i => i.OrderID == ID);
+        IEnumerable<OrderItem?> detailedOrder = orderItems.Where(i => i?.OrderID == ID);
         if (detailedOrder.Count() > 0) return detailedOrder;
         else throw new ObjectNotFoundException();//is this exception needed? should there be a different exceptions for non existant order?
     }

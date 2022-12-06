@@ -18,17 +18,18 @@ public class DalOrder : IOrder
     }
     public void Update(Order order)
     {
-        var index = orders.FindIndex(x => x.ID == order.ID);
+        var index = orders.FindIndex(x => x?.ID == order.ID);
         if (index == -1) throw new ObjectNotFoundException();
         orders[index] = order;
     }
-    public Order Get(int ID)
+    public Order? Get(int ID)
     {
-        try { return orders.First(o => o.ID == ID); }
+        try { return orders.First(o => o?.ID == ID); }
         catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
     }
-    public IEnumerable<Order> Get()
+    public IEnumerable<Order?> Get(Func<Order?, bool>? f = null)
     {
-        return orders;
+        if (f == null) return orders;
+        return orders.Where(o => f(o));
     }
 }
