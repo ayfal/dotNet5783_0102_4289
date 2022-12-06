@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    public interface ICrud<T>
+    public interface ICrud<T> where T : struct
     {
         int Add(T t);
         void Delete(int ID);
