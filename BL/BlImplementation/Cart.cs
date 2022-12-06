@@ -22,7 +22,7 @@ namespace BlImplementation
                 try
                 {
                     item = cart.Items.First(p => p.ProductId == productID);
-                    item.Amount++;//TODO check if this updates the item in the list in the cart
+                    item.Amount++;
                     item.TotalPrice += product.Price;
                 }
                 catch
@@ -36,7 +36,7 @@ namespace BlImplementation
                         Amount = 1,
                         TotalPrice = product.Price
                     };
-                    cart.Items.Add(item); //TODO לעשות את בקשת פרטי מוצר ולקחת משם                     
+                    cart.Items.Add(item);
                 }
                 cart.TotalPrice += product.Price;
                 return cart;

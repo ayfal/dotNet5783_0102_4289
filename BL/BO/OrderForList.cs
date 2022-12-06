@@ -18,11 +18,11 @@ namespace BO
         /// <summary>
         /// the customer's name
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// the order's status
         /// </summary>
-        public Enums.OrderStatus Status { get; set; }
+        public Enums.OrderStatus? Status { get; set; }
         /// <summary>
         /// the amount of items in the order
         /// </summary>
