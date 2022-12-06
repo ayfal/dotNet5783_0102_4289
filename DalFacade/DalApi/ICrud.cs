@@ -13,6 +13,5 @@ namespace DalApi
         void Update(T t);
         IEnumerable<T?> Get(Func<T?, bool>? f=null);
         T Get(int ID);
-
     }
 }
