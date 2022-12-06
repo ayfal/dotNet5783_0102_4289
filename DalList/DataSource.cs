@@ -51,7 +51,7 @@ internal static class DataSource
             order.DeliveryDate = orders[i]?.ShipDate?.AddDays(rnd.Next(3, 6));
             orders[i] = order;
         }
-        //}
+
     }
     static void InitializeProducts()
     {
@@ -59,7 +59,7 @@ internal static class DataSource
         for (int i = 0; i < 10; i++)
         {
             do id = rnd.Next(100000, 1000000);
-            while (products.Exists(p => p.Value.ID == id));//validate uniqueness
+            while (products.Exists(p => p?.ID == id));//validate uniqueness
             Product product = new Product
             {
                 ID = id,
@@ -81,9 +81,9 @@ internal static class DataSource
             OrderItem orderItem = new OrderItem
             {
                 ID = Config.orderItemId,
-                ProductID = products[i % 9].Value.ID,//TODO check if a product is ordered twice
-                OrderID = orders[i % 20].Value.ID,
-                Price = products[i % 9].Value.Price,
+                ProductID = products[i % 9]?.ID ?? throw new NullReferenceException(),//TODO check if a product is ordered twice
+                OrderID = orders[i % 20]?.ID ?? throw new NullReferenceException(),
+                Price = products[i % 9]?.Price ?? throw new NullReferenceException(),
                 Amount = 1 + i % 4
             };
             orderItems.Add(orderItem);
