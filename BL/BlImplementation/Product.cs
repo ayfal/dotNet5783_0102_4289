@@ -21,10 +21,10 @@ namespace BlImplementation
             {
                 BO.ProductForList listItem = new BO.ProductForList()
                 {
-                    ID = product.ID,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Category = product.Category
+                    ID = product?.ID ?? throw new NullReferenceException(),
+                    Name = product?.Name,
+                    Price = product?.Price ?? throw new NullReferenceException(),
+                    Category = product?.Category
                 };
                 list.Add(listItem);
             }
@@ -42,11 +42,11 @@ namespace BlImplementation
                     var productD = Dal._product.Get(ID);
                     BO.Product productB = new BO.Product()
                     {
-                        ID = productD.ID,
-                        Name = productD.Name,
-                        Price = productD.Price,
-                        Category = (BO.Enums.Category)productD.Category,
-                        InStock = productD.InStock
+                        ID = productD?.ID ?? throw new NullReferenceException(),
+                        Name = productD?.Name,
+                        Price = productD?.Price ?? throw new NullReferenceException(),
+                        Category = (BO.Enums.Category)productD?.Category!,
+                        InStock = productD?.InStock ?? throw new NullReferenceException()
                     };
                     return productB;
                 }
@@ -63,15 +63,15 @@ namespace BlImplementation
             {
                 if (ID > 0)
                 {
-                    DO.Product productD = Dal._product.Get(ID);
+                    DO.Product? productD = Dal._product.Get(ID);
                     BO.ProductItem productB = new BO.ProductItem()
                     {
-                        ID = productD.ID,
-                        Name = productD.Name,
-                        Price = productD.Price,
-                        Category = productD.Category,
-                        InStock = productD.InStock > 0 ? true : false,
-                        Amount = cart.Items.First(x => x.ID == ID).Amount
+                        ID = productD?.ID ?? throw new NullReferenceException(),
+                        Name = productD?.Name,
+                        Price = productD?.Price ?? throw new NullReferenceException(),
+                        Category = productD?.Category,
+                        InStock = productD?.InStock > 0 ? true : false,
+                        Amount = cart.Items?.First(x => x?.ID == ID)?.Amount ?? throw new NullReferenceException()
                     };
                     return productB;
                 }
@@ -91,7 +91,7 @@ namespace BlImplementation
                     ID = product.ID,
                     Name = product.Name,
                     Price = product.Price,
-                    Category = (DO.Enums.Category)product.Category,
+                    Category = (DO.Enums.Category)product.Category!,
                     InStock = product.InStock
                 };
                 try { Dal._product.Add(productD); }
@@ -102,7 +102,7 @@ namespace BlImplementation
         }
         public IEnumerable<ProductForList> Delete(int ID)
         {
-            if (Dal._orderItem.Get().ToList().Exists(x => x.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
+            if (Dal._orderItem.Get().ToList().Exists(x => x?.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
             try { Dal._product.Delete(ID); }
             catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
             return GetProductsList();
@@ -117,7 +117,7 @@ namespace BlImplementation
                     ID = product.ID,
                     Name = product.Name,
                     Price = product.Price,
-                    Category = (DO.Enums.Category)product.Category,
+                    Category = (DO.Enums.Category)product.Category!,
                     InStock = product.InStock
                 };
                 try { Dal._product.Update(productD); }
