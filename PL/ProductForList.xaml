@@ -23,13 +23,14 @@ VerticalAlignment="Stretch" Width="auto">
         <Grid/>
         <ComboBox Name="CategorySelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewProductForList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-10,106,10,-60" Grid.Row="1" Grid.RowSpan="2" SelectionChanged="ListViewProductForList_SelectionChanged">
+        <ListView x:Name="ListViewProductForList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" SelectionChanged="ListViewProductForList_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Button_Click"/>
     </Grid>
 
 </Window>

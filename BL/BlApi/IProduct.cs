@@ -17,7 +17,7 @@ namespace BlApi
         /// gets a list of all the products (catalog)
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductForList?> GetProductsList(Predicate<Object?>? f= null);
+        public IEnumerable<ProductForList?> GetProductsList(Predicate<DO.Product?>? f= null);
         /// <summary>
         /// get a product details (for the manager)
         /// </summary>
