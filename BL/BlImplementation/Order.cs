@@ -156,9 +156,9 @@ namespace BlImplementation
                 var product = Dal._product.Get(productID);
                 if (product?.InStock >= newAmount - orderItem?.Amount)
                 {
-                    orderItem.Amount = newAmount;
+                    orderItem?.Amount = newAmount;
                     Dal._orderItem.Update((DO.OrderItem)orderItem!);
-                    product.InStock -= newAmount - orderItem?.Amount;
+                    product?.InStock -= newAmount - orderItem?.Amount;
                     Dal._product.Update(product ?? throw new NullReferenceException());
                     orderItem = Dal._orderItem.Get(productID, orderID);
                     product = Dal._product.Get(productID);
