@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -13,20 +14,23 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         private DalApi.IDal Dal = new DalList();
-        public IEnumerable<BO.ProductForList> GetProductsList()
+        public IEnumerable<BO.ProductForList> GetProductsList(Predicate<Object?>? f = null)
         {
             var products = Dal._product.Get();
             var list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
-                BO.ProductForList listItem = new BO.ProductForList()
+                if (f==null || f(product))
                 {
-                    ID = product?.ID ?? throw new NullReferenceException(),
-                    Name = product?.Name,
-                    Price = product?.Price ?? throw new NullReferenceException(),
-                    Category = product?.Category
-                };
-                list.Add(listItem);
+                    BO.ProductForList listItem = new BO.ProductForList()
+                    {
+                        ID = product?.ID ?? throw new NullReferenceException(),
+                        Name = product?.Name,
+                        Price = product?.Price ?? throw new NullReferenceException(),
+                        Category = product?.Category
+                    };
+                    list.Add(listItem);
+                }
             }
             return list;
         }
