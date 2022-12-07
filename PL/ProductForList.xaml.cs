@@ -25,6 +25,19 @@ namespace PL
         public ProductForList()
         {
             InitializeComponent();
+            ListViewProductForList.ItemsSource = bl._product.GetProductsList();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+
+        }
+
+        private void ListViewProductForList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListViewProductForList.ItemsSource = bl._product.
         }
     }
 }
