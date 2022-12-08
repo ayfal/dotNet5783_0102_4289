@@ -14,7 +14,7 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         private DalApi.IDal Dal = new DalList();
-        public IEnumerable<BO.ProductForList> GetProductsList(Predicate<Object?>? f = null)
+        public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
         {
             var products = Dal._product.Get();
             var list = new List<BO.ProductForList>();
