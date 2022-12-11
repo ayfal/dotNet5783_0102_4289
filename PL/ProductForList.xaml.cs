@@ -41,5 +41,7 @@ namespace PL
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => new Product().Show();
-    }
+
+        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e) => new Product(ListViewProductForList.SelectedItem.ToString()!).Show();
+     }
 }
