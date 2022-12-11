@@ -10,7 +10,7 @@ namespace DalApi
     public interface IOrderItem:ICrud<OrderItem>
     {
         OrderItem? Get(int productID, int OrderID);
-        object Get(int productID, int? orderID);
+        //object Get(int productID, int? orderID);//todo why is this returning object, and why one of the params is nullable? I don't remember writing this
         IEnumerable<OrderItem?> GetOrderItems(int ID);
     }
 }

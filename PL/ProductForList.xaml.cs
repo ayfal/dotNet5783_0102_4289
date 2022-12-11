@@ -37,7 +37,7 @@ namespace PL
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListViewProductForList.ItemsSource = bl._product.GetProductsList(c => c.Category == (BO.Enums.Category)CategorySelector.SelectedItem);
+            ListViewProductForList.ItemsSource = bl._product.GetProductsList(c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => new Product().Show();
