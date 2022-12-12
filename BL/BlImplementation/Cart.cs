@@ -99,8 +99,8 @@ namespace BlImplementation
                 CustomerEmail = Email,
                 CustomerAddress = address,
                 OrderDate = DateTime.Now,
-                ShipDate = DateTime.MinValue,
-                DeliveryDate = DateTime.MinValue,
+                ShipDate = null,
+                DeliveryDate = null,
             };
             int orderID = Dal._order.Add(order);
             foreach (var item in cart.Items)

@@ -15,7 +15,7 @@ namespace BlImplementation
         private DalApi.IDal Dal = new DalList();
         private BO.Enums.OrderStatus GetStatus(DO.Order order)
         {
-            return order.ShipDate == DateTime.MinValue ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == DateTime.MinValue ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
+            return order.ShipDate == null ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == null ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
         }
 
         private List<BO.OrderItem> GetLogicItems(IEnumerable<DO.OrderItem> listD)
@@ -88,7 +88,7 @@ namespace BlImplementation
             try
             {
                 var orderD = Dal._order.Get(ID);
-                if (orderD?.ShipDate == DateTime.MinValue)
+                if (orderD?.ShipDate == null)
                 {
                     orderD.ShipDate = DateTime.Now;
                     var orderB = GetOrderDetails(ID);
@@ -108,8 +108,8 @@ namespace BlImplementation
             try
             {
                 var orderD = Dal._order.Get(ID);
-                if (orderD?.ShipDate == DateTime.MinValue) throw new BO.Exceptions.NotShippedYetException();
-                if (orderD?.DeliveryDate == DateTime.MinValue)
+                if (orderD?.ShipDate == null) throw new BO.Exceptions.NotShippedYetException();
+                if (orderD?.DeliveryDate == null)
                 {
                     orderD.DeliveryDate = DateTime.Now;
                     var orderB = GetOrderDetails(ID);
@@ -136,10 +136,10 @@ namespace BlImplementation
                     OrderDiary = new Dictionary<DateTime, BO.Enums.OrderStatus>() 
                 };
                 orderTracking.OrderDiary.Add(order?.OrderDate ?? throw new NullReferenceException(), BO.Enums.OrderStatus.Approved);//TODO if this outputs a number, then use toStirng, and change orderDiary def to string
-                if (order?.ShipDate != DateTime.MinValue)
+                if (order?.ShipDate != null)
                 {
                     orderTracking.OrderDiary.Add(order?.ShipDate ?? throw new NullReferenceException(), BO.Enums.OrderStatus.Shipped);
-                    if (order?.DeliveryDate != DateTime.MinValue) orderTracking.OrderDiary.Add(order?.DeliveryDate ?? throw new NullReferenceException(), BO.Enums.OrderStatus.Delivered);
+                    if (order?.DeliveryDate != null) orderTracking.OrderDiary.Add(order?.DeliveryDate ?? throw new NullReferenceException(), BO.Enums.OrderStatus.Delivered);
                 }
                 return orderTracking;
             }

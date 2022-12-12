@@ -34,8 +34,8 @@ internal static class DataSource
                 //כל התאריכים החסרים(מטיפוס DateTime) בנתוני הישויות יאותחלו ל - DateTime.MinValue
                 //כל התאריכים שיש ביניהם סדר - יש להשתמש ב - TimeSpan עם פרק זמן מוגרל רנדומלית(ע"פ היגיון בריא) שיוסף לתאריך "הקודם" לפי משמעות התאריכים בישות הרלוונטית
                 OrderDate = DateTime.Now.AddMonths(-1),
-                ShipDate = DateTime.MinValue,
-                DeliveryDate = DateTime.MinValue
+                ShipDate = null,
+                DeliveryDate = null
             };
             orders.Add(order);
         }

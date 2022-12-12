@@ -12,7 +12,7 @@ class Program
     static int integer;
     static double dbl;
     static DateTime date;
-    static string s;
+    static string? s;
     static IDal idal = new DalList();
 
     static void ProductsSubMenu()
@@ -67,15 +67,16 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Product product = idal._product.Get(integer);
+                    Product? p = idal._product.Get(integer);
+                    Product product = p ?? throw new ObjectNotFoundException();
                     Console.WriteLine(product);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
                     Console.Write("Name: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "") product.Name = s;
                     Console.Write("Category: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "")
                     {
                         if (int.TryParse(s, out integer) && Enum.IsDefined(typeof(Enums.Category), integer)) product.Category = (Enums.Category)integer;
@@ -163,9 +164,9 @@ class Program
                     Console.WriteLine(idal._order.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in idal._order.Get())
+                    foreach (var or in idal._order.Get())
                     {
-                        Console.WriteLine(o);
+                        Console.WriteLine(or);
                     }
                     break;
                 case 'd':
@@ -173,29 +174,30 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Order order = idal._order.Get(integer);
+                    Order? o=    idal._order.Get(integer);
+                    Order order = o ?? throw new Exception();
                     Console.WriteLine(order);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
                     Console.Write("Customer name: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "") order.CustomerName = s;
                     Console.Write("Customer Email: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "") order.CustomerEmail = s;
                     Console.Write("Customer address: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "") order.CustomerAddress = s;
                     do
                     {
                         Console.Write("Order date: ");
-                        s = Console.ReadLine();
+                        s = Console.ReadLine()!;
                     } while (!DateTime.TryParse(s, out date) && s != "");
                     if (s != "") order.OrderDate = date;
                     do
                     {
                         Console.Write("Ship date: ");
-                        s = Console.ReadLine();
+                        s = Console.ReadLine()!;
                     } while (!DateTime.TryParse(s, out date) && s != "");
                     if (s != "") order.ShipDate = date;
                     do
@@ -275,33 +277,34 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    OrderItem orderItem = idal._orderItem.Get(integer);
+                    OrderItem? oi = idal._orderItem.Get(integer);
+                    OrderItem orderItem = oi ?? throw new Exception(); 
                     Console.WriteLine(orderItem);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
                     Console.Write("Product ID: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "")
                     {
                         if (int.TryParse(s, out integer)) orderItem.ProductID = integer;
                         else throw new Exception("Not a valid ID");
                     }
                     Console.Write("Order ID: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "")
                     {
                         if (int.TryParse(s, out integer)) orderItem.OrderID = integer;
                         else throw new Exception("Not a valid ID");
                     }
                     Console.Write("Price: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "")
                     {
                         if (double.TryParse(s, out dbl)) orderItem.Price = dbl;
                         else throw new Exception("Not a valid Price");
                     }
                     Console.Write("Amount in stock: ");
-                    s = Console.ReadLine();
+                    s = Console.ReadLine()!;
                     if (s != "")
                     {
                         if (int.TryParse(s, out integer)) orderItem.Amount = integer;
