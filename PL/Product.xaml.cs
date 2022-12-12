@@ -42,7 +42,7 @@ namespace PL
                 Category = Category,
                 InStock = productD?.InStock ?? throw new NullReferenceException()
             };
-            bl._product.Add()
+            bl._product.Add();
         }
     }
 }

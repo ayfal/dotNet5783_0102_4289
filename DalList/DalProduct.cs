@@ -8,7 +8,7 @@ public class DalProduct : IProduct
 {
     public int Add(Product product) 
     {
-        if (products.Exists(p => p.ID == product.ID)) throw new ObjectAlreadyExistsException();
+        if (products.Exists(p => p?.ID == product.ID)) throw new ObjectAlreadyExistsException();
         if (product.ID < 100000 || product.ID > 999999) throw new ObjectNotFoundException();
         products.Add(product);
         return product.ID;
@@ -21,7 +21,7 @@ public class DalProduct : IProduct
 
     public void Update(Product product)
     {
-        var index = products.FindIndex(x=>x.ID==product.ID);
+        var index = products.FindIndex(x=>x?.ID==product.ID);
         if (index == -1) throw new ObjectNotFoundException();
         products[index] = product;
     }
