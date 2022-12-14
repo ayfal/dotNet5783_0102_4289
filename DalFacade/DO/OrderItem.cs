@@ -24,15 +24,5 @@ public struct OrderItem
     /// Unique Amount for
     /// </summary>
     public int Amount { get; set; }
-
-    /// </summary>
-    ///
-    /// </summary>
-    public override string ToString() => $@"
-        ID : {ID}
-        Product ID : {ProductID}
-        OrderID : {OrderID}
-    	Price: {Price}
-    	Amount of pruduct: {Amount}
-";
+    public override string ToString() => this.AutoToString();
 }

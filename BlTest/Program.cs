@@ -13,7 +13,7 @@ namespace BlTest
         static int integer;
         static double dbl;
         //static DateTime date;
-        static string s;
+        static string? s;
         static IBl bl = new Bl();
         static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>()! };
 
@@ -218,7 +218,7 @@ namespace BlTest
                         break;
                     case 'c':
                         Console.WriteLine("Please enter customer's name, Email and address (separeated with the Enter key)");
-                        Console.WriteLine(bl._cart.Checkout(demoCart, Console.ReadLine(), Console.ReadLine(), Console.ReadLine()));
+                        Console.WriteLine(bl._cart.Checkout(demoCart, Console.ReadLine()!, Console.ReadLine()!, Console.ReadLine()!));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");

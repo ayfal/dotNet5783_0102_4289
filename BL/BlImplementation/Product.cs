@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using BlApi;
 using BO;
 using Dal;
 
@@ -20,15 +19,16 @@ namespace BlImplementation
             var list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
-                if (f==null || f(product))
+                if (f == null || f(product))
                 {
-                    BO.ProductForList listItem = new BO.ProductForList()
-                    {
-                        ID = product?.ID ?? throw new NullReferenceException(),
-                        Name = product?.Name,
-                        Price = product?.Price ?? throw new NullReferenceException(),
-                        Category = product?.Category
-                    };
+                    BO.ProductForList listItem = new BO.ProductForList();
+                    //{
+                    //    ID = product?.ID ?? throw new NullReferenceException(),
+                    //    Name = product?.Name,
+                    //    Price = product?.Price ?? throw new NullReferenceException(),
+                    //    Category = product?.Category
+                    //};
+                    listItem.CopyProperties(product!);
                     list.Add(listItem);
                 }
             }
@@ -43,14 +43,14 @@ namespace BlImplementation
 
                 if (ID > 0)
                 {
-                    var productD = Dal._product.Get(ID);
+                    var productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
                     BO.Product productB = new BO.Product()
                     {
-                        ID = productD?.ID ?? throw new NullReferenceException(),
-                        Name = productD?.Name,
-                        Price = productD?.Price ?? throw new NullReferenceException(),
-                        Category = (BO.Enums.Category)productD?.Category!,
-                        InStock = productD?.InStock ?? throw new NullReferenceException()
+                        ID = productD.ID,
+                        Name = productD.Name,
+                        Price = productD.Price,
+                        Category = (BO.Enums.Category)productD.Category!,
+                        InStock = productD.InStock
                     };
                     return productB;
                 }
@@ -67,14 +67,14 @@ namespace BlImplementation
             {
                 if (ID > 0)
                 {
-                    DO.Product? productD = Dal._product.Get(ID);
+                    DO.Product productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
                     BO.ProductItem productB = new BO.ProductItem()
                     {
-                        ID = productD?.ID ?? throw new NullReferenceException(),
-                        Name = productD?.Name,
-                        Price = productD?.Price ?? throw new NullReferenceException(),
-                        Category = productD?.Category,
-                        InStock = productD?.InStock > 0 ? true : false,
+                        ID = productD.ID,
+                        Name = productD.Name,
+                        Price = productD.Price,
+                        Category = productD.Category,
+                        InStock = productD.InStock > 0 ? true : false,
                         Amount = cart.Items?.First(x => x?.ID == ID)?.Amount ?? throw new NullReferenceException()
                     };
                     return productB;
