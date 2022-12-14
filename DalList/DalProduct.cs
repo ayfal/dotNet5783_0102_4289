@@ -36,5 +36,10 @@ public class DalProduct : IProduct
         if (f==null) return products.Where(i => i?.ID != 0);
         return products.Where(i => f(i));
     }
+    public Product? GetSingle(Func<Product?, bool>? f)
+    {
+        try { return products.First(o => f!(o)); }
+        catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
+    }
 }
 

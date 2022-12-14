@@ -46,4 +46,9 @@ public class DalOrderItem : IOrderItem
         if (detailedOrder.Count() > 0) return detailedOrder;
         else throw new ObjectNotFoundException();//is this exception needed? should there be a different exceptions for non existant order?
     }
+    public OrderItem? GetSingle(Func<OrderItem?, bool>? f)
+    {
+        try { return orderItems.First(oi => f!(oi)); }
+        catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
+    }
 }

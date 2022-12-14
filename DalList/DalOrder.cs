@@ -32,4 +32,9 @@ public class DalOrder : IOrder
         if (f == null) return orders;
         return orders.Where(o => f(o));
     }
+    public Order? GetSingle(Func<Order?, bool>? f)
+    {
+        try { return orders.First(o => f!(o)); }
+        catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
+    }
 }
