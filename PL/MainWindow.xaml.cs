@@ -25,11 +25,14 @@ namespace PL
         IBl bl = new Bl();
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
+        /// <summary>
+        /// open the product list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e) => new ProductForList().Show();
-
-        public void OpenAddMenu()
     }
 }

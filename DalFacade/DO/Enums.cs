@@ -4,11 +4,12 @@ public class Enums
 {
 	public enum Category
     {
-		Sages,
-		Rishonim,
-		Achronim,
-		Halacha,
-		Mussar,
-		Hassidut
-	}
+		Money,
+		Blessings,
+		Diseases,
+		Dreams,
+		Children,
+		Disasters,
+        Particles
+    }
 }

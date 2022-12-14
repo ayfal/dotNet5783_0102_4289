@@ -67,8 +67,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Product? p = idal._product.Get(integer);
-                    Product product = p ?? throw new ObjectNotFoundException();
+                    Product product = idal._product.Get(integer) ?? throw new ObjectNotFoundException();
                     Console.WriteLine(product);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
@@ -174,8 +173,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    Order? o=    idal._order.Get(integer);
-                    Order order = o ?? throw new Exception();
+                    Order order = idal._order.Get(integer) ?? throw new ObjectNotFoundException();
                     Console.WriteLine(order);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");
@@ -277,8 +275,7 @@ class Program
                     {
                         Console.Write("Please insert an ID: ");
                     } while (!int.TryParse(Console.ReadLine(), out integer));
-                    OrderItem? oi = idal._orderItem.Get(integer);
-                    OrderItem orderItem = oi ?? throw new Exception(); 
+                    OrderItem orderItem = idal._orderItem.Get(integer) ?? throw new ObjectNotFoundException(); 
                     Console.WriteLine(orderItem);
                     Console.WriteLine("please enter the following details:\n" +
                         "insert values only in details you want to change");

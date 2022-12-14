@@ -16,14 +16,14 @@ namespace BlImplementation
         {
             try
             {
-                var product = Dal._product.Get(productID);
-                if (product?.InStock == 0) throw new BO.Exceptions.InsufficientStockException();
+                var product = Dal._product.Get(productID) ?? throw new NullReferenceException();
+                if (product.InStock == 0) throw new BO.Exceptions.InsufficientStockException();
                 BO.OrderItem? item;
                 try
                 {
                     item = cart.Items?.First(p => p?.ProductId == productID);
                     item!.Amount++;
-                    item.TotalPrice += product?.Price ?? throw new NullReferenceException();
+                    item.TotalPrice += product.Price;
                 }
                 catch
                 {
@@ -31,14 +31,14 @@ namespace BlImplementation
                     {
                         ID = 0,
                         ProductId = productID,
-                        Name = product?.Name,
-                        Price = product?.Price ?? throw new NullReferenceException(),
+                        Name = product.Name,
+                        Price = product.Price,
                         Amount = 1,
-                        TotalPrice = product?.Price ?? throw new NullReferenceException()
+                        TotalPrice = product.Price
                     };
                     cart.Items?.Add(item);
                 }
-                cart.TotalPrice += product?.Price ?? throw new NullReferenceException();
+                cart.TotalPrice += product.Price;
                 return cart;
             }
             catch (DO.ObjectNotFoundException)

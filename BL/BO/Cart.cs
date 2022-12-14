@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,13 +29,14 @@ namespace BO
         /// the total price of the order
         /// </summary>
         public double TotalPrice { get; set; }
-
-        public override string ToString() => $@"
-        Customer name: {CustomerName}
-    	Email: {CustomerEmail}
-        Address: {CustomerAddress}
-        Items: {string.Join(", ",Items)}
-        TotalPrice: {TotalPrice}
-";
+        //this.AutoToString();
+        public override string ToString() => this.AutoToString();
+//        $@"
+//        Customer name: {CustomerName}
+//        Email: {CustomerEmail}
+//        Address: {CustomerAddress}
+//        Items: {string.Join("", Items!)}
+//        TotalPrice: {TotalPrice}
+//";
     }
 }

@@ -1,9 +1,10 @@
 ﻿using DO;
+using System;
+
 namespace Dal;
 
 internal static class DataSource
-{
-    const int CATEGORIES = 6;
+{    
     internal static class Config
     {
         //internal static int products = 0, orders = 0, orderItems = 0;
@@ -64,7 +65,7 @@ internal static class DataSource
             {
                 ID = id,
                 Name = "TESTName" + i,
-                Category = (Enums.Category)(i % CATEGORIES),
+                Category = (Enums.Category)(i % Enum.GetNames(typeof(Enums.Category)).Length),
                 Price = id / 10000,
                 InStock = id / 100000,
             };

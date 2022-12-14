@@ -28,15 +28,5 @@ public struct Product
     /// Unique InStock for
     /// </summary>
     public int InStock { get; set; }
-
-    /// </summary>
-    ///
-    /// </summary>
-    public override string ToString() => $@"
-        Product ID: {ID}, 
-        Name: {Name}, 
-        category: {Category}
-    	Price: {Price}
-    	Amount in stock: {InStock}
-";
+    public override string ToString() => this.AutoToString();
 }

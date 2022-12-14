@@ -30,12 +30,12 @@ namespace BO
         /// </summary>
         public int InStock { get; set; }
 
-        public override string ToString() => $@"
-        Product ID: {ID}, 
-        Name: {Name}, 
-        category: {Category}
-    	Price: {Price}
-    	Amount in stock: {InStock}
-";
+        public override string ToString() => this.AutoToString();// $@"
+//        Product ID: {ID}, 
+//        Name: {Name}, 
+//        category: {Category}
+//    	Price: {Price}
+//    	Amount in stock: {InStock}
+//";
     }
 }

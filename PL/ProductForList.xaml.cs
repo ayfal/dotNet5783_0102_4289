@@ -3,6 +3,7 @@ using BlImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,26 +23,73 @@ namespace PL
     public partial class ProductForList : Window
     {
         IBl bl = new Bl();
+
+        /// <summary>
+        /// constructor. populates a list with all the products, and a filter selector with all the categories 
+        /// </summary>
         public ProductForList()
         {
             InitializeComponent();
-            ListViewProductForList.ItemsSource = bl._product.GetProductsList();
+            try
+            {
+                ListViewProductForList.ItemsSource = bl._product.GetProductsList();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message+"\nTake cover. coumputer might explode");
+            }
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 
         }
 
-        private void ListViewProductForList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// filter the list by category, or remove filtering
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListViewProductForList.ItemsSource = bl._product.GetProductsList(c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
+            try
+            {
+                //filter the list. if no filter is selected, don't filter:
+                ListViewProductForList.ItemsSource = bl._product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message+"\nWho would have thought?");
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => new Product().Show();
+        /// <summary>
+        /// switch to the add-product window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            new Product().Show();
+        }
 
-        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e) => new Product(ListViewProductForList.SelectedItem.ToString()!).Show();
-     }
+        /// <summary>
+        /// switch to the update-product window. works by double clicking a product in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+            new Product(((BO.ProductForList)ListViewProductForList.SelectedItem).ID.ToString()).Show();
+        }
+
+        /// <summary>
+        /// clear the filter combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            CategorySelector.SelectedItem = null;
+        }
+    }
 }
