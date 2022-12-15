@@ -50,17 +50,6 @@ namespace BO
         /// </summary>
         public double TotalPrice { get; set; }
 
-        public override string ToString() => $@"
-        Order ID: {ID}
-        Customer name: {CustomerName}
-    	Email: {CustomerEmail}
-        Address: {CustomerAddress}
-        Status: {Status}
-        Order Date: {OrderDate}
-        Ship Date: {ShipDate}
-        Delivery Date: {DeliveryDate}  
-        Items: {string.Join(", ", Items!)}
-        TotalPrice: {TotalPrice}
-";
+        public override string ToString() => this.AutoToString();
     }
 }

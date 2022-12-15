@@ -24,7 +24,7 @@ namespace BO
         /// <summary>
         /// the product's category
         /// </summary>
-        public DO.Enums.Category? Category { get; set; }
+        public BO.Enums.Category? Category { get; set; }
         /// <summary>
         /// is the product in stock
         /// </summary>
@@ -33,12 +33,6 @@ namespace BO
         /// the product's amount int the shopping cart
         /// </summary>
         public int Amount { get; set; }
-        public override string ToString() => $@"
-        ID: {ID}
-        Name {Name}
-        Price {Price}
-        Category {Category}
-        In Stock {InStock}
-        Amount {Amount}";
+        public override string ToString() => this.AutoToString();
     }
 }

@@ -31,12 +31,5 @@ namespace BO
         public double TotalPrice { get; set; }
         //this.AutoToString();
         public override string ToString() => this.AutoToString();
-//        $@"
-//        Customer name: {CustomerName}
-//        Email: {CustomerEmail}
-//        Address: {CustomerAddress}
-//        Items: {string.Join("", Items!)}
-//        TotalPrice: {TotalPrice}
-//";
     }
 }

@@ -11,17 +11,25 @@ namespace BO
 {
     public static class Extensions
     {
-        /// <summary>
-        /// copy similar properties from another object
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        public static void CopyProperties(this object B, object D)
+        public static void CopyProperties/*<TDest, TSrc>*/(/*TDest?*/ this object dest, /*TSrc?*/ object src)
         {
-            foreach (var d in D.GetType().GetProperties())
-                foreach (var b in B.GetType().GetProperties())
-                    if (d.Name == b.Name && d.PropertyType == b.PropertyType)
-                        b.SetValue(B, d.GetValue(D));
+            //foreach (var srcProp in (src ?? throw new NullReferenceException()).GetType().GetProperties())
+            //    foreach (var destProp in dest!.GetType().GetProperties())
+            //        if (srcProp.Name == destProp.Name && srcProp.PropertyType == destProp.PropertyType)
+            //            destProp.SetValue(dest, srcProp.GetValue(src));
+            PropertyInfo[] srcProp = (src ?? throw new NullReferenceException()).GetType().GetProperties();
+            for (int i = 0; i < srcProp.Length; i++)
+            {
+                PropertyInfo[] destProp = dest!.GetType().GetProperties();
+                for (int j = 0; j < destProp.Length; j++)
+                {
+                    if (srcProp[i].Name == destProp[j].Name && srcProp[i].PropertyType == destProp[j].PropertyType)
+                        destProp[j].SetValue(dest, srcProp[i].GetValue(src));
+                }
+            }
         }
 
         /// <summary>

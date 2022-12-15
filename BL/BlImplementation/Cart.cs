@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
+using BO;
 using Dal;
 
 namespace BlImplementation
@@ -31,11 +32,12 @@ namespace BlImplementation
                     {
                         ID = 0,
                         ProductId = productID,
-                        Name = product.Name,
-                        Price = product.Price,
+                        //Name = product.Name,
+                        //Price = product.Price,
                         Amount = 1,
                         TotalPrice = product.Price
                     };
+                    item.CopyProperties(product);
                     cart.Items?.Add(item);
                 }
                 cart.TotalPrice += product.Price;

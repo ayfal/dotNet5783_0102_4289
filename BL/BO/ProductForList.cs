@@ -25,10 +25,6 @@ namespace BO
         /// the product's category
         /// </summary>
         public DO.Enums.Category? Category { get; set; }
-        public override string ToString() => $@"
-        ID: {ID}
-        Name: {Name}
-        Price: {Price}
-        Category: {Category}";
+        public override string ToString() => this.AutoToString();
     }
 }
