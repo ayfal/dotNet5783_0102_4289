@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BlApi;
+using BO;
 using Dal;
 
 namespace BlImplementation
@@ -25,13 +26,14 @@ namespace BlImplementation
             {
                 BO.OrderItem orderItem = new BO.OrderItem()
                 {
-                    ID = item.ID,
-                    ProductId = item.ProductID,
+                    //ID = item.ID,
+                    //ProductID = item.ProductID,
                     Name = Dal._product.Get(item.ProductID)?.Name,
-                    Price = item.Price,
-                    Amount = item.Amount,
+                    //Price = item.Price,
+                    //Amount = item.Amount,
                     TotalPrice = item.Amount * item.Price
                 };
+                orderItem.CopyProperties(item);
                 listB.Add(orderItem);
             }
             return listB;
@@ -44,12 +46,13 @@ namespace BlImplementation
             {
                 BO.OrderForList orderForList = new BO.OrderForList()
                 {
-                    ID = order?.ID ?? throw new NullReferenceException(),
-                    CustomerName = order?.CustomerName,
+                    //ID = order?.ID ?? throw new NullReferenceException(),
+                    //CustomerName = order?.CustomerName,
                     Status = GetStatus((DO.Order)order!),
                     AmountOfItems = Dal._orderItem.GetOrderItems((int)(order?.ID!)).Count(),
                     TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
                 };
+                orderForList.CopyProperties(order);
                 ordersList.Add(orderForList);
             }
             return ordersList;
@@ -64,16 +67,17 @@ namespace BlImplementation
                     var orderB = new BO.Order()
                     {
                         ID = ID,
-                        CustomerName = orderD?.CustomerName,
-                        CustomerEmail = orderD?.CustomerEmail,
-                        CustomerAddress = orderD?.CustomerAddress,
+                        //CustomerName = orderD?.CustomerName,
+                        //CustomerEmail = orderD?.CustomerEmail,
+                        //CustomerAddress = orderD?.CustomerAddress,
                         Status = GetStatus((DO.Order)orderD!),
-                        OrderDate = orderD?.OrderDate,
-                        ShipDate = orderD?.ShipDate,
-                        DeliveryDate = orderD?.DeliveryDate,
+                        //OrderDate = orderD?.OrderDate,
+                        //ShipDate = orderD?.ShipDate,
+                        //DeliveryDate = orderD?.DeliveryDate,
                         Items = GetLogicItems((IEnumerable<DO.OrderItem>)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)))!,
                         TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
                     };
+                    orderB.CopyProperties(orderD);
                     return orderB;
                 }
                 else throw new InvalidDataException();
@@ -162,15 +166,17 @@ namespace BlImplementation
                     Dal._product.Update(product);
                     orderItem = Dal._orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
                     product = Dal._product.Get(productID) ?? throw new NullReferenceException();
-                    return new BO.OrderItem()
+                    var o =    new BO.OrderItem()
                     {
-                        ID = orderItem.ID,
-                        ProductId = orderItem.ProductID,
-                        Name = product.Name,
-                        Price = orderItem.Price,
-                        Amount = orderItem.Amount,
+                        //ID = orderItem.ID,
+                        //ProductID = orderItem.ProductID,
+                        //Name = product.Name,
+                        //Price = orderItem.Price,
+                        //Amount = orderItem.Amount,
                         TotalPrice = orderItem.Price * orderItem.Amount
                     };
+                    o.CopyProperties(orderItem);
+                    return o;
                 }
                 else throw new BO.Exceptions.InsufficientStockException();
             }

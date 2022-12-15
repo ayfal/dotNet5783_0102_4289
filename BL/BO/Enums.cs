@@ -19,7 +19,8 @@ namespace BO
             Dreams,
             Children,
             Disasters,
-            Particles
+            Particles,
+            Thoughts
         }
         /// <summary>
         /// the order's status options

@@ -46,12 +46,13 @@ namespace BlImplementation
                     var productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
                     BO.Product productB = new BO.Product()
                     {
-                        ID = productD.ID,
-                        Name = productD.Name,
-                        Price = productD.Price,
+                        //ID = productD.ID,
+                        //Name = productD.Name,
+                        //Price = productD.Price,
                         Category = (BO.Enums.Category)productD.Category!,
-                        InStock = productD.InStock
+                        //InStock = productD.InStock
                     };
+                    productB.CopyProperties(productD);
                     return productB;
                 }
                 else throw new InvalidDataException();
@@ -70,13 +71,14 @@ namespace BlImplementation
                     DO.Product productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
                     BO.ProductItem productB = new BO.ProductItem()
                     {
-                        ID = productD.ID,
-                        Name = productD.Name,
-                        Price = productD.Price,
-                        Category = productD.Category,
+                        //ID = productD.ID,
+                        //Name = productD.Name,
+                        //Price = productD.Price,
+                        Category = (BO.Enums.Category)productD.Category!,
                         InStock = productD.InStock > 0 ? true : false,
                         Amount = cart.Items?.First(x => x?.ID == ID)?.Amount ?? throw new NullReferenceException()
                     };
+                    productB.CopyProperties(productD);
                     return productB;
                 }
                 else throw new InvalidDataException();
@@ -92,12 +94,13 @@ namespace BlImplementation
             {
                 DO.Product productD = new DO.Product()
                 {
-                    ID = product.ID,
-                    Name = product.Name,
-                    Price = product.Price,
+                    //ID = product.ID,
+                    //Name = product.Name,
+                    //Price = product.Price,
                     Category = (DO.Enums.Category)product.Category!,
-                    InStock = product.InStock
+                    //InStock = product.InStock
                 };
+                productD.CopyProperties(product);
                 try { Dal._product.Add(productD); }
                 catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException()); }
                 return GetProdcutDetails(product.ID);
@@ -118,12 +121,13 @@ namespace BlImplementation
             {
                 DO.Product productD = new DO.Product()
                 {
-                    ID = product.ID,
-                    Name = product.Name,
-                    Price = product.Price,
+                    //ID = product.ID,
+                    //Name = product.Name,
+                    //Price = product.Price,
                     Category = (DO.Enums.Category)product.Category!,
-                    InStock = product.InStock
+                    //InStock = product.InStock
                 };
+                productD.CopyProperties(product);
                 try { Dal._product.Update(productD); }
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
                 return GetProdcutDetails(product.ID);

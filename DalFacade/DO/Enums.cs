@@ -10,6 +10,7 @@ public class Enums
 		Dreams,
 		Children,
 		Disasters,
-        Particles
+        Particles,
+		Thoughts
     }
 }
