@@ -31,12 +31,11 @@ namespace BO
         /// the order's total price
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString() => this.AutoToString();
-        //$@"
-        //ID: {ID}
-        //Customer Name {CustomerName}        
-        //Status {Status}
-        //Amount Of Items {AmountOfItems}
-        //Total Price {TotalPrice}";
+        public override string ToString() => $@"
+        ID: {ID}
+        Customer Name {CustomerName}        
+        Status {Status}
+        Amount Of Items {AmountOfItems}
+        Total Price {TotalPrice}";
     }
 }

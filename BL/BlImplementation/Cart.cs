@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
-using BO;
 using Dal;
 
 namespace BlImplementation
@@ -22,7 +21,7 @@ namespace BlImplementation
                 BO.OrderItem? item;
                 try
                 {
-                    item = cart.Items?.First(p => p?.ProductID == productID);
+                    item = cart.Items?.First(p => p?.ProductId == productID);
                     item!.Amount++;
                     item.TotalPrice += product.Price;
                 }
@@ -31,13 +30,12 @@ namespace BlImplementation
                     item = new BO.OrderItem()
                     {
                         ID = 0,
-                        ProductID = productID,
-                        //Name = product.Name,
-                        //Price = product.Price,
+                        ProductId = productID,
+                        Name = product.Name,
+                        Price = product.Price,
                         Amount = 1,
                         TotalPrice = product.Price
                     };
-                    item.CopyProperties(product);
                     cart.Items?.Add(item);
                 }
                 cart.TotalPrice += product.Price;
@@ -54,7 +52,7 @@ namespace BlImplementation
             if (amount < 0) throw new InvalidDataException();
             try
             {
-                var item = cart.Items?.First(p => p?.ProductID == productID);
+                var item = cart.Items?.First(p => p?.ProductId == productID);
                 int difference = amount - item?.Amount ?? throw new NullReferenceException();
                 if (Dal._product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException();
                 if (amount > 0)
@@ -85,7 +83,7 @@ namespace BlImplementation
             {
                 foreach (var item in cart.Items!)
                 {
-                    if (Dal._product.Get(item!.ProductID)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
+                    if (Dal._product.Get(item!.ProductId)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
                     if (item?.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
                     try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
                 }
@@ -110,13 +108,13 @@ namespace BlImplementation
                 DO.OrderItem orderItem = new DO.OrderItem()
                 {
                     ID = 0,
-                    ProductID = item!.ProductID,
+                    ProductID = item!.ProductId,
                     OrderID = orderID,
                     Price = item.Price,
                     Amount = item.Amount
                 };
                 Dal._orderItem.Add(orderItem);
-                int inStock = Dal._product.Get(item.ProductID)?.InStock ?? throw new NullReferenceException();
+                int inStock = Dal._product.Get(item.ProductId)?.InStock ?? throw new NullReferenceException();
                 if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
                 inStock -= item.Amount;
             }
