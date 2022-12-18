@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BlApi;
 using BO;
-using Dal;
 
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
     {
-        private DalApi.IDal Dal = new DalList();
+        private DalApi.IDal? dal = DalApi.Factory.Get();
         private BO.Enums.OrderStatus GetStatus(DO.Order order)
         {
             return order.ShipDate == null ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == null ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
@@ -28,7 +27,7 @@ namespace BlImplementation
                 {
                     //ID = item.ID,
                     //ProductID = item.ProductID,
-                    Name = Dal._product.Get(item.ProductID)?.Name,
+                    Name = dal?.product.Get(item.ProductID)?.Name,
                     //Price = item.Price,
                     //Amount = item.Amount,
                     TotalPrice = item.Amount * item.Price
@@ -40,7 +39,7 @@ namespace BlImplementation
         }
         public IEnumerable<BO.OrderForList> Get()
         {
-            var orders = Dal._order.Get() ?? throw new NullReferenceException();
+            var orders = dal?.order.Get() ?? throw new NullReferenceException();
             var ordersList = new List<BO.OrderForList>();
             foreach (var order in orders)
             {
@@ -49,8 +48,8 @@ namespace BlImplementation
                     //ID = order?.ID ?? throw new NullReferenceException(),
                     //CustomerName = order?.CustomerName,
                     Status = GetStatus((DO.Order)order!),
-                    AmountOfItems = Dal._orderItem.GetOrderItems((int)(order?.ID!)).Count(),
-                    TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
+                    AmountOfItems = dal?.orderItem.GetOrderItems((int)(order?.ID!)).Count() ?? throw new NullReferenceException(),
+                    TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
                 };
                 orderForList.CopyProperties(order);
                 ordersList.Add(orderForList);
@@ -63,7 +62,7 @@ namespace BlImplementation
             {
                 if (ID > 0)
                 {
-                    var orderD = Dal._order.Get(ID);
+                    var orderD = dal?.order.Get(ID);
                     var orderB = new BO.Order()
                     {
                         ID = ID,
@@ -74,8 +73,8 @@ namespace BlImplementation
                         //OrderDate = orderD?.OrderDate,
                         //ShipDate = orderD?.ShipDate,
                         //DeliveryDate = orderD?.DeliveryDate,
-                        Items = GetLogicItems((IEnumerable<DO.OrderItem>)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)))!,
-                        TotalPrice = (double)Dal._orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
+                        Items = GetLogicItems((IEnumerable<DO.OrderItem>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
+                        TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
                     };
                     orderB.CopyProperties(orderD);
                     return orderB;
@@ -91,13 +90,13 @@ namespace BlImplementation
         {
             try
             {
-                var orderD = Dal._order.Get(ID) ?? throw new NullReferenceException();
+                var orderD = dal?.order.Get(ID) ?? throw new NullReferenceException();
                 if (orderD.ShipDate == null)
                 {
                     orderD.ShipDate = DateTime.Now;
                     var orderB = GetOrderDetails(ID);
                     orderB.ShipDate = orderD.ShipDate;
-                    Dal._order.Update(orderD);
+                    dal?.order.Update(orderD);
                     return orderB;
                 }
                 else throw new BO.Exceptions.DoneAlreadyException();
@@ -111,14 +110,14 @@ namespace BlImplementation
         {
             try
             {
-                var orderD = Dal._order.Get(ID) ?? throw new NullReferenceException();
+                var orderD = dal?.order.Get(ID) ?? throw new NullReferenceException();
                 if (orderD.ShipDate == null) throw new BO.Exceptions.NotShippedYetException();
                 if (orderD.DeliveryDate == null)
                 {
                     orderD.DeliveryDate = DateTime.Now;
                     var orderB = GetOrderDetails(ID);
                     orderB.DeliveryDate = orderD.DeliveryDate;
-                    Dal._order.Update(orderD);
+                    dal?.order.Update(orderD);
                     return orderB;
                 }
                 else throw new BO.Exceptions.DoneAlreadyException();
@@ -132,7 +131,7 @@ namespace BlImplementation
         {
             try
             {
-                var order = Dal._order.Get(ID) ?? throw new NullReferenceException();
+                var order = dal?.order.Get(ID) ?? throw new NullReferenceException();
                 BO.OrderTracking orderTracking = new BO.OrderTracking()
                 {
                     ID = order.ID,
@@ -156,16 +155,16 @@ namespace BlImplementation
         {
             try
             {
-                var orderItem = Dal._orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
-                var product = Dal._product.Get(productID) ?? throw new NullReferenceException();
+                var orderItem = dal?.orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
+                var product = dal?.product.Get(productID) ?? throw new NullReferenceException();
                 if (product.InStock >= newAmount - orderItem.Amount)
                 {
                     orderItem.Amount = newAmount;
-                    Dal._orderItem.Update((DO.OrderItem)orderItem!);
+                    dal?.orderItem.Update((DO.OrderItem)orderItem!);
                     product.InStock -= newAmount - orderItem.Amount;
-                    Dal._product.Update(product);
-                    orderItem = Dal._orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
-                    product = Dal._product.Get(productID) ?? throw new NullReferenceException();
+                    dal?.product.Update(product);
+                    orderItem = dal?.orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
+                    product = dal?.product.Get(productID) ?? throw new NullReferenceException();
                     var o =    new BO.OrderItem()
                     {
                         //ID = orderItem.ID,

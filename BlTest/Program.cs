@@ -14,7 +14,7 @@ namespace BlTest
         static double dbl;
         //static DateTime date;
         static string? s;
-        static IBl bl = new Bl();
+        static IBl? bl = BlApi.Factory.Get();
         static Cart demoCart = new Cart() { CustomerName = "demo name", CustomerEmail = "demo@email.com", CustomerAddress = "demo address", Items=new List<OrderItem>()! };
 
         static void ProductsSubMenu()
@@ -54,20 +54,20 @@ namespace BlTest
                         Console.Write("Amount in stock: ");
                         if (int.TryParse(Console.ReadLine(), out integer)) newProduct.InStock = integer;
                         else throw new InvalidDataException();
-                        Console.WriteLine(bl._product.Add(newProduct));
+                        Console.WriteLine(bl?.product.Add(newProduct));
                         break;
                     case 'b':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        Console.WriteLine(bl._product.GetProdcutDetails(integer));
+                        Console.WriteLine(bl?.product.GetProdcutDetails(integer));
                         break;
                     case 'c':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        Console.WriteLine(bl._product.GetProductDetails(integer, demoCart));
+                        Console.WriteLine(bl?.product.GetProductDetails(integer, demoCart));
                         break;
                     case 'd':
-                        foreach (var o in bl._product.GetProductsList())
+                        foreach (var o in bl?.product.GetProductsList() ?? throw new NullReferenceException())
                         {
                             Console.WriteLine(o);
                         }
@@ -75,7 +75,7 @@ namespace BlTest
                     case 'e':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        Product product = bl._product.GetProdcutDetails(integer);
+                        Product product = (bl ?? throw new NullReferenceException()).product.GetProdcutDetails(integer);
                         Console.WriteLine(product);
                         Console.WriteLine("please enter the following details:\n" +
                             "insert values only in details you want to change");
@@ -103,12 +103,12 @@ namespace BlTest
                             if (int.TryParse(s, out integer)) product.InStock = integer;
                             else throw new InvalidDataException();
                         }
-                        Console.WriteLine(bl._product.Update(product));
+                        Console.WriteLine(bl?.product.Update(product));
                         break;
                     case 'f':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        Console.WriteLine(bl._product.Delete(integer));
+                        Console.WriteLine(bl?.product.Delete(integer));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -140,7 +140,7 @@ namespace BlTest
                     case '0':
                         return;
                     case 'a':
-                        foreach (var o in bl._order.Get())
+                        foreach (var o in bl?.order.Get() ?? throw new NullReferenceException())
                         {
                             Console.WriteLine(o);
                         }
@@ -148,34 +148,34 @@ namespace BlTest
                     case 'b':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.GetOrderDetails(integer));
+                        Console.WriteLine(bl?.order.GetOrderDetails(integer));
                         break;
                     case 'c':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.UpdateShipping(integer));
+                        Console.WriteLine(bl?.order.UpdateShipping(integer));
                         break;
                     case 'd':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.UpdateDelivery(integer));
+                        Console.WriteLine(bl?.order.UpdateDelivery(integer));
                         break;
                     case 'e':
                         int orderID, productID, newAmount;
                         Console.Write("Please insert an order ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out orderID) && orderID > 0)) throw new InvalidDataException();
-                        Order order = bl._order.GetOrderDetails(orderID);
+                        Order order = bl?.order.GetOrderDetails(orderID) ?? throw new NullReferenceException();
                         Console.WriteLine(order);
                         Console.Write("Please insert a product ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out productID) && productID >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out newAmount) && integer >= 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.Update(orderID, productID, newAmount));
+                        Console.WriteLine(bl?.order.Update(orderID, productID, newAmount));
                         break;
                     case 'f':
                         Console.Write("Please insert an ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer > 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._order.Track(integer));
+                        Console.WriteLine(bl?.order.Track(integer));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");
@@ -206,7 +206,7 @@ namespace BlTest
                     case 'a':
                         Console.Write("Please insert a product ID: ");
                         if (!(int.TryParse(Console.ReadLine(), out integer) && integer >= 100000)) throw new InvalidDataException();
-                        Console.WriteLine(bl._cart.AddProduct(demoCart, integer));
+                        Console.WriteLine(bl?.cart.AddProduct(demoCart, integer));
                         break;
                     case 'b':
                         int productID, amount;
@@ -214,11 +214,11 @@ namespace BlTest
                         if (!(int.TryParse(Console.ReadLine(), out productID) && integer >= 100000)) throw new InvalidDataException();
                         Console.Write("Please insert a new amount: ");
                         if (!(int.TryParse(Console.ReadLine(), out amount) && integer >= 0)) throw new InvalidDataException();
-                        Console.WriteLine(bl._cart.UpdateAmount(demoCart, productID, amount));
+                        Console.WriteLine(bl?.cart.UpdateAmount(demoCart, productID, amount));
                         break;
                     case 'c':
                         Console.WriteLine("Please enter customer's name, Email and address (separeated with the Enter key)");
-                        Console.WriteLine(bl._cart.Checkout(demoCart, Console.ReadLine()!, Console.ReadLine()!, Console.ReadLine()!));
+                        Console.WriteLine(bl?.cart.Checkout(demoCart, Console.ReadLine()!, Console.ReadLine()!, Console.ReadLine()!));
                         break;
                     default:
                         if (!(success && option == 0)) Console.WriteLine("Bad command! Go stand in the corner!");

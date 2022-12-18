@@ -33,7 +33,7 @@ namespace BO
         public static string AutoToString<T>(this T t)
         {
             string s = "";
-            foreach (var p in t.GetType().GetProperties())
+            foreach (var p in t?.GetType().GetProperties() ?? throw new NullReferenceException())
                 s += $"{p.Name}: {string.Join("", p.GetValue(t))}\n";
             return s;
         }

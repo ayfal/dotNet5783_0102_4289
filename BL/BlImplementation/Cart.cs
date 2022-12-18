@@ -6,18 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
-using Dal;
 
 namespace BlImplementation
 {
     internal class Cart : BlApi.ICart
     {
-        private DalApi.IDal Dal = new DalList();
+        private DalApi.IDal? dal = DalApi.Factory.Get();
         public BO.Cart AddProduct(BO.Cart cart, int productID)
         {
             try
             {
-                var product = Dal._product.Get(productID) ?? throw new NullReferenceException();
+                var product = dal?.product.Get(productID) ?? throw new NullReferenceException();
                 if (product.InStock == 0) throw new BO.Exceptions.InsufficientStockException();
                 BO.OrderItem? item;
                 try
@@ -56,7 +55,7 @@ namespace BlImplementation
             {
                 var item = cart.Items?.First(p => p?.ProductID == productID);
                 int difference = amount - item?.Amount ?? throw new NullReferenceException();
-                if (Dal._product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException();
+                if (dal?.product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException();
                 if (amount > 0)
                 {
                     item!.Amount = amount;//TODO check if this updates the item in the list in the cart
@@ -85,7 +84,7 @@ namespace BlImplementation
             {
                 foreach (var item in cart.Items!)
                 {
-                    if (Dal._product.Get(item!.ProductID)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
+                    if (dal?.product.Get(item!.ProductID)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
                     if (item?.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
                     try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
                 }
@@ -104,7 +103,7 @@ namespace BlImplementation
                 ShipDate = null,
                 DeliveryDate = null,
             };
-            int orderID = Dal._order.Add(order);
+            int orderID = dal?.order.Add(order) ?? throw new NullReferenceException();
             foreach (var item in cart.Items)
             {
                 DO.OrderItem orderItem = new DO.OrderItem()
@@ -115,8 +114,8 @@ namespace BlImplementation
                     Price = item.Price,
                     Amount = item.Amount
                 };
-                Dal._orderItem.Add(orderItem);
-                int inStock = Dal._product.Get(item.ProductID)?.InStock ?? throw new NullReferenceException();
+                dal?.orderItem.Add(orderItem);
+                int inStock = dal?.product.Get(item.ProductID)?.InStock ?? throw new NullReferenceException();
                 if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
                 inStock -= item.Amount;
             }

@@ -1,5 +1,5 @@
-﻿using BlApi;
-using BlImplementation;
+﻿//using BlApi;
+//using BlImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace PL
         int integer;
         double dbl;
 
-        IBl bl = new Bl();
+        BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// constructor. constructs the windows either in add mode or in update mode 
         /// </summary>
@@ -44,7 +44,7 @@ namespace PL
             {
                 txtID.IsReadOnly = true;
                 txtID.Text = id;
-                BO.Product product = bl._product.GetProdcutDetails(int.Parse(id));
+                BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
                 txtName.Text = product.Name;
                 txtPrice.Text = product.Price.ToString();
                 cmbbxCategory.Text = product.Category.ToString();
@@ -81,7 +81,7 @@ namespace PL
         {
             try
             {
-                bl._product.Add(GenerateProduct());
+                bl?.product.Add(GenerateProduct());
                 this.Close();
                 new ProductForList().Show();
             }
@@ -100,7 +100,7 @@ namespace PL
         {
             try
             {
-                bl._product.Update(GenerateProduct());
+                bl?.product.Update(GenerateProduct());
                 this.Close();
                 new ProductForList().Show();
             }

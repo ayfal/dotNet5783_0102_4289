@@ -12,8 +12,8 @@ namespace BlApi
     /// </summary>
     public interface IBl
     {
-        ICart _cart { get; }
-        IOrder _order { get; }
-        IProduct _product { get; }
+        ICart cart { get; }
+        IOrder order { get; }
+        IProduct product { get; }
     }
 }

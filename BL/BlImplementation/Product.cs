@@ -5,17 +5,16 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
-using Dal;
 
 
 namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
-        private DalApi.IDal Dal = new DalList();
+        private DalApi.IDal? dal = DalApi.Factory.Get();
         public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
         {
-            var products = Dal._product.Get();
+            var products = dal?.product.Get() ?? throw new NullReferenceException();
             var list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
@@ -43,7 +42,7 @@ namespace BlImplementation
 
                 if (ID > 0)
                 {
-                    var productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
+                    var productD = dal?.product.Get(ID) ?? throw new NullReferenceException();
                     BO.Product productB = new BO.Product()
                     {
                         //ID = productD.ID,
@@ -68,7 +67,7 @@ namespace BlImplementation
             {
                 if (ID > 0)
                 {
-                    DO.Product productD = Dal._product.Get(ID) ?? throw new NullReferenceException();
+                    DO.Product productD = dal?.product.Get(ID) ?? throw new NullReferenceException();
                     BO.ProductItem productB = new BO.ProductItem()
                     {
                         //ID = productD.ID,
@@ -101,7 +100,7 @@ namespace BlImplementation
                     //InStock = product.InStock
                 };
                 productD.CopyProperties(product);
-                try { Dal._product.Add(productD); }
+                try { dal?.product.Add(productD); }
                 catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException()); }
                 return GetProdcutDetails(product.ID);
             }
@@ -109,8 +108,8 @@ namespace BlImplementation
         }
         public IEnumerable<ProductForList> Delete(int ID)
         {
-            if (Dal._orderItem.Get().ToList().Exists(x => x?.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
-            try { Dal._product.Delete(ID); }
+            if ((dal?? throw new NullReferenceException()).orderItem.Get().ToList().Exists(x => x?.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
+            try { dal?.product.Delete(ID); }
             catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
             return GetProductsList();
         }
@@ -128,7 +127,7 @@ namespace BlImplementation
                     //InStock = product.InStock
                 };
                 productD.CopyProperties(product);
-                try { Dal._product.Update(productD); }
+                try { dal?.product.Update(productD); }
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
                 return GetProdcutDetails(product.ID);
             }

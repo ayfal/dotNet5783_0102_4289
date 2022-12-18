@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BlImplementation
 {
-    sealed public class Bl : IBl
+    sealed internal class Bl : IBl
     {
-        public IProduct _product => new Product(); 
-        public IOrder _order => new Order(); 
-        public ICart _cart => new Cart();
+        public IProduct product => new Product(); 
+        public IOrder order => new Order(); 
+        public ICart cart => new Cart();
     }
 }

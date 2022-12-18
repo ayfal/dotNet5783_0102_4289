@@ -1,5 +1,5 @@
-﻿using BlApi;
-using BlImplementation;
+﻿//using BlApi;
+//using BlImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +22,7 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
-        IBl bl = new Bl();
-
+        BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// constructor. populates a list with all the products, and a filter selector with all the categories 
         /// </summary>
@@ -32,7 +31,7 @@ namespace PL
             InitializeComponent();
             try
             {
-                ListViewProductForList.ItemsSource = bl._product.GetProductsList();
+                ListViewProductForList.ItemsSource = bl.product.GetProductsList();
             }
             catch (Exception e)
             {
@@ -52,7 +51,7 @@ namespace PL
             try
             {
                 //filter the list. if no filter is selected, don't filter:
-                ListViewProductForList.ItemsSource = bl._product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
+                ListViewProductForList.ItemsSource = bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
             }
             catch (Exception ex)
             {
