@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +11,15 @@ namespace BO
 {
     public static class Extensions
     {
-        /// <summary>
-        /// copy similar properties from another object
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        public static void CopyProperties(this object B, object D)
+        public static void CopyProperties(this object dest, object src)
         {
-            foreach (var d in D.GetType().GetProperties())
-                foreach (var b in B.GetType().GetProperties())
-                    if (d.Name == b.Name && d.PropertyType == b.PropertyType)
-                        b.SetValue(B, d.GetValue(D));
+            foreach (var srcProp in (src ?? throw new NullReferenceException()).GetType().GetProperties())
+                foreach (var destProp in dest!.GetType().GetProperties())
+                    if (srcProp.Name == destProp.Name && srcProp.PropertyType == destProp.PropertyType)
+                        destProp.SetValue(dest, srcProp.GetValue(src));
         }
 
         /// <summary>

@@ -32,7 +32,6 @@ namespace BlImplementation
                     //Amount = item.Amount,
                     TotalPrice = item.Amount * item.Price
                 };
-                orderItem.CopyProperties(item);
                 listB.Add(orderItem);
             }
             return listB;
@@ -45,13 +44,12 @@ namespace BlImplementation
             {
                 BO.OrderForList orderForList = new BO.OrderForList()
                 {
-                    //ID = order?.ID ?? throw new NullReferenceException(),
-                    //CustomerName = order?.CustomerName,
+                    ID = order?.ID ?? throw new NullReferenceException(),
+                    CustomerName = order?.CustomerName,
                     Status = GetStatus((DO.Order)order!),
                     AmountOfItems = dal?.orderItem.GetOrderItems((int)(order?.ID!)).Count() ?? throw new NullReferenceException(),
                     TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
                 };
-                orderForList.CopyProperties(order);
                 ordersList.Add(orderForList);
             }
             return ordersList;
@@ -66,9 +64,9 @@ namespace BlImplementation
                     var orderB = new BO.Order()
                     {
                         ID = ID,
-                        //CustomerName = orderD?.CustomerName,
-                        //CustomerEmail = orderD?.CustomerEmail,
-                        //CustomerAddress = orderD?.CustomerAddress,
+                        CustomerName = orderD?.CustomerName,
+                        CustomerEmail = orderD?.CustomerEmail,
+                        CustomerAddress = orderD?.CustomerAddress,
                         Status = GetStatus((DO.Order)orderD!),
                         //OrderDate = orderD?.OrderDate,
                         //ShipDate = orderD?.ShipDate,
@@ -76,7 +74,6 @@ namespace BlImplementation
                         Items = GetLogicItems((IEnumerable<DO.OrderItem>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
                         TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
                     };
-                    orderB.CopyProperties(orderD);
                     return orderB;
                 }
                 else throw new InvalidDataException();
@@ -167,15 +164,13 @@ namespace BlImplementation
                     product = dal?.product.Get(productID) ?? throw new NullReferenceException();
                     var o =    new BO.OrderItem()
                     {
-                        //ID = orderItem.ID,
-                        //ProductID = orderItem.ProductID,
-                        //Name = product.Name,
-                        //Price = orderItem.Price,
-                        //Amount = orderItem.Amount,
+                        ID = orderItem.ID,
+                        ProductId = orderItem.ProductID,
+                        Name = product.Name,
+                        Price = orderItem.Price,
+                        Amount = orderItem.Amount,
                         TotalPrice = orderItem.Price * orderItem.Amount
                     };
-                    o.CopyProperties(orderItem);
-                    return o;
                 }
                 else throw new BO.Exceptions.InsufficientStockException();
             }

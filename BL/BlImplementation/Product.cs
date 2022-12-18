@@ -20,7 +20,7 @@ namespace BlImplementation
             {
                 if (f == null || f(product))
                 {
-                    BO.ProductForList listItem = new BO.ProductForList();
+                    BO.ProductForList listItem = new BO.ProductForList() ?? throw new Exception();
                     //{
                     //    ID = product?.ID ?? throw new NullReferenceException(),
                     //    Name = product?.Name,
@@ -51,7 +51,7 @@ namespace BlImplementation
                         Category = (BO.Enums.Category)productD.Category!,
                         //InStock = productD.InStock
                     };
-                    productB.CopyProperties(productD);
+                    productB.CopyProperties(productD!);
                     return productB;
                 }
                 else throw new InvalidDataException();
@@ -91,7 +91,7 @@ namespace BlImplementation
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
-                DO.Product productD = new DO.Product()
+                object productD = new DO.Product()
                 {
                     //ID = product.ID,
                     //Name = product.Name,
@@ -118,7 +118,7 @@ namespace BlImplementation
         {
             if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             {
-                DO.Product productD = new DO.Product()
+                 object productD = new DO.Product()
                 {
                     //ID = product.ID,
                     //Name = product.Name,

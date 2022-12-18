@@ -16,7 +16,7 @@ namespace BO
         /// <summary>
         /// the product's ID
         /// </summary>
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
         /// <summary>
         /// the product's name
         /// </summary>
@@ -35,13 +35,5 @@ namespace BO
         public double TotalPrice { get; set; }
 
         public override string ToString() => this.AutoToString();
-//        $@"
-//        Order ID: {ID}
-//        ProductId: {ProductId}
-//    	Name: {Name}
-//        Price: {Price}
-//        Amount: {Amount}
-//        TotalPrice: {TotalPrice}
-//";
     }
 }

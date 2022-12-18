@@ -20,7 +20,7 @@ namespace DO
         public static string AutoToString<T>(this T t)
         {
             string s = "";
-            foreach (var p in t.GetType().GetProperties())
+            foreach (var p in t!.GetType().GetProperties())
                 s += $"{p.Name}: {p.GetValue(t)}\n";
             return s;
         }
