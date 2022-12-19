@@ -100,7 +100,7 @@ namespace BlImplementation
                     //InStock = product.InStock
                 };
                 productD.CopyProperties(product);
-                try { dal?.product.Add(productD); }
+                try { dal?.product.Add((DO.Product)productD); }
                 catch (DO.ObjectAlreadyExistsException) { throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException()); }
                 return GetProdcutDetails(product.ID);
             }
@@ -127,7 +127,7 @@ namespace BlImplementation
                     //InStock = product.InStock
                 };
                 productD.CopyProperties(product);
-                try { dal?.product.Update(productD); }
+                try { dal?.product.Update((DO.Product)productD); }
                 catch (DO.ObjectNotFoundException) { throw new BO.Exceptions.ObjectNotFoundException(new DO.ObjectNotFoundException()); }
                 return GetProdcutDetails(product.ID);
             }

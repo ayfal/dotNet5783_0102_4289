@@ -21,7 +21,7 @@ namespace BlImplementation
                 BO.OrderItem? item;
                 try
                 {
-                    item = cart.Items?.First(p => p?.ProductId == productID);
+                    item = cart.Items?.First(p => p?.ProductID == productID);
                     item!.Amount++;
                     item.TotalPrice += product.Price;
                 }
@@ -30,7 +30,7 @@ namespace BlImplementation
                     item = new BO.OrderItem()
                     {
                         ID = 0,
-                        ProductId = productID,
+                        ProductID = productID,
                         //Name = product.Name,
                         //Price = product.Price,
                         Amount = 1,
@@ -53,7 +53,7 @@ namespace BlImplementation
             if (amount < 0) throw new InvalidDataException();
             try
             {
-                var item = cart.Items?.First(p => p?.ProductId == productID);
+                var item = cart.Items?.First(p => p?.ProductID == productID);
                 int difference = amount - item?.Amount ?? throw new NullReferenceException();
                 if (dal?.product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException();
                 if (amount > 0)
@@ -109,7 +109,7 @@ namespace BlImplementation
                 DO.OrderItem orderItem = new DO.OrderItem()
                 {
                     ID = 0,
-                    ProductID = item!.ProductId,
+                    ProductID = item!.ProductID,
                     OrderID = orderID,
                     Price = item.Price,
                     Amount = item.Amount

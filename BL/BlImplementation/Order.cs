@@ -162,10 +162,10 @@ namespace BlImplementation
                     dal?.product.Update(product);
                     orderItem = dal?.orderItem.Get(productID, orderID) ?? throw new NullReferenceException();
                     product = dal?.product.Get(productID) ?? throw new NullReferenceException();
-                    var o =    new BO.OrderItem()
+                    return new BO.OrderItem()
                     {
                         ID = orderItem.ID,
-                        ProductId = orderItem.ProductID,
+                        ProductID = orderItem.ProductID,
                         Name = product.Name,
                         Price = orderItem.Price,
                         Amount = orderItem.Amount,
