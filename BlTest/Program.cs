@@ -67,10 +67,11 @@ namespace BlTest
                         Console.WriteLine(bl?.product.GetProductDetails(integer, demoCart));
                         break;
                     case 'd':
-                        foreach (var o in bl?.product.GetProductsList() ?? throw new NullReferenceException())
-                        {
-                            Console.WriteLine(o);
-                        }
+                        //foreach (var o in bl?.product.GetProductsList() ?? throw new NullReferenceException())
+                        //{
+                        //Console.WriteLine(o);
+                        //}
+                        Console.WriteLine(String.Join("\n", bl?.product.GetProductsList() ?? throw new NullReferenceException()));
                         break;
                     case 'e':
                         Console.Write("Please insert an ID: ");
@@ -140,10 +141,11 @@ namespace BlTest
                     case '0':
                         return;
                     case 'a':
-                        foreach (var o in bl?.order.Get() ?? throw new NullReferenceException())
-                        {
-                            Console.WriteLine(o);
-                        }
+                        //foreach (var o in bl?.order.Get() ?? throw new NullReferenceException())
+                        //{
+                        //    Console.WriteLine(o);
+                        //}
+                        Console.WriteLine(String.Join("\n", bl?.order.Get() ?? throw new NullReferenceException()));
                         break;
                     case 'b':
                         Console.Write("Please insert an ID: ");

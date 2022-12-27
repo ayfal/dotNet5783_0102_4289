@@ -18,7 +18,7 @@ namespace BlImplementation
             return order.ShipDate == null ? BO.Enums.OrderStatus.Approved : order.DeliveryDate == null ? BO.Enums.OrderStatus.Shipped : BO.Enums.OrderStatus.Delivered;
         }
 
-        private List<BO.OrderItem> GetLogicItems(IEnumerable<DO.OrderItem> listD)
+        private List<BO.OrderItem> GetLogicItems(IEnumerable<DO.OrderItem?> listD)
         {
             List<BO.OrderItem> listB = new List<BO.OrderItem>();
             foreach (DO.OrderItem item in listD)
@@ -32,6 +32,7 @@ namespace BlImplementation
                     //Amount = item.Amount,
                     TotalPrice = item.Amount * item.Price
                 };
+                orderItem.CopyProperties(item);
                 listB.Add(orderItem);
             }
             return listB;
@@ -44,12 +45,13 @@ namespace BlImplementation
             {
                 BO.OrderForList orderForList = new BO.OrderForList()
                 {
-                    ID = order?.ID ?? throw new NullReferenceException(),
-                    CustomerName = order?.CustomerName,
+                    //ID = order?.ID ?? throw new NullReferenceException(),
+                    //CustomerName = order?.CustomerName,
                     Status = GetStatus((DO.Order)order!),
                     AmountOfItems = dal?.orderItem.GetOrderItems((int)(order?.ID!)).Count() ?? throw new NullReferenceException(),
                     TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
                 };
+                orderForList.CopyProperties(order);
                 ordersList.Add(orderForList);
             }
             return ordersList;
@@ -61,6 +63,7 @@ namespace BlImplementation
                 if (ID > 0)
                 {
                     var orderD = dal?.order.Get(ID);
+                    var v = GetLogicItems((dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!;
                     var orderB = new BO.Order()
                     {
                         ID = ID,
@@ -71,9 +74,10 @@ namespace BlImplementation
                         //OrderDate = orderD?.OrderDate,
                         //ShipDate = orderD?.ShipDate,
                         //DeliveryDate = orderD?.DeliveryDate,
-                        Items = GetLogicItems((IEnumerable<DO.OrderItem>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
-                        TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
+                        Items = GetLogicItems((IEnumerable<DO.OrderItem?>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
+                        TotalPrice = (double)dal?.orderItem.GetOrderItems((int)orderD?.ID!)?.Sum(x => x?.Price)!
                     };
+                    orderB.CopyProperties(orderD);
                     return orderB;
                 }
                 else throw new InvalidDataException();
