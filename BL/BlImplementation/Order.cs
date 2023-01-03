@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BlApi;
 using BO;
+using DO;
 
 namespace BlImplementation
 {
