@@ -1,7 +1,9 @@
 ﻿//using BlApi;
 //using BlImplementation;
+using BlApi;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -23,11 +25,13 @@ namespace PL
     public partial class ProductForList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        ObservableCollection o=bl.product.GetProductsList();
         /// <summary>
         /// constructor. populates a list with all the products, and a filter selector with all the categories 
         /// </summary>
         public ProductForList()
         {
+            DataContext = bl.product;
             InitializeComponent();
             try
             {
@@ -35,7 +39,7 @@ namespace PL
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message+"\nTake cover. coumputer might explode");
+                MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
             }
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 

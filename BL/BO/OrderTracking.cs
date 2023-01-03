@@ -24,11 +24,11 @@ namespace BO
         /// the order's diary. lists all events and their date
         /// </summary>
         public Dictionary<DateTime, Enums.OrderStatus>? OrderDiary { get; set; }
-        public override string ToString() => //this.AutoToString(); why isn't it working? it exactly the same code?
-            $@"
-ID: {ID}
-Status: {Status}
-OrderDiary:
-{string.Join(Environment.NewLine, OrderDiary!)}";//TODO this might need further stringing
+        public override string ToString() => this.AutoToString(); //why isn't it working? it exactly the same code?
+//            $@"
+//ID: {ID}
+//Status: {Status}
+//OrderDiary:
+//{string.Join(Environment.NewLine, OrderDiary!)}";//TODO this might need further stringing
     }
 }

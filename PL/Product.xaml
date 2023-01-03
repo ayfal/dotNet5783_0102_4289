@@ -17,8 +17,8 @@
         <TextBox Name="txtPrice" HorizontalAlignment="Left" Margin="310,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="price should be a non-negative decimal number"/>
         <TextBox Name="txtInStock" HorizontalAlignment="Left" Margin="310,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="amount should be a natural number"/>
         <ComboBox Name="cmbbxCategory" HorizontalAlignment="Left" Margin="310,170,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Add" Name="btnAdd" HorizontalAlignment="Left" Margin="180,250,0,0" VerticalAlignment="Top" Click="Add_Click"/>
-        <Button Content="Update" Name="btnUpdate" HorizontalAlignment="Left" Margin="250,250,0,0" VerticalAlignment="Top" Click="Update_Click"/>
+        <Button Content="Add" Name="btnAdd" HorizontalAlignment="Left" Margin="180,250,0,0" VerticalAlignment="Top" Click="Add_Click" /><!--Width="102"-->
+        <Button Content="Update" Name="btnUpdate" HorizontalAlignment="Left" Margin="400,250,0,0" VerticalAlignment="Top" Click="Update_Click" /><!-- Width="118"-->
 
     </Grid>
 </Window>

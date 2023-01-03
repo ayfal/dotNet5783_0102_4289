@@ -57,10 +57,11 @@ class Program
                     Console.WriteLine(dal?.product.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in dal?.product.Get() ?? throw new NullReferenceException())
-                    {
-                        Console.WriteLine(o);
-                    }
+                    //foreach (var o in dal?.product.Get() ?? throw new NullReferenceException())
+                    //{
+                    //    Console.WriteLine(o);
+                    //}
+                    Console.WriteLine(String.Join("\n", dal?.product.Get() ?? throw new NullReferenceException()));
                     break;
                 case 'd':
                     do
@@ -163,10 +164,11 @@ class Program
                     Console.WriteLine(dal?.order.Get(integer));
                     break;
                 case 'c':
-                    foreach (var or in dal?.order.Get() ?? throw new NullReferenceException())
-                    {
-                        Console.WriteLine(or);
-                    }
+                    //foreach (var or in dal?.order.Get() ?? throw new NullReferenceException())
+                    //{
+                    //    Console.WriteLine(or);
+                    //}
+                    Console.WriteLine(String.Join("\n", dal?.order.Get() ?? throw new NullReferenceException()));
                     break;
                 case 'd':
                     do
@@ -265,10 +267,11 @@ class Program
                     Console.WriteLine(dal?.orderItem.Get(integer));
                     break;
                 case 'c':
-                    foreach (var o in dal?.orderItem.Get() ?? throw new NullReferenceException())
-                    {
-                        Console.WriteLine(o);
-                    }
+                    //foreach (var o in dal?.orderItem.Get() ?? throw new NullReferenceException())
+                    //{
+                    //    Console.WriteLine(o);
+                    //}
+                    Console.WriteLine(String.Join("\n", dal?.orderItem.Get() ?? throw new NullReferenceException()));
                     break;
                 case 'd':
                     do

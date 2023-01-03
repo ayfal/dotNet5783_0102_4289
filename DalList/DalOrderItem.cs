@@ -30,8 +30,14 @@ public class DalOrderItem : IOrderItem
     }
     public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? f = null)
     {
-        if (f==null) return orderItems.Where(i => i?.ID != 0);
-        return orderItems.Where(i => f(i));
+        //if (f==null) return orderItems.Where(i => i?.ID != 0);
+        if (f == null) return from i in orderItems
+                              where i?.ID != 0
+                              select i;
+        //return orderItems.Where(i => f(i));
+        return from i in orderItems
+               where f(i)
+               select i;
     }
 
     public OrderItem? Get(int productID, int orderID)
@@ -42,9 +48,10 @@ public class DalOrderItem : IOrderItem
 
     public IEnumerable<OrderItem?> GetOrderItems(int ID)
     {
-        IEnumerable<OrderItem?> detailedOrder = orderItems.Where(i => i?.OrderID == ID);
-        if (detailedOrder.Count() > 0) return detailedOrder;
-        else throw new ObjectNotFoundException();//is this exception needed? should there be a different exceptions for non existant order?
+        return orderItems.Where(i => i?.OrderID == ID) ?? throw new ObjectNotFoundException();//is this exception needed? should there be a different exceptions for non existant order?
+        //IEnumerable<OrderItem?> detailedOrder = orderItems.Where(i => i?.OrderID == ID);
+        //if (detailedOrder.Count() > 0) return detailedOrder;
+        //else throw new ObjectNotFoundException();//is this exception needed? should there be a different exceptions for non existant order?
     }
     public OrderItem? GetSingle(Func<OrderItem?, bool>? f)
     {

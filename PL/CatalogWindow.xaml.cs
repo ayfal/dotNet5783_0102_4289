@@ -15,20 +15,18 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CatalogWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CatalogWindow : Window
     {
-        public MainWindow()
+        public CatalogWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ListViewProductItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
         }
-
-        private void btnAdmin_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
     }
 }
