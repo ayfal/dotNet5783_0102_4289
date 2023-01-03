@@ -1,5 +1,4 @@
-﻿using DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +23,7 @@ namespace BO
         /// <summary>
         /// the product's category
         /// </summary>
-        public DO.Enums.Category? Category { get; set; }
+        public BO.Enums.Category? Category { get; set; }
         public override string ToString() => this.AutoToString();
     }
 }

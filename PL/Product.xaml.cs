@@ -1,5 +1,6 @@
 ﻿//using BlApi;
 //using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace PL
         int integer;
         double dbl;
 
-        BlApi.IBl? bl = BlApi.Factory.Get();
+        //BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// constructor. constructs the windows either in add mode or in update mode 
         /// </summary>
@@ -44,7 +45,7 @@ namespace PL
             {
                 txtID.IsReadOnly = true;
                 txtID.Text = id;
-                BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
+                BO.Product product = App.bl.product.GetProdcutDetails(int.Parse(id));
                 txtName.Text = product.Name;
                 txtPrice.Text = product.Price.ToString();
                 cmbbxCategory.Text = product.Category.ToString();
@@ -81,9 +82,11 @@ namespace PL
         {
             try
             {
-                bl?.product.Add(GenerateProduct());
+                BO.ProductForList p=new BO.ProductForList();
+                p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
+                App.ProductsCollection.Add(p);
                 this.Close();
-                new ProductForList().Show();
+                //new ProductForList().Show();
             }
             catch (Exception ex)
             {
@@ -100,7 +103,7 @@ namespace PL
         {
             try
             {
-                bl?.product.Update(GenerateProduct());
+                App.bl?.product.Update(GenerateProduct());
                 this.Close();
                 new ProductForList().Show();
             }

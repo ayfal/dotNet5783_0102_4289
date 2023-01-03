@@ -24,18 +24,20 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
-        BlApi.IBl? bl = BlApi.Factory.Get();
-        //bservableCollection o=bl.product.GetProductsList();
         /// <summary>
         /// constructor. populates a list with all the products, and a filter selector with all the categories 
         /// </summary>
         public ProductForList()
         {
-            DataContext = bl.product;
+            DataContext = App.ProductsCollection;
+            foreach (var item in App.bl!.product.GetProductsList())
+            {
+                App.ProductsCollection.Add(item);
+            }
             InitializeComponent();
             try
             {
-                ListViewProductForList.ItemsSource = bl.product.GetProductsList();
+                //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
             }
             catch (Exception e)
             {
@@ -55,7 +57,7 @@ namespace PL
             try
             {
                 //filter the list. if no filter is selected, don't filter:
-                ListViewProductForList.ItemsSource = bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
+                ListViewProductForList.ItemsSource = App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
             }
             catch (Exception ex)
             {
@@ -70,7 +72,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //this.Close();
             new Product().Show();
         }
 

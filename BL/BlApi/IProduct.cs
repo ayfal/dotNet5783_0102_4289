@@ -19,7 +19,7 @@ namespace BlApi
         /// </summary>
         /// <returns></returns>
         //public IEnumerable<ProductForList?> GetProductsList(Predicate<DO.Product?>? f= null);
-        public ObservableCollection<ProductForList?> GetProductsList(Predicate<DO.Product?>? f = null);
+        public IEnumerable<ProductForList?> GetProductsList(Predicate<DO.Product?>? f = null);
         /// <summary>
         /// get a product details (for the manager)
         /// </summary>
@@ -45,7 +45,7 @@ namespace BlApi
         /// <param name="ID"></param>
         /// <returns>an updated list of all the products</returns>
         //public IEnumerable<ProductForList?> Delete(int ID);
-        public ObservableCollection<ProductForList?> Delete(int ID);
+        public IEnumerable<ProductForList?> Delete(int ID);
         /// <summary>
         /// updated a product
         /// </summary>

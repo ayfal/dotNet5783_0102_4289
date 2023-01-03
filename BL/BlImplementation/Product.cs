@@ -13,8 +13,7 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         private DalApi.IDal? dal = DalApi.Factory.Get();
-        //public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
-        public ObservableCollection<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
+        public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
         {
             var products = dal?.product.Get() ?? throw new NullReferenceException();
             //var list = new List<BO.ProductForList>();
@@ -109,8 +108,7 @@ namespace BlImplementation
             }
             else throw new InvalidDataException();
         }
-        //public IEnumerable<ProductForList> Delete(int ID)
-        public ObservableCollection<ProductForList> Delete(int ID)
+        public IEnumerable<ProductForList> Delete(int ID)
         {
             if ((dal?? throw new NullReferenceException()).orderItem.Get().ToList().Exists(x => x?.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
             try { dal?.product.Delete(ID); }
