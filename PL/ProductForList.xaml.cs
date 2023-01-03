@@ -25,7 +25,7 @@ namespace PL
     public partial class ProductForList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        ObservableCollection o=bl.product.GetProductsList();
+        //bservableCollection o=bl.product.GetProductsList();
         /// <summary>
         /// constructor. populates a list with all the products, and a filter selector with all the categories 
         /// </summary>
