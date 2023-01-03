@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,8 @@ namespace BlApi
         /// gets a list of all the products (catalog)
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductForList?> GetProductsList(Predicate<DO.Product?>? f= null);
+        //public IEnumerable<ProductForList?> GetProductsList(Predicate<DO.Product?>? f= null);
+        public ObservableCollection<ProductForList?> GetProductsList(Predicate<DO.Product?>? f = null);
         /// <summary>
         /// get a product details (for the manager)
         /// </summary>
@@ -42,7 +44,8 @@ namespace BlApi
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>an updated list of all the products</returns>
-        public IEnumerable<ProductForList?> Delete(int ID);
+        //public IEnumerable<ProductForList?> Delete(int ID);
+        public ObservableCollection<ProductForList?> Delete(int ID);
         /// <summary>
         /// updated a product
         /// </summary>

@@ -30,8 +30,14 @@ public class DalOrderItem : IOrderItem
     }
     public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? f = null)
     {
-        if (f==null) return orderItems.Where(i => i?.ID != 0);
-        return orderItems.Where(i => f(i));
+        //if (f==null) return orderItems.Where(i => i?.ID != 0);
+        if (f == null) return from i in orderItems
+                              where i?.ID != 0
+                              select i;
+        //return orderItems.Where(i => f(i));
+        return from i in orderItems
+               where f(i)
+               select i;
     }
 
     public OrderItem? Get(int productID, int orderID)

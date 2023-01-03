@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -12,10 +13,12 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         private DalApi.IDal? dal = DalApi.Factory.Get();
-        public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
+        //public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
+        public ObservableCollection<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
         {
             var products = dal?.product.Get() ?? throw new NullReferenceException();
-            var list = new List<BO.ProductForList>();
+            //var list = new List<BO.ProductForList>();
+            var list = new ObservableCollection<BO.ProductForList>();
             foreach (var product in products)
             {
                 if (f == null || f(product))
@@ -106,7 +109,8 @@ namespace BlImplementation
             }
             else throw new InvalidDataException();
         }
-        public IEnumerable<ProductForList> Delete(int ID)
+        //public IEnumerable<ProductForList> Delete(int ID)
+        public ObservableCollection<ProductForList> Delete(int ID)
         {
             if ((dal?? throw new NullReferenceException()).orderItem.Get().ToList().Exists(x => x?.ID == ID)) throw new BO.Exceptions.ObjectAlreadyExistsException(new DO.ObjectAlreadyExistsException());
             try { dal?.product.Delete(ID); }

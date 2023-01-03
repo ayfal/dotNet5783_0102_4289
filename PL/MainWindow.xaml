@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Name="BtnProductList" Content="Product List" HorizontalAlignment="Left" Margin="351,111,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="btnAdmin" Content="Admin" HorizontalAlignment="Left" Margin="96,116,0,0" VerticalAlignment="Top" Background="#FFF1811F" Style="{StaticResource MainWindowButtons}" Click="btnAdmin_Click"/>
+        <Button x:Name="btnNewOrder" Content="New Order" HorizontalAlignment="Left" Margin="96,266,0,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF220ACF" Style="{StaticResource MainWindowButtons}"/>
+        <TextBox x:Name="txtbxOrderNo" HorizontalAlignment="Left" Height="32" Margin="565,116,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="184"/>
+        <Button x:Name="btnTrack" Content="Track" HorizontalAlignment="Left" Margin="565,161,0,0" VerticalAlignment="Top" Style="{StaticResource MainWindowButtons}"/>
 
     </Grid>
 </Window>

@@ -26,7 +26,8 @@ VerticalAlignment="Stretch" Width="auto">
         <ComboBox Name="CategorySelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Width="800" Margin="0,27,0,515" Grid.RowSpan="2"/>
         <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewProductForList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ListViewProductForList_MouseDoubleClick">
+        <ListView x:Name="ListViewProductForList" d:ItemsSource="{Binding }" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ListViewProductForList_MouseDoubleClick">
+            <!--d:SampleData ItemCount=5-->
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
