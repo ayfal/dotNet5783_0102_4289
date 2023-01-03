@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BlApi;
 using BO;
+using DO;
 
 namespace BlImplementation
 {
@@ -32,6 +33,7 @@ namespace BlImplementation
                     //Amount = item.Amount,
                     TotalPrice = item.Amount * item.Price
                 };
+                orderItem.CopyProperties(item);
                 listB.Add(orderItem);
             }
             return listB;
@@ -74,6 +76,7 @@ namespace BlImplementation
                         Items = GetLogicItems((IEnumerable<DO.OrderItem>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
                         TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(orderD?.ID!)).Sum(x => x?.Price)!
                     };
+                    orderB.CopyProperties(orderD);
                     return orderB;
                 }
                 else throw new InvalidDataException();

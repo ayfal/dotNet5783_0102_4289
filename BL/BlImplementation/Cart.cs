@@ -82,12 +82,15 @@ namespace BlImplementation
         {
             try
             {
-                foreach (var item in cart.Items!)
-                {
-                    if (dal?.product.Get(item!.ProductID)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
-                    if (item?.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
-                    try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
-                }
+                if (cart.Items?.FirstOrDefault(item => dal?.product.Get(item!.ProductID)?.InStock < item?.Amount)!=null) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
+                if (cart.Items?.FirstOrDefault(item=> item?.Amount <= 0 || customerName == "" || Email == "" || address == "")!=null) throw new InvalidDataException();
+                try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
+            //    foreach (var item in cart.Items!)
+            //    {
+            //       if (dal?.product.Get(item!.ProductID)?.InStock < item?.Amount) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
+            //       if (item?.Amount <= 0 || customerName == "" || Email == "" || address == "") throw new InvalidDataException();
+            //        try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException(); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
+            //    }
             }
             catch (DO.ObjectNotFoundException)
             {
@@ -104,7 +107,7 @@ namespace BlImplementation
                 DeliveryDate = null,
             };
             int orderID = dal?.order.Add(order) ?? throw new NullReferenceException();
-            foreach (var item in cart.Items)
+            foreach (var item in cart.Items!) // linq is not relevant here
             {
                 DO.OrderItem orderItem = new DO.OrderItem()
                 {
