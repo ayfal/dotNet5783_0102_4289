@@ -21,7 +21,23 @@ namespace PL
     {
         public CatalogWindow()
         {
+           //ListViewProductForList.
+            DataContext = App.ProductItemCollection;
             InitializeComponent();
+            try
+            {
+                foreach (var item in App.bl!.product.GetProductsList())
+                {
+                    App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
+                }
+                //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
+            }
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+
         }
 
         private void ListViewProductItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
