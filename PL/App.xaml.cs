@@ -17,6 +17,8 @@ namespace PL
     {
         public static BlApi.IBl? bl = BlApi.Factory.Get();
         public static ObservableCollection<BO.ProductForList?> ProductForListCollection = new ObservableCollection<BO.ProductForList?>();
+        public static ObservableCollection<BO.ProductItem?> ProductItemCollection = new ObservableCollection<BO.ProductItem?>();
+        public static BO.Cart cart = new BO.Cart();
         //{
         //    get
         //    {
