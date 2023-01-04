@@ -16,7 +16,7 @@ namespace PL
     public partial class App : Application
     {
         public static BlApi.IBl? bl = BlApi.Factory.Get();
-        public static ObservableCollection<BO.ProductForList?> ProductsCollection = new ObservableCollection<BO.ProductForList?>();
+        public static ObservableCollection<BO.ProductForList?> ProductForListCollection = new ObservableCollection<BO.ProductForList?>();
         //{
         //    get
         //    {

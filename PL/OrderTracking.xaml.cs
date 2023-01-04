@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Order_Tracking.xaml
+    /// Interaction logic for OrderTracking.xaml
     /// </summary>
-    public partial class Order_Tracking : Window
+    public partial class OrderTracking : Window
     {
-        public Order_Tracking()
+        public OrderTracking(string order)
         {
             InitializeComponent();
         }

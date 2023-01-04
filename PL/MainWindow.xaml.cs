@@ -24,11 +24,15 @@ namespace PL
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
+
+        private void btnTrack_Click(object sender, RoutedEventArgs e) => new OrderTracking(txtbxOrderNo.Text).Show();
+
+        private void btnNewOrder_Click(object sender, RoutedEventArgs e) => new CatalogWindow().Show();
     }
 }

@@ -84,7 +84,7 @@ namespace PL
             {
                 BO.ProductForList p=new BO.ProductForList();
                 p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
-                App.ProductsCollection.Add(p);
+                App.ProductForListCollection.Add(p);
                 this.Close();
                 //new ProductForList().Show();
             }

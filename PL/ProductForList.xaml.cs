@@ -29,14 +29,15 @@ namespace PL
         /// </summary>
         public ProductForList()
         {
-            DataContext = App.ProductsCollection;
-            foreach (var item in App.bl!.product.GetProductsList())
-            {
-                App.ProductsCollection.Add(item);
-            }
+            //ListViewProductForList.
+            DataContext = App.ProductForListCollection;
             InitializeComponent();
             try
             {
+                foreach (var item in App.bl!.product.GetProductsList())
+                {
+                    App.ProductForListCollection.Add(item);
+                }
                 //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
             }
             catch (Exception e)
