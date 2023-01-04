@@ -16,19 +16,18 @@ namespace BlImplementation
         public IEnumerable<BO.ProductForList> GetProductsList(Predicate<DO.Product?>? f = null)
         {
             var products = dal?.product.Get() ?? throw new NullReferenceException();
-            //var list = new List<BO.ProductForList>();
-            var list = new ObservableCollection<BO.ProductForList>();
+            var list = new List<BO.ProductForList>();
             foreach (var product in products)
             {
                 if (f == null || f(product))
                 {
-                    BO.ProductForList listItem = new BO.ProductForList() ?? throw new Exception();
-                    //{
+                    BO.ProductForList listItem = new BO.ProductForList()// ?? throw new Exception();
+                    {
                     //    ID = product?.ID ?? throw new NullReferenceException(),
                     //    Name = product?.Name,
                     //    Price = product?.Price ?? throw new NullReferenceException(),
-                    //    Category = product?.Category
-                    //};
+                        Category = (BO.Enums.Category)product?.Category!
+                    };
                     listItem.CopyProperties(product!);
                     list.Add(listItem);
                 }

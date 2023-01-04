@@ -30,7 +30,7 @@ namespace PL
         public ProductForList()
         {
             //ListViewProductForList.
-            DataContext = App.ProductForListCollection;
+            //DataContext = App.ProductForListCollection;
             InitializeComponent();
             try
             {

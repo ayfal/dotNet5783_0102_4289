@@ -6,7 +6,7 @@
     <Application.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize"
-                    Value="30"/>
+                    Value="20"/>
             <Setter Property="Width"
                     Value="Auto"/>
             <Setter Property="Height"
