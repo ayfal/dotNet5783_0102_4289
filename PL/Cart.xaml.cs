@@ -99,10 +99,6 @@ namespace PL
             new Cart().Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        private void bteCheckOut_Click(object sender, RoutedEventArgs e) => App.bl!.cart.Checkout(App.cart, App.cart.CustomerName!, App.cart.CustomerEmail!, App.cart.CustomerAddress!);
     }
 }
