@@ -26,15 +26,15 @@ namespace PL
         //double dbl;
 
         //BlApi.IBl? bl = BlApi.Factory.Get();
-        ///// <summary>
-        ///// constructor. constructs the windows either in add mode or in update mode 
-        ///// </summary>
-        ///// <param name="id"></param>
-        //public Product(string? id = null)
+        /// <summary>
+        /// constructor.constructs the windows either in add mode or in update mode
+        /// </summary>
+        /// <param name = "id" ></ param >
+        //public Order(string? id)
         //{
         //    InitializeComponent();
-        //    cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-        //    if (id == null) //add mode
+        //    //cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+        //    if (this.Owner == ) //customer mode
         //    {
         //        txtID.IsReadOnly = false;
         //        btnAdd.Visibility = Visibility.Visible;

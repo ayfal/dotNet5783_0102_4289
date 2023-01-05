@@ -76,7 +76,7 @@ namespace BlImplementation
                         //Price = productD.Price,
                         Category = (BO.Enums.Category)productD.Category!,
                         InStock = productD.InStock > 0 ? true : false,
-                        Amount = cart.Items?.First(x => x?.ID == ID)?.Amount ?? throw new NullReferenceException()
+                        Amount = cart.Items?.FirstOrDefault(x => x?.ID == ID)?.Amount ?? 0 // throw new NullReferenceException()
                     };
                     productB.CopyProperties(productD);
                     return productB;
