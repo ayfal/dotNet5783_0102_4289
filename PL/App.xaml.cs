@@ -24,5 +24,6 @@ namespace PL
         public static ObservableCollection<BO.OrderForList?> OrderCollection = new ObservableCollection<BO.OrderForList?>();
         public static BO.Cart cart = new BO.Cart() { Items = new List<BO.OrderItem>()! };
         public static ListCollectionView view = new ListCollectionView(ProductItemCollection);
+        public static Array categories = Enum.GetValues(typeof(BO.Enums.Category));
     }
 }
