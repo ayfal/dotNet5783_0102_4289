@@ -28,7 +28,7 @@ VerticalAlignment="Stretch" Width="auto">
         <!--SelectionChanged="CategorySelector_SelectionChanged"-->
         <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewOrder" d:ItemsSource="{Binding }" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" >
+        <ListView x:Name="ListViewOrder" ItemsSource="{Binding Source={x:Static local:App.OrderCollection}}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" >
             <!--MouseDoubleClick="ListViewProductForList_MouseDoubleClick"-->
             <!--d:SampleData ItemCount=5-->
             <ListView.View>
@@ -37,7 +37,6 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" />
         <!--Click="Button_Click"-->
     </Grid>
 

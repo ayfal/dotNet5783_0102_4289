@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,15 @@ namespace PL
     {
         public CatalogWindow()
         {
-           //ListViewProductForList.
+            App.view.IsLiveSorting = true;
+            App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            //ListViewProductForList.
             DataContext = App.ProductItemCollection;
             InitializeComponent();
             try
             {
                 foreach (var item in App.bl!.product.GetProductsList())
-                {
                     App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
-                }
                 //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
             }
             catch (Exception e)
@@ -40,9 +41,24 @@ namespace PL
 
         }
 
-        private void ListViewProductItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
+            var product = ((BO.ProductItem)(((Button)sender).DataContext));
+            App.bl.cart.AddProduct(App.cart, product.ID);
+            App.ProductItemCollection.Remove(product);
+            App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+        }
 
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            var product = ((BO.ProductItem)(((Button)sender).DataContext));
+            if (product.Amount > 0)
+            {
+                App.bl.cart.UpdateAmount(App.cart, product.ID, (product.Amount) - 1);
+                App.ProductItemCollection.Remove(product);
+                App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+            }
+            
         }
     }
 }
