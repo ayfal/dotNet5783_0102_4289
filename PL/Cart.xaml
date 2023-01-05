@@ -7,8 +7,16 @@
         mc:Ignorable="d"
         Title="Cart" Height="450" Width="800">
     <Grid>
-        <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewCart" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" >
+        <Label Content="Customer Name"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Source={x:Static local:App.cart}, Path=CustomerName, Mode=TwoWay}" Width="120"/>
+        <Label Content="Customer Email"/>
+	    <TextBox TextWrapping="Wrap" Text="{Binding Source={x:Static local:App.cart}, Path=CustomerEmail, Mode=TwoWay}" Width="120"/>
+        <Label Content="Customer Address"/>
+	    <TextBox TextWrapping="Wrap" Text="{Binding Source={x:Static local:App.cart}, Path=CustomerAddress, Mode=TwoWay}" Width="120"/>
+        <Label Content="Total Price"/>
+	    <Label Content="{Binding Source={x:Static local:App.cart}, Path=TotalPrice}"/>
+		<Label Content="Your Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
+        <ListView x:Name="ListViewCart" ItemsSource="{Binding Source={x:Static local:App.cart}, Path=Items}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" >
             <!--MouseDoubleClick="ListViewCart_MouseDoubleClick"-->
             <!--d:SampleData ItemCount=5-->
             <ListView.View>
@@ -16,11 +24,6 @@
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-            <Label Content="Customer Name"/>
-            <Label Content="Customer Email"/>
-            <Label Content="Customer Address"/>
-            <Label Content="Total Price"/>
-            <TextBox TextWrapping="Wrap" Text="{Binding Source={x:Static local:App.cart.CustomerName}}" Width="120"/>
         </ListView>
         <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" />
         <!--Click="Button_Click"-->

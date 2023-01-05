@@ -30,29 +30,29 @@ namespace PL
         /// constructor.constructs the windows either in add mode or in update mode
         /// </summary>
         /// <param name = "id" ></ param >
-        //public Order(string? id)
-        //{
-        //    InitializeComponent();
-        //    //cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-        //    if (this.Owner == ) //customer mode
-        //    {
-        //        txtID.IsReadOnly = false;
-        //        btnAdd.Visibility = Visibility.Visible;
-        //        btnUpdate.Visibility = Visibility.Hidden;
-        //    }
-        //    else //update mode
-        //    {
-        //        txtID.IsReadOnly = true;
-        //        txtID.Text = id;
-        //        BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
-        //        txtName.Text = product.Name;
-        //        txtPrice.Text = product.Price.ToString();
-        //        cmbbxCategory.Text = product.Category.ToString();
-        //        txtInStock.Text = product.InStock.ToString();
-        //        btnAdd.Visibility = Visibility.Hidden;
-        //        btnUpdate.Visibility = Visibility.Visible;
-        //    }
-        //}
+        public Order(string? id)
+        {
+            //    InitializeComponent();
+            //    //cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            //    if (this.Owner == ) //customer mode
+            //    {
+            //        txtID.IsReadOnly = false;
+            //        btnAdd.Visibility = Visibility.Visible;
+            //        btnUpdate.Visibility = Visibility.Hidden;
+            //    }
+            //    else //update mode
+            //    {
+            //        txtID.IsReadOnly = true;
+            //        txtID.Text = id;
+            //        BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
+            //        txtName.Text = product.Name;
+            //        txtPrice.Text = product.Price.ToString();
+            //        cmbbxCategory.Text = product.Category.ToString();
+            //        txtInStock.Text = product.InStock.ToString();
+            //        btnAdd.Visibility = Visibility.Hidden;
+            //        btnUpdate.Visibility = Visibility.Visible;
+            //    }
+        }
 
         ///// <summary>
         ///// generates a product object from the textboxes

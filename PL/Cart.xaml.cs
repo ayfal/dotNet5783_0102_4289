@@ -23,8 +23,9 @@ namespace PL
     {
         public Cart()
         {
-            App.view.IsLiveSorting = true;
-            App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+
+            //App.view.IsLiveSorting = true;
+            //App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             //ListViewProductForList.
             //DataContext = App.ProductItemCollection;
             InitializeComponent();
