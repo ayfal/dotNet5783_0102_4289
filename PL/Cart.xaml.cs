@@ -66,33 +66,33 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //filter the list. if no filter is selected, don't filter:
-                App.ProductItemCollection.Clear();
-                foreach (var item in App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null)!)
-                {
-                    App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
-                }
+        //private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        //filter the list. if no filter is selected, don't filter:
+        //        App.ProductItemCollection.Clear();
+        //        foreach (var item in App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null)!)
+        //        {
+        //            App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\nWho would have thought?");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message + "\nWho would have thought?");
+        //    }
+        //}
 
         /// <summary>
         /// clear the filter combo box
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            CategorySelector.SelectedItem = null;
-        }
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    CategorySelector.SelectedItem = null;
+        //}
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
