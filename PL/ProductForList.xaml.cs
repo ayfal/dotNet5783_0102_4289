@@ -1,6 +1,4 @@
-﻿//using BlApi;
-//using BlImplementation;
-using BlApi;
+﻿using BlApi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,8 +27,6 @@ namespace PL
         /// </summary>
         public ProductForList()
         {
-            //ListViewProductForList.
-            //DataContext = App.ProductForListCollection;
             InitializeComponent();
             try
             {
@@ -38,7 +34,6 @@ namespace PL
                 {
                     App.ProductForListCollection.Add(item);
                 }
-                //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
             }
             catch (Exception e)
             {
