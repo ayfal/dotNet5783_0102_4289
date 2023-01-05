@@ -35,9 +35,6 @@ namespace PL
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e) => new ProductForList().Show();
 
-        private void BtnOrderList_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void BtnOrderList_Click(object sender, RoutedEventArgs e) => new OrderForList().Show();
     }
 }

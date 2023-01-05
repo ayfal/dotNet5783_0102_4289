@@ -53,7 +53,12 @@ namespace PL
             try
             {
                 //filter the list. if no filter is selected, don't filter:
-                ListViewProductForList.ItemsSource = App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null);
+                App.ProductForListCollection.Clear();
+                foreach (var item in App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null)!)
+                {
+                    App.ProductForListCollection.Add(item);
+                }
+                //ListViewProductForList.ItemsSource = ;
             }
             catch (Exception ex)
             {
