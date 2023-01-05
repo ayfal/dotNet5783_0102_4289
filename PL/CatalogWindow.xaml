@@ -21,10 +21,9 @@ VerticalAlignment="Stretch" Width="auto">
         </Grid>
 
         <Grid>
-            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" /><!--Click="Button_Click_1"-->
+            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         </Grid>
-        <ComboBox Name="CategorySelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"  Width="800" Margin="0,27,0,515" Grid.RowSpan="2"/>
-        <!--SelectionChanged="CategorySelector_SelectionChanged"-->
+        <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"  Width="800" Margin="0,27,0,515" Grid.RowSpan="2" SelectionChanged="CategorySelector_SelectionChanged"/>
         <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Catalog:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <ListView x:Name="ListViewProductItem"  ItemsSource="{Binding Source={x:Static local:App.view}}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2">
@@ -47,7 +46,7 @@ VerticalAlignment="Stretch" Width="auto">
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" />
+        <Button Content="show cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="btnCart_Click" />
         <!--Click="Button_Click"-->
     </Grid>
 
