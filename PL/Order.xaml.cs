@@ -2,6 +2,7 @@
 //using BlImplementation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL
 {
@@ -32,26 +34,37 @@ namespace PL
         /// <param name = "id" ></ param >
         public Order(string? id)
         {
-            //    InitializeComponent();
-            //    //cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-            //    if (this.Owner == ) //customer mode
-            //    {
-            //        txtID.IsReadOnly = false;
-            //        btnAdd.Visibility = Visibility.Visible;
-            //        btnUpdate.Visibility = Visibility.Hidden;
-            //    }
-            //    else //update mode
-            //    {
-            //        txtID.IsReadOnly = true;
-            //        txtID.Text = id;
-            //        BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
-            //        txtName.Text = product.Name;
-            //        txtPrice.Text = product.Price.ToString();
-            //        cmbbxCategory.Text = product.Category.ToString();
-            //        txtInStock.Text = product.InStock.ToString();
-            //        btnAdd.Visibility = Visibility.Hidden;
-            //        btnUpdate.Visibility = Visibility.Visible;
-            //    }
+            InitializeComponent();
+            //if (this.Owner == null) //manager mode
+            //{
+            //    txtID.IsReadOnly = false;
+            //    txtName.IsReadOnly = false;
+            //    txtEmail.IsReadOnly = false;
+            //    txtAddress.IsReadOnly = false;
+            //    txtOrderDate.IsReadOnly = false;
+            //    txtShipDate.IsReadOnly = false;
+            //    txtDeliveryDate.IsReadOnly = false;
+            //    btnAdd.Visibility = Visibility.Visible;
+            //    btnUpdate.Visibility = Visibility.Hidden;
+            //}
+            //else //customer mode
+            //{
+            //    txtID.IsReadOnly = true;
+            //    txtName.IsReadOnly = true;
+            //    txtEmail.IsReadOnly = true;
+            //    txtAddress.IsReadOnly = true;
+            //    txtOrderDate.IsReadOnly = true;
+            //    txtShipDate.IsReadOnly = true;
+            //    txtDeliveryDate.IsReadOnly = true;
+            //    txtID.Text = id;
+            //    BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
+            //    txtName.Text = product.Name;
+            //    txtPrice.Text = product.Price.ToString();
+            //    cmbbxCategory.Text = product.Category.ToString();
+            //    txtInStock.Text = product.InStock.ToString();
+            //    btnAdd.Visibility = Visibility.Hidden;
+            //    btnUpdate.Visibility = Visibility.Visible;
+            //}
         }
 
         ///// <summary>
@@ -109,5 +122,31 @@ namespace PL
         //        MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
         //    }
         //}
+
+        public
+class WindowToBoolConverter : IValueConverter
+        {
+            //convert from source property type to target property type
+            public
+            object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                Window owner = (Window)value;
+                if (owner == null)//change this
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            //convert from target property type to source property type
+            public
+            object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw
+                new NotImplementedException();
+            }
+        }
     }
 }

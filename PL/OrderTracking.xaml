@@ -8,17 +8,8 @@
         mc:Ignorable="d"
         Title="OrderTracking" Height="450" Width="800">
     <Grid>
-        <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewOrder" d:ItemsSource="{Binding }" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2">
-			<!-- MouseDoubleClick="ListViewOrder_MouseDoubleClick"-->
-            <!--d:SampleData ItemCount=5-->
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" />
-			<!--Click="Button_Click"-->
-    </Grid>
+        <Label Content="Your Order:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
+        <TextBlock Text="{Binding OrderLog}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2"/>
+        <Button Content="Order Details" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Button_Click"/>
+	</Grid>
 </Window>

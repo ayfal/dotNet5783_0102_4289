@@ -19,9 +19,14 @@ namespace PL
     /// </summary>
     public partial class OrderTracking : Window
     {
+        string orderID;
         public OrderTracking(string order)
         {
             InitializeComponent();
+            BO.OrderTracking OrderLog = int.TryParse(order, out int ID) ? App.bl!.order.Track(ID) : throw new Exception("that's the weirdest integer i've ever seen");
+            orderID = order;
         }
+
+        public void Button_Click(object sender, RoutedEventArgs e) => new Order(orderID).Show();
     }
 }

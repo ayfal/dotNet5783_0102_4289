@@ -6,38 +6,46 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="Order" Height="640" Width="800">
-    <Grid Name="MainGrid" RenderTransformOrigin="0.24,0.233">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-        </Grid>
-
-        <Grid>
-            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" />
-            <!--Click="Button_Click_1"-->
-        </Grid>
-        <ComboBox Name="CategorySelector" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"  Width="800" Margin="0,27,0,515" Grid.RowSpan="2"/>
-        <!--SelectionChanged="CategorySelector_SelectionChanged"-->
-        <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewOrder" ItemsSource="{Binding Source={x:Static local:App.OrderCollection}}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" >
-            <!--MouseDoubleClick="ListViewProductForList_MouseDoubleClick"-->
-            <!--d:SampleData ItemCount=5-->
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <!--Click="Button_Click"-->
-    </Grid>
-
+	<StackPanel Orientation="Vertical">
+		<StackPanel Orientation="Horizontal">
+			<Label Content="ID"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=ID}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>			
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Customer Name"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerName}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Customer Email"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerEmail}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Customer Address"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerAddress}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Status"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=Status}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Order Date"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=OrderDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Ship Date"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=ShipDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="Delivery Date"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=DeliveryDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Vertical">
+			<Label Content="Items"/>
+			<ListView ItemsSource="{Binding Source={x:Static local:App.cart}, Path=Items}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="TotalPrice"/>
+			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=TotalPrice}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+		</StackPanel>
+	</StackPanel>
 </Window>
