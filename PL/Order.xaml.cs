@@ -128,19 +128,6 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                App.bl?.order.Update(App.order);
-                this.Close();
-                new ProductForList().Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
-            }
-        }
-
+        
     }
 }
