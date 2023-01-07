@@ -39,7 +39,7 @@ namespace PL
             {
                 MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
             }
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 
         }
 
@@ -82,11 +82,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-            new Product(((BO.ProductForList)ListViewProductForList.SelectedItem).ID.ToString()).Show();
-        }
+        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)=> new Product(((BO.ProductForList)ListViewProductForList.SelectedItem).ID.ToString()).Show();
 
         /// <summary>
         /// clear the filter combo box
