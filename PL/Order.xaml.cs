@@ -32,8 +32,9 @@ namespace PL
         /// constructor.constructs the windows either in add mode or in update mode
         /// </summary>
         /// <param name = "id" ></ param >
-        public Order(string? id)
+        public Order(string id)
         {
+            App.order= App.bl!.order.GetOrderDetails(int.Parse(id));
             InitializeComponent();
             //if (this.Owner == null) //manager mode
             //{
@@ -122,31 +123,24 @@ namespace PL
         //        MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
         //    }
         //}
-
-        public
-class WindowToBoolConverter : IValueConverter
+        /// <summary>
+        /// updates the product in the DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Update_Click(object sender, RoutedEventArgs e)
         {
-            //convert from source property type to target property type
-            public
-            object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            try
             {
-                Window owner = (Window)value;
-                if (owner == null)//change this
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                App.bl?.order.Update(App.order);
+                this.Close();
+                new ProductForList().Show();
             }
-            //convert from target property type to source property type
-            public
-            object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            catch (Exception ex)
             {
-                throw
-                new NotImplementedException();
+                MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
             }
         }
+
     }
 }

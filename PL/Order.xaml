@@ -4,48 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
+		mc:Ignorable="d"
         Title="Order" Height="640" Width="800">
+	<Window.Resources>
+		<local:WindowToBoolConverter x:Key="WindowToBoolConverter"/>
+	</Window.Resources>
 	<StackPanel Orientation="Vertical">
 		<StackPanel Orientation="Horizontal">
 			<Label Content="ID"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=ID}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>			
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=ID}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>			
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Name"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerName}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=CustomerName}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Email"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerEmail}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=CustomerEmail}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Address"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=CustomerAddress}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=CustomerAddress}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Status"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=Status}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=Status}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Order Date"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=OrderDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=OrderDate}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Ship Date"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=ShipDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=ShipDate}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Delivery Date"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=DeliveryDate}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=DeliveryDate}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Vertical">
 			<Label Content="Items"/>
-			<ListView ItemsSource="{Binding Source={x:Static local:App.cart}, Path=Items}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<ListView ItemsSource="{Binding Source={x:Static local:App.order}, Path=Items}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="TotalPrice"/>
-			<TextBox Text="{Binding Source={x:Static local:App.cart}, Path=TotalPrice}" IsReadOnly="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
+			<TextBox Text="{Binding Source={x:Static local:App.order}, Path=TotalPrice}" IsEnabled="{Binding Owner, Converter={StaticResource WindowToBoolConverter}}"/>
 		</StackPanel>
+		<Button Content="Update" Click="Update_Click"/>
+		<!-- Width="118"--> 
 	</StackPanel>
 </Window>

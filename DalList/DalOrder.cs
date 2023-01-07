@@ -8,7 +8,7 @@ public class DalOrder : IOrder
 {    
     public int Add(Order order)
     {
-        order.ID = Config.orderItemId;
+        order.ID = Config.orderId;
         orders.Add(order);
         return order.ID;
     }

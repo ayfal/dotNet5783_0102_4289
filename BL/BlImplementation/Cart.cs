@@ -112,12 +112,12 @@ namespace BlImplementation
                 DO.OrderItem orderItem = new DO.OrderItem()
                 {
                     ID = 0,
-                    //ProductID = item!.ProductID,
+                    ProductID = item!.ProductID,
                     OrderID = orderID,
-                    //Price = item.Price,
-                    //Amount = item.Amount
+                    Price = item.Price,
+                    Amount = item.Amount
                 };
-                orderItem.CopyProperties(item);
+                //orderItem.CopyProperties(item); for some reason this doesn't copy
                 dal?.orderItem.Add(orderItem);
                 int inStock = dal?.product.Get(item.ProductID)?.InStock ?? throw new NullReferenceException();
                 if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
