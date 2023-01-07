@@ -41,10 +41,6 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListViewOrderForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-            new Order(((BO.OrderForList)ListViewOrderForList.SelectedItem).ID.ToString()).Show();
-        }
+        private void ListViewOrderForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)=>new Order(((BO.OrderForList)ListViewOrderForList.SelectedItem).ID.ToString()).Show();
     }
 }

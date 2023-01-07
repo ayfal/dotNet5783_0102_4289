@@ -50,7 +50,7 @@ namespace BlImplementation
                     //CustomerName = order?.CustomerName,
                     Status = GetStatus((DO.Order)order!),
                     AmountOfItems = dal?.orderItem.GetOrderItems((int)(order?.ID!)).Count() ?? throw new NullReferenceException(),
-                    TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price)!
+                    TotalPrice = (double)dal?.orderItem.GetOrderItems((int)(order?.ID!)).Sum(x => x?.Price * x?.Amount)!
                 };
                 orderForList.CopyProperties(order);
                 ordersList.Add(orderForList);
@@ -76,7 +76,7 @@ namespace BlImplementation
                         //ShipDate = orderD?.ShipDate,
                         //DeliveryDate = orderD?.DeliveryDate,
                         Items = GetLogicItems((IEnumerable<DO.OrderItem?>)(dal ?? throw new NullReferenceException()).orderItem.GetOrderItems((int)(orderD?.ID!)))!,
-                        TotalPrice = (double)dal?.orderItem.GetOrderItems((int)orderD?.ID!)?.Sum(x => x?.Price)!
+                        TotalPrice = (double)dal?.orderItem.GetOrderItems((int)orderD?.ID!)?.Sum(x => x?.Price * x?.Amount)!
                     };
                     orderB.CopyProperties(orderD);
                     return orderB;

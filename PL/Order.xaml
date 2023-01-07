@@ -9,43 +9,43 @@
 	<StackPanel Orientation="Vertical">
 		<StackPanel Orientation="Horizontal">
 			<Label Content="ID"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=ID}"/>			
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=ID}" VerticalAlignment="Center"/>			
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Name"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerName}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerName}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Email"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerEmail}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerEmail}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Customer Address"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerAddress}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=CustomerAddress}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Status"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=Status}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=Status}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Order Date"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=OrderDate}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=OrderDate}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Ship Date"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=ShipDate}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=ShipDate}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Delivery Date"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=DeliveryDate}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=DeliveryDate}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Vertical">
 			<Label Content="Items"/>
-			<ListView ItemsSource="{Binding Source={x:Static local:App.order}, Path=Items}"/>
+			<ListView ItemsSource="{Binding Source={x:Static local:App.order}, Path=Items}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="TotalPrice"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=TotalPrice}"/>
+			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=TotalPrice}" VerticalAlignment="Center"/>
 		</StackPanel>
 	</StackPanel>
 </Window>
