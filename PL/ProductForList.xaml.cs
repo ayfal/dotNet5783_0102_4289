@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -22,18 +23,19 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
+        public static ListCollectionView view = new ListCollectionView(App.ProductForListCollection);
         /// <summary>
         /// constructor. populates a list with all the products, and a filter selector with all the categories 
         /// </summary>
         public ProductForList()
         {
+            view.IsLiveSorting = true;
+            view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             InitializeComponent();
             try
             {
                 foreach (var item in App.bl!.product.GetProductsList())
-                {
                     App.ProductForListCollection.Add(item);
-                }
             }
             catch (Exception e)
             {
@@ -62,7 +64,7 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message+"\nWho would have thought?");
+                MessageBox.Show(ex.Message + "\nWho would have thought?");
             }
         }
 
@@ -71,18 +73,20 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //this.Close();
-            new Product().Show();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => new Product().Show();
 
         /// <summary>
         /// switch to the update-product window. works by double clicking a product in the list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)=> new Product(((BO.ProductForList)ListViewProductForList.SelectedItem).ID.ToString()).Show();
+        private void ListViewProductForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var product = (BO.ProductForList)ListViewProductForList.SelectedItem;
+            App.ProductForListCollection.Remove(product);
+            new Product(product.ID.ToString()).Show();
+        }
+
 
         /// <summary>
         /// clear the filter combo box

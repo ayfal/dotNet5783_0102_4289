@@ -25,6 +25,8 @@ namespace PL
     {
         int integer;
         double dbl;
+        public static BO.Product product;
+        public static bool isAddMode;
 
         //BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
@@ -33,26 +35,10 @@ namespace PL
         /// <param name="id"></param>
         public Product(string? id = null)
         {
+            isAddMode = id == null;
+            if (isAddMode) product = new BO.Product();
+            else product = App.bl.product.GetProdcutDetails(int.Parse(id));//update mode
             InitializeComponent();
-            cmbbxCategory.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-            if (id == null) //add mode
-            {
-                txtID.IsReadOnly = false;
-                btnAdd.Visibility = Visibility.Visible;
-                btnUpdate.Visibility = Visibility.Hidden;
-            }
-            else //update mode
-            {
-                txtID.IsReadOnly = true;
-                txtID.Text = id;
-                BO.Product product = App.bl.product.GetProdcutDetails(int.Parse(id));
-                txtName.Text = product.Name;
-                txtPrice.Text = product.Price.ToString();
-                cmbbxCategory.Text = product.Category.ToString();
-                txtInStock.Text = product.InStock.ToString();
-                btnAdd.Visibility = Visibility.Hidden;
-                btnUpdate.Visibility = Visibility.Visible;
-            }
         }
 
         /// <summary>
@@ -82,7 +68,7 @@ namespace PL
         {
             try
             {
-                BO.ProductForList p=new BO.ProductForList();
+                BO.ProductForList p = new BO.ProductForList();
                 p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
                 App.ProductForListCollection.Add(p);
                 this.Close();
@@ -103,9 +89,11 @@ namespace PL
         {
             try
             {
-                App.bl?.product.Update(GenerateProduct());
+                BO.ProductForList p = new BO.ProductForList();
+                p.CopyProperties(App.bl?.product.Update(GenerateProduct()));
+                App.ProductForListCollection.Add(p);
                 this.Close();
-                new ProductForList().Show();
+                //new ProductForList().Show();
             }
             catch (Exception ex)
             {
