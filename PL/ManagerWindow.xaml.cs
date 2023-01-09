@@ -33,8 +33,21 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e) => new ProductForList().Show();
+        private void Product_Click(object sender, RoutedEventArgs e)
+        { 
+            new ProductForList().Show();
+            Close();
+        }
 
-        private void BtnOrderList_Click(object sender, RoutedEventArgs e) => new OrderForList().Show();
+        private void Order_Click(object sender, RoutedEventArgs e)
+        {
+            new OrderForList().Show();            
+            Close();
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

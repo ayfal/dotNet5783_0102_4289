@@ -6,48 +6,31 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="CatalogWindow" Height="450" Width="800">
-    <Grid Name="MainGrid" RenderTransformOrigin="0.24,0.233">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-        </Grid>
-
-        <Grid>
-            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        </Grid>
-        <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1"  Width="800" Margin="0,27,0,515" Grid.RowSpan="2" SelectionChanged="CategorySelector_SelectionChanged"/>
-        <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <Label Content="Catalog:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
-        <ListView x:Name="ListViewProductItem"  ItemsSource="{Binding Source={x:Static local:App.view}}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2">
-            <!-- <ListView.View> 
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View> -->
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding}" />
-                        <Separator Width="10"/>
-                        <Button Content="-" Click="btnMinus_Click" />
-                        <!--Command="{Binding DecreasAmount}" -->
-                        <Separator Width="10"/>
-                        <Button Content="+"  Click="btnPlus_Click" />
-                        <!--Command="{Binding IncreasAmount}"-->
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Content="show cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="btnCart_Click" />
-        <!--Click="Button_Click"-->
-    </Grid>
-
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Filter by category:"/>
+                <Button Content="Clear Filter" Click="Button_Click_1"/>
+                <Separator Width="10"/>
+                <Button Content="Show Cart" Click="btnCart_Click" />
+                <Separator Width="10"/>
+                <Button Content="Back" Click="Back_Click" />
+            </StackPanel>
+            <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" SelectionChanged="CategorySelector_SelectionChanged"/>
+            <Label Content="Catalog:"/>
+            <ListView x:Name="ListViewProductItem"  ItemsSource="{Binding Source={x:Static local:App.view}}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                            <Separator Width="10"/>
+                            <Button Content="-" Click="btnMinus_Click" />
+                            <Separator Width="10"/>
+                            <Button Content="+"  Click="btnPlus_Click" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

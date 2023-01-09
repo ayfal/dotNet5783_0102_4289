@@ -28,7 +28,6 @@ namespace PL
         public static BO.Product product;
         public static bool isAddMode;
 
-        //BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// constructor. constructs the windows either in add mode or in update mode 
         /// </summary>
@@ -71,7 +70,8 @@ namespace PL
                 BO.ProductForList p = new BO.ProductForList();
                 p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
                 App.ProductForListCollection.Add(p);
-                this.Close();
+                new ProductForList().Show();
+                Close();
                 //new ProductForList().Show();
             }
             catch (Exception ex)
@@ -92,13 +92,24 @@ namespace PL
                 BO.ProductForList p = new BO.ProductForList();
                 p.CopyProperties(App.bl?.product.Update(GenerateProduct()));
                 App.ProductForListCollection.Add(p);
-                this.Close();
-                //new ProductForList().Show();
+                new ProductForList().Show();
+                Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
             }
+        }
+
+        /// <summary>
+        /// Goes back to the Prodcut for list Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductForList().Show();
+            Close();
         }
     }
 }

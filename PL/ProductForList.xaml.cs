@@ -34,6 +34,7 @@ namespace PL
             InitializeComponent();
             try
             {
+                App.ProductForListCollection.Clear();
                 foreach (var item in App.bl!.product.GetProductsList())
                     App.ProductForListCollection.Add(item);
             }
@@ -41,8 +42,6 @@ namespace PL
             {
                 MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
             }
-            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-
         }
 
         /// <summary>
@@ -73,7 +72,11 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e) => new Product().Show();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Product().Show();
+            Close();
+        }
 
         /// <summary>
         /// switch to the update-product window. works by double clicking a product in the list
@@ -85,6 +88,7 @@ namespace PL
             var product = (BO.ProductForList)ListViewProductForList.SelectedItem;
             App.ProductForListCollection.Remove(product);
             new Product(product.ID.ToString()).Show();
+            Close();
         }
 
 
@@ -93,9 +97,19 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Clear_Filter_Click(object sender, RoutedEventArgs e)
         {
             CategorySelector.SelectedItem = null;
+        }
+        /// <summary>
+        /// Goes back to the Manager Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new ManagerWindow().Show();
+            Close();
         }
     }
 }

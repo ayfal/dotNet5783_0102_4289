@@ -23,41 +23,46 @@ namespace PL
         public CatalogWindow()
         {
             App.view.IsLiveSorting = true;
-            App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            //ListViewProductForList.
-            //DataContext = App.ProductItemCollection;
+            App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));            
             InitializeComponent();
             try
             {
+                App.ProductItemCollection.Clear();
                 foreach (var item in App.bl!.product.GetProductsList())
                     App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
-                //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
             }
-            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-
         }
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            var product = ((BO.ProductItem)(((Button)sender).DataContext));
-            App.bl.cart.AddProduct(App.cart, product.ID);
-            App.ProductItemCollection.Remove(product);
-            App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+            try
+            {
+                var product = (BO.ProductItem)((Button)sender).DataContext;
+                App.bl.cart.AddProduct(App.cart, product.ID);
+                App.ProductItemCollection.Remove(product);
+                App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+            }
+            catch { MessageBox.Show("Ouch!"); }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            var product = ((BO.ProductItem)(((Button)sender).DataContext));
-            if (product.Amount > 0)
+            try
             {
-                App.bl.cart.UpdateAmount(App.cart, product.ID, (product.Amount) - 1);
-                App.ProductItemCollection.Remove(product);
-                App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+
+                var product = ((BO.ProductItem)(((Button)sender).DataContext));
+                if (product.Amount > 0)
+                {
+                    App.bl.cart.UpdateAmount(App.cart, product.ID, (product.Amount) - 1);
+                    App.ProductItemCollection.Remove(product);
+                    App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+                }
             }
+            catch { MessageBox.Show("Ouch!"); }
         }
         /// <summary>
         /// filter the list by category, or remove filtering
@@ -95,11 +100,18 @@ namespace PL
         private void btnCart_Click(object sender, RoutedEventArgs e) 
         {
             new Cart().Show();
+            Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Goes back to the Main Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-
+            new MainWindow().Show();
+            Close();
         }
     }
 }

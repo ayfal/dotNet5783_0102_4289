@@ -12,7 +12,7 @@ namespace BO
         public class ObjectNotFoundException : Exception
         {
             public ObjectNotFoundException() { }
-            public ObjectNotFoundException(Exception innerException) { }           
+            public ObjectNotFoundException(Exception innerException) { }
         }
         [Serializable]
         public class ObjectAlreadyExistsException : Exception
@@ -20,10 +20,20 @@ namespace BO
             public ObjectAlreadyExistsException(Exception innerException) { }
         }
         [Serializable]
-        public class DoneAlreadyException : Exception { }
+        public class DoneAlreadyException : Exception 
+        {
+            public DoneAlreadyException(string message) { }
+            public DoneAlreadyException(string message, Exception inner)
+        : base(message, inner) { }
+        }
         [Serializable]
         public class NotShippedYetException : Exception { }
         [Serializable]
-        public class InsufficientStockException : Exception { }
+        public class InsufficientStockException : Exception
+        {
+            public InsufficientStockException(string message) { }
+            public InsufficientStockException(string message, Exception inner)
+        : base(message, inner) { }
+        }
     }
 }

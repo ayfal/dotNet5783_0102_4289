@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
 		mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Order" Height="640" Width="800">
 	<StackPanel Orientation="Vertical">
 		<StackPanel Orientation="Horizontal">
@@ -32,12 +33,12 @@
 			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=OrderDate}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
-			<Label Content="Ship Date"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=ShipDate}" VerticalAlignment="Center"/>
+            <Label Content="Ship Date"/>
+			<TextBlock Text="{Binding ShipDate, Mode=OneWay}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<Label Content="Delivery Date"/>
-			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=DeliveryDate}" VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding DeliveryDate, Mode=OneWay}" VerticalAlignment="Center"/>
 		</StackPanel>
 		<StackPanel Orientation="Vertical">
 			<Label Content="Items"/>
@@ -46,6 +47,31 @@
 		<StackPanel Orientation="Horizontal">
 			<Label Content="TotalPrice"/>
 			<TextBlock Text="{Binding Source={x:Static local:App.order}, Path=TotalPrice}" VerticalAlignment="Center"/>
-		</StackPanel>
-	</StackPanel>
+		</StackPanel>        
+        <Button Content="Update Shipping" Click="Shipping_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Static local:Order.IsManager}}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Update Delivery" Click="Delivery_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Static local:Order.IsManager}}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Back" Click="Back_Click" />
+    </StackPanel>
 </Window>

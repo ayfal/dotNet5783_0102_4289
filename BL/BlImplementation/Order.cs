@@ -101,7 +101,7 @@ namespace BlImplementation
                     dal?.order.Update(orderD);
                     return orderB;
                 }
-                else throw new BO.Exceptions.DoneAlreadyException();
+                else throw new BO.Exceptions.DoneAlreadyException("Oh wow, I had no idea. I've been living under a rock for the past decade and somehow missed that piece of information. Thank you for enlightening me with your groundbreaking revelation.");
             }
             catch (DO.ObjectNotFoundException)
             {
@@ -122,7 +122,7 @@ namespace BlImplementation
                     dal?.order.Update(orderD);
                     return orderB;
                 }
-                else throw new BO.Exceptions.DoneAlreadyException();
+                else throw new BO.Exceptions.DoneAlreadyException("Oh wow, I had no idea. I've been living under a rock for the past decade and somehow missed that piece of information. Thank you for enlightening me with your groundbreaking revelation.");
             }
             catch (DO.ObjectNotFoundException)
             {
@@ -177,7 +177,7 @@ namespace BlImplementation
                         TotalPrice = orderItem.Price * orderItem.Amount
                     };
                 }
-                else throw new BO.Exceptions.InsufficientStockException();
+                else throw new BO.Exceptions.InsufficientStockException("We're going to fetch it. please come back later");
             }
             catch (DO.ObjectNotFoundException)
             {

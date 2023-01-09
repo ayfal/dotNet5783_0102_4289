@@ -36,5 +36,6 @@
             </ListView.View>
         </ListView>
         <Button Content="Checkout" Click="bteCheckOut_Click" HorizontalAlignment="Right" Margin="0,365,5,0" Padding="5" Height="64" VerticalAlignment="Top" />
+        <Button Content="Back" Click="Back_Click" HorizontalAlignment="Right" Margin="0,365,120,0" Padding="5" Height="64" VerticalAlignment="Top" />
     </Grid>
 </Window>

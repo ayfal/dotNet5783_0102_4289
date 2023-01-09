@@ -29,10 +29,21 @@ namespace PL
 
         //}
 
-        private void btnAdmin_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
-
-        private void btnTrack_Click(object sender, RoutedEventArgs e) => new OrderTracking(txtbxOrderNo.Text).Show();
-
-        private void btnNewOrder_Click(object sender, RoutedEventArgs e) => new CatalogWindow().Show();
+        private void btnAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            new ManagerWindow().Show();
+            Close();
+        }
+        private void btnTrack_Click(object sender, RoutedEventArgs e)
+        {
+            try { new OrderTracking(txtbxOrderNo.Text).Show(); }
+            catch { MessageBox.Show("Order tracked down and killed, sir. Awaiting further instructions"); }
+        }
+        private void btnNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            App.cart = new BO.Cart() { Items = new List<BO.OrderItem>()! };
+            new CatalogWindow().Show();
+            Close();
+        }
     }
 }

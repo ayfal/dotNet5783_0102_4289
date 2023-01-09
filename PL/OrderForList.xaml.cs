@@ -24,6 +24,7 @@ namespace PL
             InitializeComponent();
             try
             {
+                App.OrderCollection.Clear();
                 foreach (var item in App.bl!.order.Get())
                 {
                     App.OrderCollection.Add(item);
@@ -37,10 +38,25 @@ namespace PL
 
 
         /// <summary>
-        /// switch to the update-product window. works by double clicking a product in the list
+        /// switch to the update-order window. works by double clicking an order in the list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListViewOrderForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)=>new Order(((BO.OrderForList)ListViewOrderForList.SelectedItem).ID.ToString()).Show();
+        private void ListViewOrderForList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new Order(((BO.OrderForList)ListViewOrderForList.SelectedItem).ID.ToString(), true).Show();
+            Close();
+        }
+        
+        /// <summary>
+        /// Goes back to the Manager Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new ManagerWindow().Show();
+            Close();
+        }
     }
 }

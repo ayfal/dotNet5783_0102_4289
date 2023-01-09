@@ -20,13 +20,29 @@ namespace PL
     public partial class OrderTracking : Window
     {
         string orderID;
+        public static BO.OrderTracking OrderLog;
         public OrderTracking(string order)
         {
+            OrderLog = int.TryParse(order, out int ID) ? App.bl!.order.Track(ID) : throw new Exception("that's the weirdest integer i've ever seen");
             InitializeComponent();
-            BO.OrderTracking OrderLog = int.TryParse(order, out int ID) ? App.bl!.order.Track(ID) : throw new Exception("that's the weirdest integer i've ever seen");
             orderID = order;
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e) => new Order(orderID).Show();
+        public void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Order(orderID, false).Show();
+            Close();
+        }
+
+        /// <summary>
+        /// Goes back to the Main Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

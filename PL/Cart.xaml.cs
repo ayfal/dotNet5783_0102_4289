@@ -23,82 +23,32 @@ namespace PL
     {
         public Cart()
         {
-
-            //App.view.IsLiveSorting = true;
-            //App.view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            //ListViewProductForList.
-            //DataContext = App.ProductItemCollection;
             InitializeComponent();
-            //try
-            //{
-            //    foreach (var item in App.bl!.product.GetProductsList())
-            //        App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
-            //    //ListViewProductForList.ItemsSource = App.bl.product.GetProductsList();
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show(e.Message + "\nTake cover. coumputer might explode");
-            //}
-            ////CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-
         }
-
-        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        private void bteCheckOut_Click(object sender, RoutedEventArgs e)
         {
-            var product = ((BO.ProductItem)(((Button)sender).DataContext));
-            App.bl.cart.AddProduct(App.cart, product.ID);
-            App.ProductItemCollection.Remove(product);
-            App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
-        }
-
-        private void btnMinus_Click(object sender, RoutedEventArgs e)
-        {
-            var product = ((BO.ProductItem)(((Button)sender).DataContext));
-            if (product.Amount > 0)
+            try
             {
-                App.bl.cart.UpdateAmount(App.cart, product.ID, (product.Amount) - 1);
-                App.ProductItemCollection.Remove(product);
-                App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
+                var order = App.bl!.cart.Checkout(App.cart, App.cart.CustomerName!, App.cart.CustomerEmail!, App.cart.CustomerAddress!);
+                MessageBox.Show($"Your Order ID is {order.ID} \nSo long, Sucker!");
+                new MainWindow().Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
-        /// filter the list by category, or remove filtering
+        /// Goes back to the Catalog Window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        //filter the list. if no filter is selected, don't filter:
-        //        App.ProductItemCollection.Clear();
-        //        foreach (var item in App.bl?.product.GetProductsList(CategorySelector.SelectedItem != null ? c => c?.Category == (DO.Enums.Category)CategorySelector.SelectedItem : null)!)
-        //        {
-        //            App.ProductItemCollection.Add(App.bl.product.GetProductDetails(item.ID, App.cart));
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message + "\nWho would have thought?");
-        //    }
-        //}
-
-        /// <summary>
-        /// clear the filter combo box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    CategorySelector.SelectedItem = null;
-        //}
-
-        private void btnCart_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new Cart().Show();
+            new CatalogWindow().Show();
+            Close();
         }
-
-        private void bteCheckOut_Click(object sender, RoutedEventArgs e) => App.bl!.cart.Checkout(App.cart, App.cart.CustomerName!, App.cart.CustomerEmail!, App.cart.CustomerAddress!);
     }
 }

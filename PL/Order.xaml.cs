@@ -2,6 +2,7 @@
 //using BlImplementation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,110 +25,70 @@ namespace PL
     /// </summary>
     public partial class Order : Window
     {
-        //int integer;
-        //double dbl;
+        public static bool IsManager { get; set; }
 
-        //BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// constructor.constructs the windows either in add mode or in update mode
         /// </summary>
         /// <param name = "id" ></ param >
-        public Order(string id)
+        public Order(string id, bool isManager)
         {
-            App.order= App.bl!.order.GetOrderDetails(int.Parse(id));
+            IsManager = isManager;
+            App.order = App.bl!.order.GetOrderDetails(int.Parse(id));
+            ShipDate = App.order.ShipDate;
+            DeliveryDate = App.order.DeliveryDate;
             InitializeComponent();
-            //if (this.Owner == null) //manager mode
-            //{
-            //    txtID.IsReadOnly = false;
-            //    txtName.IsReadOnly = false;
-            //    txtEmail.IsReadOnly = false;
-            //    txtAddress.IsReadOnly = false;
-            //    txtOrderDate.IsReadOnly = false;
-            //    txtShipDate.IsReadOnly = false;
-            //    txtDeliveryDate.IsReadOnly = false;
-            //    btnAdd.Visibility = Visibility.Visible;
-            //    btnUpdate.Visibility = Visibility.Hidden;
-            //}
-            //else //customer mode
-            //{
-            //    txtID.IsReadOnly = true;
-            //    txtName.IsReadOnly = true;
-            //    txtEmail.IsReadOnly = true;
-            //    txtAddress.IsReadOnly = true;
-            //    txtOrderDate.IsReadOnly = true;
-            //    txtShipDate.IsReadOnly = true;
-            //    txtDeliveryDate.IsReadOnly = true;
-            //    txtID.Text = id;
-            //    BO.Product product = bl.product.GetProdcutDetails(int.Parse(id));
-            //    txtName.Text = product.Name;
-            //    txtPrice.Text = product.Price.ToString();
-            //    cmbbxCategory.Text = product.Category.ToString();
-            //    txtInStock.Text = product.InStock.ToString();
-            //    btnAdd.Visibility = Visibility.Hidden;
-            //    btnUpdate.Visibility = Visibility.Visible;
-            //}
+        }
+        private void Shipping_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.order = App.bl.order.UpdateShipping(App.order.ID);
+                ShipDate = App.order.ShipDate;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private void Delivery_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.order = App.bl.order.UpdateDelivery(App.order.ID);
+                DeliveryDate = App.order.DeliveryDate;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public DateTime? ShipDate
+        {
+            get { return (DateTime?)GetValue(ShipDateProperty); }
+            set { SetValue(ShipDateProperty, value); }
         }
 
-        ///// <summary>
-        ///// generates a product object from the textboxes
-        ///// </summary>
-        ///// <returns>BO.Product</returns>
-        ///// <exception cref="Exception"></exception>
-        //private BO.Product GenerateProduct()
-        //{
-        //    BO.Product product = new BO.Product()
-        //    {
-        //        ID = int.TryParse(txtID.Text, out integer) ? integer : throw new Exception("Not a valid ID"),//todo decide how to initialize
-        //        Name = txtName.Text,
-        //        Category = Enum.TryParse<BO.Enums.Category>(cmbbxCategory.Text, out BO.Enums.Category c) ? c : throw new Exception("Not a valid category. Meshugener!"),
-        //        Price = double.TryParse(txtPrice.Text, out dbl) ? dbl : throw new Exception("Not a valid Price"),
-        //        InStock = int.TryParse(txtInStock.Text, out integer) ? integer : throw new Exception("Not a valid amount")
-        //    };
-        //    return product;
-        //}
+        // Using a DependencyProperty as the backing store for ShipDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShipDateProperty =
+            DependencyProperty.Register("ShipDate", typeof(DateTime?), typeof(Order));
 
-        ///// <summary>
-        ///// adds the product to the DB
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void Add_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        bl?.product.Add(GenerateProduct());
-        //        this.Close();
-        //        new ProductForList().Show();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause volcanic eruptions");
-        //    }
-        //}
 
-        ///// <summary>
-        ///// updates the product in the DB
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void Update_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        bl?.product.Update(GenerateProduct());
-        //        this.Close();
-        //        new ProductForList().Show();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message + "\nWARNING: errors like this may cause World War III");
-        //    }
-        //}
+
+        public DateTime? DeliveryDate
+        {
+            get { return (DateTime?)GetValue(DeliveryDateProperty); }
+            set { SetValue(DeliveryDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DeliveryDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DeliveryDateProperty =
+            DependencyProperty.Register("DeliveryDate", typeof(DateTime?), typeof(Order));
+        
         /// <summary>
-        /// updates the product in the DB
+        /// Goes back to the previous window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsManager) new OrderForList().Show();
+            else new MainWindow().Show();
+            Close();
+        }
     }
 }

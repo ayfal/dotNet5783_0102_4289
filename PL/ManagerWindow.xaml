@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ManagerWindow" Height="450" Width="800">
-    <Grid>
-        <Button Name="BtnProductList" Content="Product List" HorizontalAlignment="Left" Margin="351,111,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Name="BtnOrderList"  Content="Order List" HorizontalAlignment="Left" Margin="384,0,0,0" VerticalAlignment="Center" Click="BtnOrderList_Click"/>
+    <StackPanel>
+        <Button Content="Product List" Click="Product_Click"/>
+        <!--HorizontalAlignment="Left" Margin="351,111,0,0" VerticalAlignment="Top" -->
+        <Button Content="Order List" Click="Order_Click"/>
+        <!--HorizontalAlignment="Left" Margin="384,0,0,0" VerticalAlignment="Center"-->
+        <Button Content="Back" Click="Back_Click"/>
 
-    </Grid>
+    </StackPanel>
 </Window>

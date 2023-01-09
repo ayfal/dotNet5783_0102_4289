@@ -11,6 +11,7 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
@@ -19,7 +20,7 @@
             </Grid.ColumnDefinitions >
         </Grid>
         <Grid>
-            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" Click="Clear_Filter_Click"/>
         </Grid>
         <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Width="800" Margin="0,27,0,515" Grid.RowSpan="2"/>
         <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
@@ -33,6 +34,7 @@
             </ListView.View>
         </ListView>
         <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Button_Click"/>
+        <Button Content="Back" Grid.Row="3" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Back_Click"/>
     </Grid>
 
 </Window>

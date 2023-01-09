@@ -16,5 +16,6 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
+        <Button Content="Back" Grid.Row="3" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Back_Click"/>
     </Grid>
 </Window>
