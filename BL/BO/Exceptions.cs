@@ -22,7 +22,7 @@ namespace BO
         [Serializable]
         public class DoneAlreadyException : Exception 
         {
-            public DoneAlreadyException(string message) { }
+            public DoneAlreadyException(string message) : base(message) { }
             public DoneAlreadyException(string message, Exception inner)
         : base(message, inner) { }
         }
