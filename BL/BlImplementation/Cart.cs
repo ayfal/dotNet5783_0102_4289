@@ -17,7 +17,7 @@ namespace BlImplementation
             try
             {
                 var product = dal?.product.Get(productID) ?? throw new NullReferenceException();
-                if (product.InStock == 0) throw new BO.Exceptions.InsufficientStockException("We're going to fetch it. please come back later");
+                if (product.InStock == 0) throw new BO.Exceptions.InsufficientStockException();
                 BO.OrderItem? item;
                 try
                 {
@@ -55,7 +55,7 @@ namespace BlImplementation
             {
                 var item = cart.Items?.First(p => p?.ProductID == productID);
                 int difference = amount - item?.Amount ?? throw new NullReferenceException();
-                if (dal?.product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException("We're going to fetch it. please come back later");
+                if (dal?.product.Get(productID)?.InStock < difference) throw new BO.Exceptions.InsufficientStockException();
                 if (amount > 0)
                 {
                     item!.Amount = amount;//TODO check if this updates the item in the list in the cart
@@ -83,7 +83,7 @@ namespace BlImplementation
             try
             {
                 if (customerName == null || Email == null || address == null) throw new InvalidDataException("If you won't write the info, I will. \nAnd you WON'T like it");
-                if (cart.Items?.FirstOrDefault(item => dal?.product.Get(item!.ProductID)?.InStock < item?.Amount)!=null) throw new BO.Exceptions.InsufficientStockException("We're going to fetch it. 'nplease come back later");//check that all the products exist and that there's enough in stock
+                if (cart.Items?.FirstOrDefault(item => dal?.product.Get(item!.ProductID)?.InStock < item?.Amount)!=null) throw new BO.Exceptions.InsufficientStockException();//check that all the products exist and that there's enough in stock
                 if (cart.Items?.FirstOrDefault(item=> item?.Amount <= 0)!= null) throw new InvalidDataException("You're data is invalid. \nI find that amusing");
                 try { new System.Net.Mail.MailAddress(Email); } catch (FormatException) { throw new InvalidDataException("We can't spam you without a valid Email address"); }//the definition of a valid Email address is disputed (google it),and we settled for .NET's defintion
             //    foreach (var item in cart.Items!)
@@ -125,7 +125,7 @@ namespace BlImplementation
                 //orderItem.CopyProperties(item); for some reason this doesn't copy
                 dal?.orderItem.Add(orderItem);
                 int inStock = dal?.product.Get(item.ProductID)?.InStock ?? throw new NullReferenceException();
-                if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException("We're going to fetch it. please come back later");
+                if (inStock < item.Amount) throw new BO.Exceptions.InsufficientStockException();
                 inStock -= item.Amount;
             }
             BlImplementation.Order orderb = new BlImplementation.Order();

@@ -20,20 +20,16 @@ namespace BO
             public ObjectAlreadyExistsException(Exception innerException) { }
         }
         [Serializable]
-        public class DoneAlreadyException : Exception 
+        public class DoneAlreadyException : Exception
         {
-            public DoneAlreadyException(string message) : base(message) { }
-            public DoneAlreadyException(string message, Exception inner)
-        : base(message, inner) { }
+            public DoneAlreadyException() : base("Oh wow, I had no idea. I've been living under a rock for the past decade and somehow missed that piece of information. Thank you for enlightening me with your groundbreaking revelation.") { }
         }
         [Serializable]
         public class NotShippedYetException : Exception { }
         [Serializable]
         public class InsufficientStockException : Exception
         {
-            public InsufficientStockException(string message) { }
-            public InsufficientStockException(string message, Exception inner)
-        : base(message, inner) { }
+            public InsufficientStockException() : base("Oh, I'm so sorry we're out of stock. I'm sure it's just a coincidence that it happened as soon as you wanted to buy something") { }
         }
     }
 }

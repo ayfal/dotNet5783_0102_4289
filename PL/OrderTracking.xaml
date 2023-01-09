@@ -11,6 +11,6 @@
         <Label Content="Your Order:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <TextBlock Text="{Binding Source={x:Static local:OrderTracking.OrderLog}}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2"/>
         <Button Content="Order Details" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Button_Click"/>
-        <Button Content="Back" Click="Back_Click" />
+        <Button Content="Back" Click="Back_Click" HorizontalAlignment="Right"/>
 	</StackPanel>
 </Window>

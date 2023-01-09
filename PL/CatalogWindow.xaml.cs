@@ -46,7 +46,7 @@ namespace PL
                 App.ProductItemCollection.Remove(product);
                 App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
             }
-            catch { MessageBox.Show("Ouch!"); }
+            catch (Exception ex){ MessageBox.Show(ex.Message); }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
