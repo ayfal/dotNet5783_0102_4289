@@ -23,8 +23,6 @@ namespace PL
     /// </summary>
     public partial class Product : Window
     {
-        int integer;
-        double dbl;
         public static BO.Product product;
         public static bool isAddMode;
 
@@ -40,23 +38,23 @@ namespace PL
             InitializeComponent();
         }
 
-        /// <summary>
-        /// generates a product object from the textboxes
-        /// </summary>
-        /// <returns>BO.Product</returns>
-        /// <exception cref="Exception"></exception>
-        private BO.Product GenerateProduct()
-        {
-            BO.Product product = new BO.Product()
-            {
-                ID = int.TryParse(txtID.Text, out integer) ? integer : throw new Exception("Not a valid ID"),//todo decide how to initialize
-                Name = txtName.Text,
-                Category = Enum.TryParse<BO.Enums.Category>(cmbbxCategory.Text, out BO.Enums.Category c) ? c : throw new Exception("Not a valid category. Meshugener!"),
-                Price = double.TryParse(txtPrice.Text, out dbl) ? dbl : throw new Exception("Not a valid Price"),
-                InStock = int.TryParse(txtInStock.Text, out integer) ? integer : throw new Exception("Not a valid amount")
-            };
-            return product;
-        }
+        ///// <summary>
+        ///// generates a product object from the textboxes
+        ///// </summary>
+        ///// <returns>BO.Product</returns>
+        ///// <exception cref="Exception"></exception>
+        //private BO.Product GenerateProduct()
+        //{
+        //    BO.Product product = new BO.Product()
+        //    {
+        //        ID = int.TryParse(txtID.Text, out integer) ? integer : throw new Exception("Not a valid ID"),//todo decide how to initialize
+        //        Name = txtName.Text,
+        //        Category = Enum.TryParse<BO.Enums.Category>(cmbbxCategory.Text, out BO.Enums.Category c) ? c : throw new Exception("Not a valid category. Meshugener!"),
+        //        Price = double.TryParse(txtPrice.Text, out dbl) ? dbl : throw new Exception("Not a valid Price"),
+        //        InStock = int.TryParse(txtInStock.Text, out integer) ? integer : throw new Exception("Not a valid amount")
+        //    };
+        //    return product;
+        //}
 
         /// <summary>
         /// adds the product to the DB
@@ -68,7 +66,8 @@ namespace PL
             try
             {
                 BO.ProductForList p = new BO.ProductForList();
-                p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
+                //p.CopyProperties(App.bl?.product.Add(GenerateProduct()));
+                p.CopyProperties(App.bl?.product.Add(product));
                 App.ProductForListCollection.Add(p);
                 new ProductForList().Show();
                 Close();
@@ -90,7 +89,8 @@ namespace PL
             try
             {
                 BO.ProductForList p = new BO.ProductForList();
-                p.CopyProperties(App.bl?.product.Update(GenerateProduct()));
+                //p.CopyProperties(App.bl?.product.Update(GenerateProduct()));
+                p.CopyProperties(App.bl?.product.Update(product));
                 App.ProductForListCollection.Add(p);
                 new ProductForList().Show();
                 Close();
