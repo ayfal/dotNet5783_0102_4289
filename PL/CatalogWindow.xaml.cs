@@ -54,10 +54,10 @@ namespace PL
             try
             {
 
-                var product = ((BO.ProductItem)(((Button)sender).DataContext));
+                var product = (BO.ProductItem)((Button)sender).DataContext;
                 if (product.Amount > 0)
                 {
-                    App.bl.cart.UpdateAmount(App.cart, product.ID, (product.Amount) - 1);
+                    App.bl.cart.UpdateAmount(App.cart, product.ID, product.Amount - 1);
                     App.ProductItemCollection.Remove(product);
                     App.ProductItemCollection.Add(App.bl.product.GetProductDetails(product.ID, App.cart));
                 }

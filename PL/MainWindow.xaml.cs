@@ -22,13 +22,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
+        }       
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             new ManagerWindow().Show();

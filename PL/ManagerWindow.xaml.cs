@@ -22,8 +22,7 @@ namespace PL
     /// </summary>
     public partial class ManagerWindow : Window
     {
-        BlApi.IBl? bl = BlApi.Factory.Get();
-        public ManagerWindow()
+       public ManagerWindow()
         {
             InitializeComponent();            
         }
