@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <ID>1</ID>
+    <CustomerName>TESTCustomerName0</CustomerName>
+    <CustomerEmail>TESTCustomerEmail0@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress0</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2197198+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2197198+02:00</ShipDate>
+    <DeliveryDate>2023-01-03T00:57:37.2197198+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>2</ID>
+    <CustomerName>TESTCustomerName1</CustomerName>
+    <CustomerEmail>TESTCustomerEmail1@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress1</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2248703+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2248703+02:00</ShipDate>
+    <DeliveryDate>2023-01-02T00:57:37.2248703+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>3</ID>
+    <CustomerName>TESTCustomerName2</CustomerName>
+    <CustomerEmail>TESTCustomerEmail2@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress2</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249065+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2249065+02:00</ShipDate>
+    <DeliveryDate>2023-01-02T00:57:37.2249065+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>4</ID>
+    <CustomerName>TESTCustomerName3</CustomerName>
+    <CustomerEmail>TESTCustomerEmail3@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress3</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249079+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2249079+02:00</ShipDate>
+    <DeliveryDate>2023-01-01T00:57:37.2249079+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>5</ID>
+    <CustomerName>TESTCustomerName4</CustomerName>
+    <CustomerEmail>TESTCustomerEmail4@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress4</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249085+02:00</OrderDate>
+    <ShipDate>2022-12-28T23:57:37.2249085+02:00</ShipDate>
+    <DeliveryDate>2023-01-01T23:57:37.2249085+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>6</ID>
+    <CustomerName>TESTCustomerName5</CustomerName>
+    <CustomerEmail>TESTCustomerEmail5@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress5</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249138+02:00</OrderDate>
+    <ShipDate>2022-12-28T23:57:37.2249138+02:00</ShipDate>
+    <DeliveryDate>2022-12-31T23:57:37.2249138+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>7</ID>
+    <CustomerName>TESTCustomerName6</CustomerName>
+    <CustomerEmail>TESTCustomerEmail6@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress6</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249148+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2249148+02:00</ShipDate>
+    <DeliveryDate>2023-01-02T01:57:37.2249148+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>8</ID>
+    <CustomerName>TESTCustomerName7</CustomerName>
+    <CustomerEmail>TESTCustomerEmail7@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress7</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249154+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2249154+02:00</ShipDate>
+    <DeliveryDate>2023-01-02T01:57:37.2249154+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>9</ID>
+    <CustomerName>TESTCustomerName8</CustomerName>
+    <CustomerEmail>TESTCustomerEmail8@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress8</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249162+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2249162+02:00</ShipDate>
+    <DeliveryDate>2023-01-03T01:57:37.2249162+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>10</ID>
+    <CustomerName>TESTCustomerName9</CustomerName>
+    <CustomerEmail>TESTCustomerEmail9@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress9</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249171+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2249171+02:00</ShipDate>
+    <DeliveryDate>2023-01-02T01:57:37.2249171+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>11</ID>
+    <CustomerName>TESTCustomerName10</CustomerName>
+    <CustomerEmail>TESTCustomerEmail10@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress10</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.224918+02:00</OrderDate>
+    <ShipDate>2022-12-28T23:57:37.224918+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>12</ID>
+    <CustomerName>TESTCustomerName11</CustomerName>
+    <CustomerEmail>TESTCustomerEmail11@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress11</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249188+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2249188+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>13</ID>
+    <CustomerName>TESTCustomerName12</CustomerName>
+    <CustomerEmail>TESTCustomerEmail12@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress12</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249197+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2249197+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>14</ID>
+    <CustomerName>TESTCustomerName13</CustomerName>
+    <CustomerEmail>TESTCustomerEmail13@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress13</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2249204+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2249204+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>15</ID>
+    <CustomerName>TESTCustomerName14</CustomerName>
+    <CustomerEmail>TESTCustomerEmail14@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress14</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2251181+02:00</OrderDate>
+    <ShipDate>2022-12-29T00:57:37.2251181+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>16</ID>
+    <CustomerName>TESTCustomerName15</CustomerName>
+    <CustomerEmail>TESTCustomerEmail15@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress15</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2251259+02:00</OrderDate>
+    <ShipDate>2022-12-29T01:57:37.2251259+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>17</ID>
+    <CustomerName>TESTCustomerName16</CustomerName>
+    <CustomerEmail>TESTCustomerEmail16@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress16</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2251268+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>18</ID>
+    <CustomerName>TESTCustomerName17</CustomerName>
+    <CustomerEmail>TESTCustomerEmail17@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress17</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2251494+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>19</ID>
+    <CustomerName>TESTCustomerName18</CustomerName>
+    <CustomerEmail>TESTCustomerEmail18@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress18</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.22515+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>20</ID>
+    <CustomerName>TESTCustomerName19</CustomerName>
+    <CustomerEmail>TESTCustomerEmail19@jct.ac.il</CustomerEmail>
+    <CustomerAddress>TESTCustomerAddress19</CustomerAddress>
+    <OrderDate>2022-12-28T22:57:37.2251506+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>21</ID>
+    <CustomerName>1</CustomerName>
+    <CustomerEmail>1@1</CustomerEmail>
+    <CustomerAddress>1</CustomerAddress>
+    <OrderDate>2023-01-28T23:12:31.7606007+02:00</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+</ArrayOfOrder>

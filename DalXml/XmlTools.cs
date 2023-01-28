@@ -4,9 +4,12 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-static class XMLTools
+public static class XMLTools
 {
-    const string s_dir = @"..\xml\";
+    public const string s_dir = @"..\xml\";
+    public const string configPath = s_dir + "config.xml";
+    public static XElement config = XElement.Load(configPath);
+ 
     static XMLTools()
     {
         if (!Directory.Exists(s_dir))

@@ -19,11 +19,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
         </Grid>
-        <Grid>
-            <Button Content="Clear filter" HorizontalAlignment="Left" Margin="119,2,0,0" VerticalAlignment="Top" Click="Clear_Filter_Click"/>
-        </Grid>
-        <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Width="800" Margin="0,27,0,515" Grid.RowSpan="2"/>
-        <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Filter by category:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
+            <ComboBox Name="CategorySelector" ItemsSource="{Binding Source={x:Static local:App.categories}}" SelectionChanged="CategorySelector_SelectionChanged"/>
+            <Button Content="Clear filter" Click="Clear_Filter_Click"/>
+        </StackPanel>
         <Label Content="Our Products:" HorizontalAlignment="Left" Margin="91,80,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"/>
         <ListView x:Name="ListViewProductForList" ItemsSource="{Binding Source={x:Static local:ProductForList.view}}" Margin="0,106,0,-60" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ListViewProductForList_MouseDoubleClick">
             <!--d:SampleData ItemCount=5-->

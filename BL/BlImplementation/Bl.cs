@@ -10,8 +10,8 @@ namespace BlImplementation
 {
     sealed internal class Bl : IBl
     {
-        public IProduct product => new Product(); 
-        public IOrder order => new Order(); 
-        public ICart cart => new Cart();
+        public IProduct product { get; } = new BlImplementation.Product(); 
+        public IOrder order { get; } = new BlImplementation.Order(); 
+        public ICart cart { get; } = new BlImplementation.Cart();
     }
 }

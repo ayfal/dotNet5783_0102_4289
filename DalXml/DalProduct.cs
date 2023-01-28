@@ -1,10 +1,11 @@
 ﻿using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//this code is mostly copied from the files the staff provided, slightly modified. 
 namespace Dal
 {
     internal class DalProduct:IProduct
@@ -28,7 +29,12 @@ namespace Dal
             return listProducts.FirstOrDefault(lec => lec?.ID == id) ??
                 throw new Exception("missing id"); //new DalMissingIdException(id, "Product");
         }
-        public DO.Product? GetSingle(Func<DO.Product?, bool>? filter = null) { return new DO.Product(); }
+        public DO.Product? GetSingle(Func<DO.Product?, bool>? filter = null) 
+        {
+            List<DO.Product?> listProducts = XMLTools.LoadListFromXMLSerializer<DO.Product>(s_Products);
+            try { return listProducts.First(oi => filter!(oi)); }
+            catch (InvalidOperationException) { throw new ObjectNotFoundException(); }
+        }
         public int Add(DO.Product Product)
         {
             List<DO.Product?> listProducts = XMLTools.LoadListFromXMLSerializer<DO.Product>(s_Products);

@@ -5,19 +5,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Linq;
+//this code is mostly copied from the files the staff provided, slightly modified. 
 namespace Dal
 {
     internal class DalOrderItem:IOrderItem
     {
         const string s_OrderItems = @"OrderItems"; //XML Serializer
 
-        //todo fix the following to actually do their work
-        public OrderItem? Get(int productID, int OrderID) { return new OrderItem(); }
-        public IEnumerable<OrderItem?> GetOrderItems(int ID) { return new List<OrderItem?>(); }
-        public DO.OrderItem? GetSingle(Func<DO.OrderItem?, bool>? filter = null) { return new DO.OrderItem?(); }
+        
+        public OrderItem? Get(int productID, int orderID) 
+        {
+            List<DO.OrderItem?> listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_OrderItems);
 
-        //up to here. and do the same for product and order
+            return listOrderItems.FirstOrDefault(oi => oi?.ProductID == productID && oi?.OrderID == orderID) ??
+                throw new Exception("missing id"); //new DalMissingIdException(id, "OrderItem");
+        }
+        public IEnumerable<OrderItem?> GetOrderItems(int ID) 
+        {
+            List<DO.OrderItem?> listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_OrderItems);
+
+            return listOrderItems.Where(i => i?.OrderID == ID) ??
+                throw new Exception("missing id"); //new DalMissingIdException(id, "OrderItem");
+         }
+        public DO.OrderItem? GetSingle(Func<DO.OrderItem?, bool>? filter = null) 
+        {
+            List<DO.OrderItem?> listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_OrderItems);
+            try { return listOrderItems.First(oi => filter!(oi)); }
+            catch (InvalidOperationException) { throw new ObjectNotFoundException(); }            
+        }
+
 
         public IEnumerable<DO.OrderItem?> Get(Func<DO.OrderItem?, bool>? filter = null)
         {
@@ -38,6 +55,8 @@ namespace Dal
         }
         public int Add(DO.OrderItem OrderItem)
         {
+            XMLTools.config = XElement.Load(XMLTools.configPath);
+            OrderItem.ID = int.Parse(XMLTools.config.Element("orderItemID").Value);
             List<DO.OrderItem?> listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_OrderItems);
 
             if (listOrderItems.FirstOrDefault(lec => lec?.ID == OrderItem.ID) != null)
@@ -46,6 +65,8 @@ namespace Dal
             listOrderItems.Add(OrderItem);
 
             XMLTools.SaveListToXMLSerializer(listOrderItems, s_OrderItems);
+            XMLTools.config.Element("orderItemID").Value = (OrderItem.ID + 1).ToString();
+            XMLTools.config.Save(XMLTools.configPath);
 
             return OrderItem.ID;
         }
