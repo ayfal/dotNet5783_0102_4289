@@ -27,6 +27,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{C8808C19-1B0E-46EB-B973-C23942E0E1E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{C3D84D56-EF9E-43C3-B011-FC11823D643D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6400EC75-C070-4994-91FC-16BD2677FD08} = {6400EC75-C070-4994-91FC-16BD2677FD08}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{CE884A9D-8453-4120-9BAF-2FECC1EF73D1}"
 	ProjectSection(SolutionItems) = preProject
@@ -40,6 +43,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{0F52A8A8-45D5-42A4-A246-92A021A77B8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlInitialze", "XmlInitialze\XmlInitialze.csproj", "{2960D83C-E050-4A74-B50F-C3A20037CCD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{6400EC75-C070-4994-91FC-16BD2677FD08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +164,18 @@ Global
 		{2960D83C-E050-4A74-B50F-C3A20037CCD6}.Release|x64.Build.0 = Release|Any CPU
 		{2960D83C-E050-4A74-B50F-C3A20037CCD6}.Release|x86.ActiveCfg = Release|Any CPU
 		{2960D83C-E050-4A74-B50F-C3A20037CCD6}.Release|x86.Build.0 = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|x64.Build.0 = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Debug|x86.Build.0 = Debug|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|x64.ActiveCfg = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|x64.Build.0 = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|x86.ActiveCfg = Release|Any CPU
+		{6400EC75-C070-4994-91FC-16BD2677FD08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
