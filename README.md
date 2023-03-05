@@ -4,6 +4,9 @@ Stage0
 shalom pepole
 finish stage 0
 # Bonuses
-* (did all the bonuses that were specificly mentioned up until stage 3 (not included)  
-* added a tooltip in the text boxes to help guide the users in their input
-* did the copy properties bonus, and the generic toString() bonus 
+* שימוש ב-TryParse בתוכניות בדיקה BlTest/DalTest (רכזים - 1 נק')
+* שימוש במתודה הרחבה לתצוגת הישויות (ב-ToString) (סטודנטים) אושר - 1 נק'
+* בנייה ושימוש במתודות הרחבה גנריות עם reflection (רכזים - עד 2 נק')
+* שימוש ב-autoMapper (סטודנטים) אושר - 1 נק'
+* שימוש מלא ב-binding (רכזים - עד 5 נק')
+* תצוגה גרפית (שינוי צבעים וכדומה) במקרה של פורמט קלט לא תקין (סטודנטים) אושר - 1 נק'
